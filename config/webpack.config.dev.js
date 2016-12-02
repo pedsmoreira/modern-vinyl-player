@@ -93,6 +93,12 @@ module.exports = {
       }
     ],
     loaders: [
+      // Hot Reload React JS and JSX with React Hot
+      {
+        test: /\.(js|jsx)$/,
+        include: paths.appSrc,
+        loader: 'react-hot'
+      },
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
