@@ -1,23 +1,26 @@
-export default class Album {
+import Artist from './Artist'
+import Model from './Model'
+
+export default class Album extends Model {
   /**
    * @type {string}
    */
-  cover
+  cover = 'http://placehold.it/300x300?album'
 
   /**
    * @type {string}
    */
-  name
+  name = 'Album'
 
   /**
    * @type {number}
    */
-  year
+  year = new Date().getFullYear()
 
   /**
    * @type {Artist}
    */
-  artist
+  artist = Artist.default
 
   /**
    *
@@ -25,3 +28,5 @@ export default class Album {
    */
   songs = []
 }
+
+Album.default = new Album(1)

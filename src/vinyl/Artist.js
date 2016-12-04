@@ -1,11 +1,15 @@
-export default class Artist {
+import Model from './Model'
+
+export default class Artist extends Model {
   /**
    * @type {string}
    */
-  cover
+  cover = 'http://placehold.it/250x250?text=Artist'
 
   /**
    * @type {string}
    */
-  name
+  name = 'Artist'
 }
+
+Artist.default = new Artist(1)

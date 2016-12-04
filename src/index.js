@@ -14,10 +14,10 @@ import Artists from './containers/app/Artists'
 import Artist from './containers/app/Artist'
 
 import 'bootstrap/dist/css/bootstrap.css'
+import 'animate.css/animate.css'
 import './index.css';
 
 const store = createStore(reducer)
-
 
 render(
   <Provider store={store}>

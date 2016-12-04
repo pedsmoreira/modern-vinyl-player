@@ -1,0 +1,25 @@
+@import '~animate.css';
+
+.album {
+  display: block;
+  position: relative;
+  overflow: hidden;
+
+  &_name {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+    width: 100%;
+    padding: 1rem;
+    color: white;
+
+    @extend .animated;
+    @extend .fadeOutDown;
+  }
+
+  &:hover {
+    .album_name {
+      @extend .fadeInUp;
+    }
+  }
+}

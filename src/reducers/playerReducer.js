@@ -2,24 +2,8 @@ import {handleActions} from 'redux-actions'
 
 import Player from '../vinyl/Player'
 import * as playerActions from '../actions/playerActions'
-import Artist from "../vinyl/Artist";
-import Album from "../vinyl/Album";
-import Song from "../vinyl/Song";
 
 let initialState = new Player()
-
-let song = new Song()
-song.src = '/songs/puzzle.mp3'
-song.name = 'Song name'
-
-initialState.set(song, false)
-// initialState.setTime(55)
-
-song.album = new Album()
-song.album.name = 'Album'
-
-song.album.artist = new Artist()
-song.album.artist.name = 'Artist'
 
 const playerReducer = handleActions({
   /**
@@ -27,7 +11,7 @@ const playerReducer = handleActions({
    * @param {Player} player
    */
   [playerActions.play]: (player) => {
-    player.play()
+    // player.play()
     return player
   },
 
@@ -37,7 +21,7 @@ const playerReducer = handleActions({
    * @return {*}
    */
   [playerActions.pause]: (player) => {
-    player.pause()
+    // player.pause()
     return player
   },
 
@@ -47,7 +31,7 @@ const playerReducer = handleActions({
    * @param payload
    */
   [playerActions.setTime]: (player, {payload}) => {
-    player.setTime(payload.time)
+    // player.setTime(payload.time)
     return player
   },
 
@@ -56,7 +40,7 @@ const playerReducer = handleActions({
    * @param player
    */
   [playerActions.next]: (player) => {
-    player.next()
+    // player.next()
     return player
   },
 
@@ -65,7 +49,7 @@ const playerReducer = handleActions({
    * @param player
    */
   [playerActions.previous]: (player) => {
-    player.previous()
+    // player.previous()
     return player
   }
 }, initialState)

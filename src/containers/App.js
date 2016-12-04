@@ -9,6 +9,8 @@ import Footer from '../components/template/Footer'
 import Player from '../components/Player'
 import PlaylistButton from '../components/playlist/PlaylistButton'
 
+import {Grid, Row, Col} from 'react-bootstrap'
+
 import styles from './App.css'
 
 class App extends React.Component {
@@ -17,19 +19,23 @@ class App extends React.Component {
       <div className={styles.app}>
         <Header/>
 
-        <PlaylistButton/>
+        <Grid>
+          <Row>
+            <Col sm={4}>
+              <PlaylistButton/>
 
-        <Player player={this.props.player}
-                play={this.props.playerActions.play}
-                pause={this.props.playerActions.pause}
-                next={this.props.playerActions.next}
-                previous={this.props.playerActions.previous}
-                setTime={this.props.playerActions.setTime}
-        />
+              <Player player={this.props.player}
+                      play={this.props.playerActions.play}
+                      pause={this.props.playerActions.pause}
+                      next={this.props.playerActions.next}
+                      previous={this.props.playerActions.previous}
+                      setTime={this.props.playerActions.setTime}
+              />
+            </Col>
 
-        <div>
-          {this.props.children}
-        </div>
+            <Col sm={8}>{this.props.children}</Col>
+          </Row>
+        </Grid>
 
         <Footer/>
       </div>
@@ -37,7 +43,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   player: state.player
 })
 
