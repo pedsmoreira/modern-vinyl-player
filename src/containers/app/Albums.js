@@ -14,7 +14,11 @@ class Albums extends React.Component {
   }
 
   render() {
-    return this.props.albums ? this.renderAlbums() : this.renderLoader()
+    return (
+      <div className="animated fadeIn">
+        {this.props.albums ? this.renderAlbums() : this.renderLoader()}
+      </div>
+    )
   }
 
   renderAlbums() {

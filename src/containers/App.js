@@ -11,12 +11,12 @@ import PlaylistButton from '../components/playlist/PlaylistButton'
 
 import {Grid, Row, Col} from 'react-bootstrap'
 
-import styles from './App.css'
+import './App.css'
 
 class App extends React.Component {
   render() {
     return (
-      <div className={styles.app}>
+      <div className="animated fadeIn">
         <Header/>
 
         <Grid>
