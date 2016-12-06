@@ -1,8 +1,8 @@
-import RestfulStore from "./RestfulStore";
+import Store from '../prime-rest/Store'
 
 import Album from '../vinyl/Album'
 
-class AlbumStore extends RestfulStore {
+class AlbumStore extends Store {
   /**
    * @inheritDoc
    */
