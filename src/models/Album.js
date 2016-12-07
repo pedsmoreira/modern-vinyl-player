@@ -4,6 +4,8 @@ import Song from './Song'
 import Artist from './Artist'
 
 export default class Album extends Model {
+  static table = 'albums'
+
   /**
    * @inheritDoc
    */

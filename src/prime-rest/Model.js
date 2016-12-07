@@ -1,6 +1,8 @@
 import Store from './Store'
 
 export default class Model {
+  static table
+
   /**
    * @type {Store}
    */
@@ -203,19 +205,11 @@ export default class Model {
   }
 
   /**
-   * Get path to model
-   * @return {string}
-   */
-  static path() {
-    return this.name.substring(0, 1).toLowerCase() + this.name.substring(1) + 's'
-  }
-
-  /**
    * Get path to model in unerscore case
    * @return {string}
    */
   static underscorePath() {
-    return this.path().replace(/\.?([A-Z])/g, function (x, y) {
+    return this.table.replace(/\.?([A-Z])/g, function (x, y) {
       return "_" + y.toLowerCase()
     }).replace(/^_/, "");
   }

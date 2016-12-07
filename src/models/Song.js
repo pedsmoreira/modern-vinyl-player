@@ -2,6 +2,8 @@ import Model from '../prime-rest/Model'
 import Album from './Album'
 
 export default class Song extends Model {
+  static table = 'artist'
+
   /**
    * @type {string}
    */

@@ -35,7 +35,7 @@ export default class Store extends Api {
    * @inheritDoc
    */
   path() {
-    return this.model.path()
+    return this.model.table
   }
 
   /**
@@ -55,7 +55,7 @@ export default class Store extends Api {
    */
   verifyPermission(method) {
     if (!this.isMethodAllowed(method))
-      throw new Error(`Method '${method}' is not allowed in ${this.constructor.name}`)
+      throw new Error(`Method '${method}' is not allowed in ${this.constructor.table}`)
   }
 
   /**
@@ -219,7 +219,7 @@ export default class Store extends Api {
     let foreignKey = `${model.underscorePath()}_${model.keyColumn}`
 
     let promise = store.http().get(`by${model.name}/${this[foreignKey]}`)
-    promise.then(response => this.cache.setList(`by${this.model.name}`, response.data))
+    promise.then(response => this.cache.setList(`by${this.model.table}`, response.data))
 
     return promise
   }
