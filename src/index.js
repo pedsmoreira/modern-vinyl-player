@@ -1,7 +1,9 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
-import {observable} from 'mobx';
+
+import Api from './prime-rest/Api'
+import * as paths from './paths'
 
 import AppView from './views/AppView'
 import HomeView from './views/app/HomeView'
@@ -17,13 +19,14 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'animate.css/animate.css'
 import './index.css';
 
-let appState = observable({
-  timer: 0
-});
+/*
+ * Set api path
+ */
+Api.base = paths.API
 
 render(
   <Router history={browserHistory}>
-    <Route path="/" component={AppView} appState={appState}>
+    <Route path="/" component={AppView}>
       <IndexRoute component={HomeView}/>
       <Route path="album" component={AlbumsView}/>
       <Route path="album/:album" component={AlbumView}/>

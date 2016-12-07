@@ -12,14 +12,16 @@ export default class Model {
   static keyColumn = 'id'
 
   /**
+   * @type {Object}
+   */
+  static storeProperties = {}
+
+  /**
    * Get model store
    * @return {Store}
    */
   store() {
-    if (!this.constructor.store) {
-      this.constructor.store = this.constructor.defaultStore()
-    }
-    return this.constructor.store
+    return this.constructor.resolveStore()
   }
 
   /**
@@ -63,15 +65,12 @@ export default class Model {
 
   /**
    * Set values to instance
-   * The key property will be skipped
    * @param values
    * @return {Model}
    */
   set(values) {
     Object.keys(values).forEach(key => {
-      if (key != this.constructor.keyColumn) {
-        this[key] = value
-      }
+      this[key] = values[key]
     })
 
     return this
@@ -79,7 +78,6 @@ export default class Model {
 
   /**
    * Persist model
-   * @param values
    */
   save() {
     let method = this[this.keyColumn] ? 'update' : 'create'
@@ -98,7 +96,10 @@ export default class Model {
    * @return {Model}
    */
   duplicate() {
-    return this.constructor.make(this.shallowMap())
+    let map = this.shallowMap()
+    delete map[this.constructor.keyColumn]
+
+    return this.constructor.make(map)
   }
 
   /**
@@ -130,7 +131,7 @@ export default class Model {
   /**
    * Get promise to belongsToMany FK relation
    * @param model
-   * @return {*}
+   * @return {Promise}
    */
   belongsToMany(model) {
     return this.hasMany(model)
@@ -139,6 +140,7 @@ export default class Model {
   /**
    * Get promise to hasOne FK relation
    * @param model
+   * @return {Promise}
    */
   hasOne(model) {
     return this.hasMany(model)
@@ -147,10 +149,10 @@ export default class Model {
   /**
    * Get promise to hasMany FK relation
    * @param model
-   * @return {*}
+   * @return {Promise}
    */
   hasMany(model) {
-    return model.store.by(this)
+    return model.resolveStore().by(this)
   }
 
   /**
@@ -159,7 +161,15 @@ export default class Model {
    * @return {Promise}
    */
   static find(key) {
-    return this.store.get(key)
+    return this.resolveStore().get(key)
+  }
+
+  /**
+   * Get list of stores
+   * @return {Promise}
+   */
+  static all() {
+    return this.resolveStore().index()
   }
 
   /**
@@ -185,10 +195,11 @@ export default class Model {
   /**
    * Get an instance of store
    * @param {{}} properties
+   * @param {Function} modelClass
    * @return {Store}
    */
-  static defaultStore(properties = {}) {
-    return new Store(this, properties)
+  static resolveStore(properties = this.storeProperties, modelClass = this) {
+    return this.store = this.store || new Store(modelClass, properties)
   }
 
   /**
@@ -196,7 +207,7 @@ export default class Model {
    * @return {string}
    */
   static path() {
-    return this.name.substring(0, 1).toLowerCase() + this.name.substring(1)
+    return this.name.substring(0, 1).toLowerCase() + this.name.substring(1) + 's'
   }
 
   /**

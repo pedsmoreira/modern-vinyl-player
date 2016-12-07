@@ -5,16 +5,14 @@ export default class Song extends Model {
   /**
    * @type {string}
    */
-  src = 'https://soundcloud.com/joao-oliveira-61/someday-the-strokes'
+  src
 
   /**
    * @type {string}
    */
-  name = 'Song'
+  name
 
   album() {
     return this.belongsTo(Album)
   }
 }
-
-Album.default = new Album(1)

@@ -2,7 +2,7 @@ import React from 'react'
 import {observer} from 'mobx-react'
 import {observable} from 'mobx'
 
-import albumStore from '../../stores/albumStore'
+import Album from '../../models/Album'
 
 import AlbumList from '../../components/album/AlbumList'
 
@@ -11,7 +11,7 @@ export default class AlbumsView extends React.Component {
   @observable albums
 
   componentWillMount() {
-    albumStore.index().then(data => this.albums = data)
+    Album.all().then(albums => this.albums = albums)
   }
 
   render() {

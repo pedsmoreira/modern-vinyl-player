@@ -17,6 +17,10 @@
     @extend .fadeOutDown;
   }
 
+  &_cover {
+    width: 100%
+  }
+
   &:hover {
     .album_name {
       @extend .fadeInUp;

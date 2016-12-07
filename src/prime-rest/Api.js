@@ -46,7 +46,7 @@ export default class Api {
    */
   http() {
     return axios.create({
-      baseURL: this.base(),
+      baseURL: this.baseUrl(),
       headers: this.headers()
     });
   }
@@ -67,8 +67,14 @@ export default class Api {
    * Get base url
    * @returns {string}
    */
-  url(endpoint = '') {
-    return (this.base() + '/' + this.path() + '/' + endpoint).split('//').join('/')
+  baseUrl() {
+    let base = this.base()
+    if (!base.endsWith('/')) base += '/'
+
+    let path = this.path()
+    if (!path.endsWith('/')) path += '/'
+
+    return base + path
   }
 }
 

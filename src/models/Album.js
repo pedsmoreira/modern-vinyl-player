@@ -1,15 +1,23 @@
-import Model from "../prime-rest/Model";
+import Model from '../prime-rest/Model'
+
+import Song from './Song'
+import Artist from './Artist'
 
 export default class Album extends Model {
   /**
-   * @type {string}
+   * @inheritDoc
    */
-  cover = 'http://placehold.it/300x300?album'
+  static storeProperties = {setIndex: true}
 
   /**
    * @type {string}
    */
-  name = 'Album'
+  cover
+
+  /**
+   * @type {string}
+   */
+  name
 
   /**
    * @type {number}
@@ -17,13 +25,18 @@ export default class Album extends Model {
   year = new Date().getFullYear()
 
   /**
-   * @type {Artist}
+   * Get songs promise
+   * @return {Promise}
    */
-  artist = Artist.default
-
   songs() {
     return this.hasMany(Song)
   }
-}
 
-Album.default = new Album(1)
+  /**
+   * Get artist promise
+   * @return {Promise}
+   */
+  artist() {
+    return this.belongsTo(Artist)
+  }
+}

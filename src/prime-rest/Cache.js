@@ -20,22 +20,33 @@ export default class Cache {
   }
 
   /**
+   * Get key from value
+   * @param value
+   * @return {string}
+   */
+  resolveKey(value) {
+    return typeof value === 'object' ? value.key() : value
+  }
+
+  /**
    * Get object
-   * @param object
+   * @param {Model|*} value
    * @return {Model}
    */
-  getObject(object) {
+  get(value) {
     if (this.api.useCache) {
-      return this.objects[object.key()]
+      return this.objects[this.resolveKey(value)]
     }
   }
 
   /**
    * Set object
-   * @param {Model} object
-   * @return {Model}
+   * @param {Model|Model[]} object
+   * @return {Model|Model[]}
    */
-  setObject(object) {
+  set(object) {
+    if (Array.isArray(object)) return object.map(it => this.set(it))
+
     if (this.api.useCache) {
       this.objects[object.key()] = object
       this.lists = {}
@@ -48,8 +59,7 @@ export default class Cache {
    * @param {Model|*} value
    */
   destroyObject(value) {
-    let key = typeof value === 'object' ? value.key() : value
-    delete this.objects[key]
+    delete this.objects[this.resolveKey(value)]
   }
 
   /**

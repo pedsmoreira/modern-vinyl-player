@@ -9,12 +9,17 @@ export default class Store extends Api {
   /**
    * @type {String[]}
    */
-  allowedMethods = []
+  allows = []
 
   /**
    * @type {String[]}
    */
-  deniedMethods = []
+  denies = []
+
+  /**
+   * @type {boolean}
+   */
+  setIndex = false
 
   /**
    * Store constructor
@@ -39,8 +44,8 @@ export default class Store extends Api {
    * @return {boolean}
    */
   isMethodAllowed(method) {
-    if (this.deniedMethods.indexOf(method) !== -1) return false
-    return !this.allowedMethods.length || this.allowedMethods.indexOf(method) !== -1
+    if (this.denies.indexOf(method) !== -1) return false
+    return !this.allows.length || this.allows.indexOf(method) !== -1
   }
 
   /**
@@ -68,7 +73,7 @@ export default class Store extends Api {
    * @return {Model}
    */
   modelInstance(values) {
-    return this.model.create(values)
+    return this.model.make(values)
   }
 
   /**
@@ -109,16 +114,19 @@ export default class Store extends Api {
   index(ignoreCache = false) {
     this.verifyPermission('index')
 
-    let promise = this.http().get(this.url())
+    return new Promise((resolve, reject) => {
+      let list = this.cache.getList('index')
+      if (ignoreCache || !list) {
+        if (list) return this.wrapInPromise(list)
+      }
 
-    let list = this.cache.getList('index')
-    if (ignoreCache || !list) {
-      if (list) return this.wrapInPromise(list)
-    }
-
-    promise.then(response => this.cache.setList('index', this.normalizedModelList(response.data)))
-
-    return promise
+      let promise = this.http().get('')
+      promise.then(response => {
+        let list = this.normalizedModelList(response.data)
+        this.cache.setList('index', list)
+        resolve(this.cache.set(list))
+      }, reject)
+    })
   }
 
   /**
@@ -130,18 +138,20 @@ export default class Store extends Api {
   get(key, ignoreCache = false) {
     this.verifyPermission('get')
 
-    key = this.resolveKey(key)
+    return new Promise((resolve, reject) => {
+      key = this.resolveKey(key)
 
-    if (!ignoreCache) {
-      let object = this.cache.getObject(key)
-      if (object) return this.wrapInPromise(object)
-    }
+      if (!ignoreCache) {
+        let object = this.cache.get(key)
+        if (object) return resolve(object)
+      }
 
-    let promise = this.http().get(this.url(key))
-
-    promise.then(response => this.cache.setObject(this.normalizedModelInstance(response.data)))
-
-    return promise
+      let promise = this.http().get(key)
+      promise.then(response => {
+        let instance = this.normalizedModelInstance(response.data)
+        resolve(this.cache.set(instance))
+      }, reject)
+    })
   }
 
   /**
@@ -152,11 +162,12 @@ export default class Store extends Api {
   create(data) {
     this.verifyPermission('create')
 
-    let promise = this.http().post(this.url(), data)
+    let promise = this.http().post('', data)
 
     return new Promise((resolve, reject) => {
       promise.then((response) => {
-        resolve(this.cache.setObject(this.normalizedModelInstance(response.data)))
+        let instance = this.normalizedModelInstance(response.data)
+        resolve(this.cache.set(instance))
       }, reject)
     })
   }
@@ -169,11 +180,12 @@ export default class Store extends Api {
   update(data) {
     this.verifyPermission('update')
 
-    let promise = this.http().put(this.url(data[this.key]), data)
+    let promise = this.http().put(data[this.key], data)
 
     return new Promise((resolve, reject) => {
       promise.then((response) => {
-        resolve(this.cache.setObject(this.normalizedModelInstance(response.data)))
+        let instance = this.normalizedModelInstance(response.data)
+        resolve(this.cache.set(instance))
       }, reject)
     })
   }
@@ -187,7 +199,7 @@ export default class Store extends Api {
     this.verifyPermission('delete')
 
     let id = this.resolveKey(value)
-    let promise = this.http().delete(this.url(id))
+    let promise = this.http().delete(id)
 
     promise.then(() => this.cache.destroyObject(id))
 
@@ -206,7 +218,7 @@ export default class Store extends Api {
     let store = model.store
     let foreignKey = `${model.underscorePath()}_${model.keyColumn}`
 
-    let promise = store.http().get(this.url(`by${model.name}/${this[foreignKey]}`))
+    let promise = store.http().get(`by${model.name}/${this[foreignKey]}`)
     promise.then(response => this.cache.setList(`by${this.model.name}`, response.data))
 
     return promise
