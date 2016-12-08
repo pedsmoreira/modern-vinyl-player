@@ -1,19 +1,16 @@
-import * as React from 'react'
-import {Link} from 'react-router'
+import * as React from "react";
 
-export default class DescriptionComponent extends React.Component {
+import PlayerDescriptionSong from './descriptions/PlayerDescriptionSong'
+import PlayerDescriptionAlbum from './descriptions/PlayerDescriptionAlbum'
+import PlayerDescriptionArtist from './descriptions/PlayerDescriptionArtist'
+
+export default class PlayerDescription extends React.Component {
   render() {
     return (
       <div>
-        <Link to={'/album/' + this.props.song.album.name}>
-          {this.props.song.album.name}
-        </Link>
-
-        <Link to={'/artist/' + this.props.song.album.artist.name}>
-          {this.props.song.album.artist.name}
-        </Link>
-
-        <div>{this.props.song.album.year}</div>
+        <PlayerDescriptionSong song={this.props.song}/>
+        <PlayerDescriptionAlbum album={this.props.album}/>
+        <PlayerDescriptionArtist artist={this.props.artist}/>
       </div>
     )
   }

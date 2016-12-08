@@ -1,0 +1,32 @@
+.song {
+  padding: .75rem 1rem;
+  cursor: pointer;
+  position: relative;
+
+  &_play-icon, &_pause-icon {
+    margin-right: 1rem;
+    font-size: 75%;
+    vertical-align: middle;
+    color: #999;
+
+    &:hover {
+      color: orange;
+    }
+  }
+
+  &_add-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, .5)
+  }
+}

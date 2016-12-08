@@ -1,0 +1,18 @@
+.player {
+  background: rgba(0, 0, 0, .5);
+  border: 1px solid rgba(0, 0, 0, .9);
+  margin-bottom: 2rem;
+  padding: 1rem;
+
+  @media screen and (min-width: 768px) {
+    max-width: 25rem;
+    margin: 0 auto;
+    display: inline-block;
+    border-radius: 1rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-top: -20px;
+    display: block;
+  }
+}

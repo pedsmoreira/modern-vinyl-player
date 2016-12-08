@@ -4,6 +4,8 @@
   display: block;
   position: relative;
   overflow: hidden;
+  max-width: 20rem;
+  margin: 0 auto;
 
   &_name {
     position: absolute;

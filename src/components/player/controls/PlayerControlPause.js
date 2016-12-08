@@ -1,10 +1,18 @@
-import React from 'react'
-import {Button} from 'react-bootstrap'
+import React from "react";
 
-export default class Pause extends React.Component {
+import {Button} from "react-bootstrap";
+import {Icon} from "react-fa";
+
+export default class PlayerControlPause extends React.Component {
   render() {
-    return (
-      <Button bsStyle="primary" onClick={this.props.pause}>Pause</Button>
-    )
+    if (this.props.playing) {
+      return (
+        <Button bsStyle="link" onClick={this.props.onPause}>
+          <Icon name="pause"/>
+        </Button>
+      )
+    }
+
+    return null
   }
 }

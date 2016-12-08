@@ -1,0 +1,31 @@
+.player-disc {
+  position: relative;
+  max-width: 25rem;
+  margin: 0 auto;
+
+  &_vinyl {
+  }
+
+  &_album {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+  }
+
+  &-playing {
+    @-webkit-keyframes rotating {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    animation: rotating 8s linear infinite;
+  }
+}
