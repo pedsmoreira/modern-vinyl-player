@@ -59,6 +59,37 @@ export default class Store extends Api {
   }
 
   /**
+   * Cache promise by name, so it doesn't get executed again before the result comes back
+   * @param name
+   * @param promise
+   * @return {Promise}
+   */
+  cachePromise(name, promise) {
+    let cached = this.cache.getPromise(name)
+    if (cached) return cached
+
+    this.cache.setPromise(name, promise)
+
+    let fn = () => {
+      this.cache.destroyPromise(name)
+    }
+    promise.then(fn, fn)
+
+    return promise
+  }
+
+  /**
+   * Shortcut for verifying method permission and caching promise
+   * @param {string} name
+   * @param {Promise} promise
+   * @return {Promise}
+   */
+  verifyAndCache(name, promise) {
+    this.verifyPermission(name.split('/')[0])
+    return this.cachePromise(name, promise)
+  }
+
+  /**
    * Resolve key
    * @param {*} value
    * @return {*}
@@ -112,9 +143,7 @@ export default class Store extends Api {
    * @return {Promise}
    */
   index(ignoreCache = false) {
-    this.verifyPermission('index')
-
-    return new Promise((resolve, reject) => {
+    return this.verifyAndCache('index', new Promise((resolve, reject) => {
       let list = this.cache.getList('index')
       if (ignoreCache || !list) {
         if (list) return this.wrapInPromise(list)
@@ -126,7 +155,7 @@ export default class Store extends Api {
         this.cache.setList('index', list)
         resolve(this.cache.set(list))
       }, reject)
-    })
+    }))
   }
 
   /**
@@ -136,9 +165,7 @@ export default class Store extends Api {
    * @return {Promise}
    */
   get(key, ignoreCache = false) {
-    this.verifyPermission('get')
-
-    return new Promise((resolve, reject) => {
+    return this.verifyAndCache(`get/${key}`, new Promise((resolve, reject) => {
       key = this.resolveKey(key)
 
       if (!ignoreCache) {
@@ -146,12 +173,12 @@ export default class Store extends Api {
         if (object) return resolve(object)
       }
 
-      let promise = this.http().get(key)
+      let promise = this.http().get(key.toString())
       promise.then(response => {
         let instance = this.normalizedModelInstance(response.data)
         resolve(this.cache.set(instance))
       }, reject)
-    })
+    }))
   }
 
   /**
@@ -208,19 +235,25 @@ export default class Store extends Api {
 
   /**
    * Make http request to fetch instances by foreign key
-   * @param {Function} model
+   * @param {Model|Function} model
+   * @param {*} value
    * @return {Promise}
    */
-  by(model) {
-    /**
-     * @type {Store}
-     */
-    let store = model.store
-    let foreignKey = `${model.underscorePath()}_${model.keyColumn}`
+  by(model, value = null) {
+    if (typeof model === 'object') {
+      value = model.key()
+      model = model.constructor
+    }
 
-    let promise = store.http().get(`by${model.name}/${this[foreignKey]}`)
-    promise.then(response => this.cache.setList(`by${this.model.table}`, response.data))
+    let url = `by${model.singularCapitalizedName()}/${value}`
 
-    return promise
+    return this.cachePromise(url, new Promise((resolve, reject) => {
+      let promise = this.http().get(url)
+
+      promise.then(response => {
+        let list = this.normalizedModelList(response.data)
+        resolve(this.cache.setList(url, list))
+      }, reject)
+    }));
   }
 }

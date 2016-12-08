@@ -1,7 +1,7 @@
 import Model from '../prime-rest/Model'
 
 export default class Artist extends Model {
-  static table = 'artist'
+  static table = 'artists'
 
   /**
    * @type {string}
@@ -12,4 +12,12 @@ export default class Artist extends Model {
    * @type {string}
    */
   name
+
+  /**
+   * Get albums promise
+   * @return {Promise}
+   */
+  albums() {
+
+  }
 }

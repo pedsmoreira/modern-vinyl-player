@@ -5,15 +5,19 @@ export default class Cache {
   api
 
   /**
-   * @type {{}}
+   * @type {Object}
    */
   objects = {}
 
   /**
-   *
-   * @type {{}}
+   * @type {Object}
    */
   lists = {}
+
+  /**
+   * @type {Object}
+   */
+  promises = {}
 
   constructor(api) {
     this.api = api
@@ -83,5 +87,37 @@ export default class Cache {
       this.lists[name] = list
     }
     return list
+  }
+
+  /**
+   * Get promise by name
+   * @param {string} name
+   * @return {Promise}
+   */
+  getPromise(name) {
+    if (this.api.usePromiseCache) {
+      return this.promises[name]
+    }
+  }
+
+  /**
+   * Set promise by name
+   * @param {string} name
+   * @param {Promise} promise
+   * @return {Promise}
+   */
+  setPromise(name, promise) {
+    if (this.api.usePromiseCache) {
+      return this.promises[name] = promise
+    }
+    return promise
+  }
+
+  /**
+   * Destroy promise by name
+   * @param {string} name
+   */
+  destroyPromise(name) {
+    delete this.promises[name]
   }
 }

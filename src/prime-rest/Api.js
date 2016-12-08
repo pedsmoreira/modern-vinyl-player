@@ -12,6 +12,11 @@ export default class Api {
   useCache = true
 
   /**
+   * @type {boolean}
+   */
+  usePromiseCache = true
+
+  /**
    * @type {Cache}
    */
   cache = new Cache(this)

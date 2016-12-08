@@ -1,6 +1,7 @@
 import Store from './Store'
 
 export default class Model {
+  static name
   static table
 
   /**
@@ -66,6 +67,16 @@ export default class Model {
   }
 
   /**
+   * Get foreign key name for a given model and options
+   * @param {Function} model
+   * @param {Object} options
+   * @return {*|string}
+   */
+  foreignKey(model, options = {}) {
+    return `${model.singularUnderscoredName()}_${options.fk || model.keyColumn}`
+  }
+
+  /**
    * Set values to instance
    * @param values
    * @return {Model}
@@ -123,11 +134,12 @@ export default class Model {
 
   /**
    * Get promise to belongsToOne FK relation
-   * @param model
+   * @param {Model|Function} model
+   * @param {Object} options
    * @return {Promise}
    */
-  belongsTo(model) {
-    return model.hasOne(this)
+  belongsTo(model, options = {}) {
+    return model.find(this[this.foreignKey(model, options)])
   }
 
   /**
@@ -135,7 +147,7 @@ export default class Model {
    * @param model
    * @return {Promise}
    */
-  belongsToMany(model) {
+  belongsToMany(model, value) {
     return this.hasMany(model)
   }
 
@@ -205,11 +217,28 @@ export default class Model {
   }
 
   /**
+   * Get singular table name
+   * @return {string}
+   */
+  static singularName() {
+    return this.table.substring(0, this.table.length - 1)
+  }
+
+  /**
+   * Get capitalized singular table name
+   * @return {string}
+   */
+  static singularCapitalizedName() {
+    let name = this.singularName()
+    return name.substring(0, 1).toUpperCase() + name.substring(1)
+  }
+
+  /**
    * Get path to model in unerscore case
    * @return {string}
    */
-  static underscorePath() {
-    return this.table.replace(/\.?([A-Z])/g, function (x, y) {
+  static singularUnderscoredName() {
+    return this.singularName().replace(/\.?([A-Z])/g, function (x, y) {
       return "_" + y.toLowerCase()
     }).replace(/^_/, "");
   }
