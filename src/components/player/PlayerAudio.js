@@ -27,6 +27,7 @@ export default class PlayerAudio extends React.Component {
   onReady(event) {
     this.target = event.target
     this.target.setVolume(100)
+    this.target.setPlaybackQuality('small')
   }
 
   render() {
