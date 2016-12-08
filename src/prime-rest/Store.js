@@ -9,17 +9,17 @@ export default class Store extends Api {
   /**
    * @type {String[]}
    */
-  allows = []
+  allows
 
   /**
    * @type {String[]}
    */
-  denies = []
+  denies
 
   /**
    * @type {boolean}
    */
-  setIndex = false
+  setIndex
 
   /**
    * Store constructor
@@ -27,8 +27,7 @@ export default class Store extends Api {
    * @param {{}} properties
    */
   constructor(model, properties = {}) {
-    super(properties)
-    this.model = model
+    super({...properties, model})
   }
 
   /**
@@ -44,8 +43,8 @@ export default class Store extends Api {
    * @return {boolean}
    */
   isMethodAllowed(method) {
-    if (this.denies.indexOf(method) !== -1) return false
-    return !this.allows.length || this.allows.indexOf(method) !== -1
+    if (this.denies && this.denies.indexOf(method) !== -1) return false
+    return !this.allows || this.allows.indexOf(method) !== -1
   }
 
   /**
@@ -145,15 +144,17 @@ export default class Store extends Api {
   index(ignoreCache = false) {
     return this.verifyAndCache('index', new Promise((resolve, reject) => {
       let list = this.cache.getList('index')
-      if (ignoreCache || !list) {
-        if (list) return this.wrapInPromise(list)
+      if (!ignoreCache && list) {
+        if (list) return resolve(list)
       }
 
       let promise = this.http().get('')
       promise.then(response => {
         let list = this.normalizedModelList(response.data)
         this.cache.setList('index', list)
-        resolve(this.cache.set(list))
+        if (this.setIndex) this.cache.set(list, false)
+
+        resolve(list)
       }, reject)
     }))
   }
@@ -176,7 +177,7 @@ export default class Store extends Api {
       let promise = this.http().get(key.toString())
       promise.then(response => {
         let instance = this.normalizedModelInstance(response.data)
-        resolve(this.cache.set(instance))
+        resolve(this.cache.set(instance, false))
       }, reject)
     }))
   }
@@ -237,9 +238,10 @@ export default class Store extends Api {
    * Make http request to fetch instances by foreign key
    * @param {Model|Function} model
    * @param {*} value
+   * @param {boolean} ignoreCache
    * @return {Promise}
    */
-  by(model, value = null) {
+  by(model, value = null, ignoreCache = false) {
     if (typeof model === 'object') {
       value = model.key()
       model = model.constructor
@@ -248,8 +250,12 @@ export default class Store extends Api {
     let url = `by${model.singularCapitalizedName()}/${value}`
 
     return this.cachePromise(url, new Promise((resolve, reject) => {
-      let promise = this.http().get(url)
+      let list = this.cache.getList(url)
+      if (!ignoreCache && list) {
+        return resolve(list)
+      }
 
+      let promise = this.http().get(url)
       promise.then(response => {
         let list = this.normalizedModelList(response.data)
         resolve(this.cache.setList(url, list))

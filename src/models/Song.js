@@ -5,6 +5,11 @@ export default class Song extends Model {
   static table = 'songs'
 
   /**
+   * @inheritDoc
+   */
+  static storeProperties = {setIndex: true}
+
+  /**
    * @type {string}
    */
   src

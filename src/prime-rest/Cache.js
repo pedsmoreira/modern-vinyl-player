@@ -46,14 +46,15 @@ export default class Cache {
   /**
    * Set object
    * @param {Model|Model[]} object
+   * @param {boolean} clearLists
    * @return {Model|Model[]}
    */
-  set(object) {
-    if (Array.isArray(object)) return object.map(it => this.set(it))
+  set(object, clearLists = true) {
+    if (Array.isArray(object)) return object.map(it => this.set(it, clearLists))
 
     if (this.api.useCache) {
       this.objects[object.key()] = object
-      this.lists = {}
+      if(clearLists) this.lists = {}
     }
     return object
   }

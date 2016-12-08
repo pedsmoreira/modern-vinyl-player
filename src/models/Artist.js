@@ -4,6 +4,11 @@ export default class Artist extends Model {
   static table = 'artists'
 
   /**
+   * @inheritDoc
+   */
+  static storeProperties = {setIndex: true}
+
+  /**
    * @type {string}
    */
   cover

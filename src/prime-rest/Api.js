@@ -22,6 +22,14 @@ export default class Api {
   cache = new Cache(this)
 
   /**
+   * API constructor
+   * @param {object} properties
+   */
+  constructor(properties = {}) {
+    Object.assign(this, properties)
+  }
+
+  /**
    * Get base path
    * @type {string}
    */
