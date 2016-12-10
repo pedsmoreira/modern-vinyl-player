@@ -21,9 +21,9 @@ export default class HomeView extends React.Component {
           </section>
 
           <div className="text-center">
-            <Button bsStyle="link" className="home-view_play">
+            <Link to="/albums" className="btn btn-link home-view_play">
               <Icon name="headphones"/> Listen
-            </Button>
+            </Link>
           </div>
         </Grid>
       </div>
