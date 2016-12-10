@@ -23,6 +23,7 @@ export default class Player extends React.Component {
                              artist={this.props.artist}/>
 
           <PlayerControls playing={this.props.playing}
+                          track={this.props.track}
                           onPlay={this.props.onPlay}
                           onPause={this.props.onPause}/>
 
