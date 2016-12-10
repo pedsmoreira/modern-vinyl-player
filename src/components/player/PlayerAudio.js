@@ -31,19 +31,15 @@ export default class PlayerAudio extends React.Component {
   }
 
   render() {
-    if (this.props.track) {
-      return (
-        <div className="hidden">
-          <Youtube ref="youtube" videoId={this.props.track.src}
-                   onReady={this.onReady.bind(this)}
-                   onPlay={this.props.onPlay}
-                   onPause={this.props.onPause}
-                   onEnd={this.props.onEnd}
-                   opts={this.options()}/>
-        </div>
-      )
-    }
-
-    return null
+    return (
+      <div className="hidden">
+        <Youtube videoId={this.props.track ? this.props.track.src : 'GbWFlg_bc9s'}
+                 onReady={this.onReady.bind(this)}
+                 onPlay={this.props.onPlay}
+                 onPause={this.props.onPause}
+                 onEnd={this.props.onEnd}
+                 opts={this.options()}/>
+      </div>
+    )
   }
 }

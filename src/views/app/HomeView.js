@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Grid, Button} from "react-bootstrap";
+import {Grid} from "react-bootstrap";
 import {Link} from "react-router";
 import {Icon} from "react-fa";
 

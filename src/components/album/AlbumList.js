@@ -7,7 +7,7 @@ import './AlbumList.scss'
 
 export default class AlbumList extends React.Component {
   render() {
-    if (!this.props.albums) return <Loader/>
+    if (!this.props.albums) return <Loader text="Albums"/>
 
     let map = this.props.albums.map(album =>
       <div key={album.id} style={{display: 'inline-block', margin: '1rem'}}>

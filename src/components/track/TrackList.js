@@ -7,7 +7,7 @@ import "./TrackList.scss";
 
 export default class TrackList extends React.Component {
   render() {
-    if (!this.props.tracks) return <Loader/>
+    if (!this.props.tracks) return <Loader text="Tracks"/>
 
     let map = this.props.tracks.map(track => (
       <Track key={track.id}
