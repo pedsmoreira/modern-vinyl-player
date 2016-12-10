@@ -20,12 +20,14 @@ export default class AlbumsView extends React.Component {
 
   render() {
     return (
-      <div className="albums-view animated fadeIn">
+      <div>
         <div className="albums-view_cover"/>
 
-        <Grid>
-          <AlbumList albums={this.albums}/>
-        </Grid>
+        <div className="albums-view animated fadeIn">
+          <Grid>
+            <AlbumList albums={this.albums}/>
+          </Grid>
+        </div>
       </div>
     )
   }
