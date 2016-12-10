@@ -14,9 +14,8 @@
     width: 100%;
     padding: 1rem;
     color: white;
-
-    @extend .animated;
-    @extend .fadeOutDown;
+    transform: translateY(100%);
+    transition: 1s all ease;
   }
 
   &_cover {
@@ -25,7 +24,7 @@
 
   &:hover {
     .album_name {
-      @extend .fadeInUp;
+      transform: none;
     }
   }
 }

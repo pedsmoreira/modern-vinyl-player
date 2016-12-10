@@ -1,10 +1,14 @@
-import React from 'react'
-import {observer} from 'mobx-react'
-import {observable} from 'mobx'
+import React from "react";
+import {observer} from "mobx-react";
+import {observable} from "mobx";
 
-import Album from '../../models/Album'
+import Album from "../../models/Album";
 
-import AlbumList from '../../components/album/AlbumList'
+import {Grid} from "react-bootstrap";
+
+import AlbumList from "../../components/album/AlbumList";
+
+import "./AlbumsView.scss";
 
 @observer
 export default class AlbumsView extends React.Component {
@@ -16,8 +20,12 @@ export default class AlbumsView extends React.Component {
 
   render() {
     return (
-      <div className="animated fadeIn">
-        <AlbumList albums={this.albums}/>
+      <div className="albums-view animated fadeIn">
+        <div className="albums-view_cover"/>
+
+        <Grid>
+          <AlbumList albums={this.albums}/>
+        </Grid>
       </div>
     )
   }

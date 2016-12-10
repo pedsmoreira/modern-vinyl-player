@@ -1,0 +1,23 @@
+@import "../../constants/sizes";
+
+.header {
+  padding: 2rem 1rem;
+  height: $header-height;
+  z-index: 1;
+
+  .container {
+    position: relative;
+  }
+
+  &_logo {
+    display: inline-block;
+    padding-left: 1rem;
+  }
+
+  .search-button {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+  }
+}

@@ -1,8 +1,8 @@
 import Model from '../prime-rest/Model'
 import Album from './Album'
 
-export default class Song extends Model {
-  static table = 'songs'
+export default class Track extends Model {
+  static table = 'tracks'
 
   /**
    * @inheritDoc
@@ -20,6 +20,11 @@ export default class Song extends Model {
   name
 
   /**
+   * @type {number}
+   */
+  number
+
+  /**
    * Get album promise
    * @return {Promise}
    */
@@ -28,7 +33,7 @@ export default class Song extends Model {
   }
 
   /**
-   * Get songs by album promise
+   * Get tracks by album promise
    * @param value
    * @return {Promise}
    */

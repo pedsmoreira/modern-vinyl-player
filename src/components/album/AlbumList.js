@@ -1,7 +1,5 @@
 import React from 'react'
 
-import {Row, Col} from 'react-bootstrap'
-
 import Album from './Album'
 import Loader from '../Loader'
 
@@ -12,11 +10,11 @@ export default class AlbumList extends React.Component {
     if (!this.props.albums) return <Loader/>
 
     let map = this.props.albums.map(album =>
-      <Col key={album.id} md={4} sm={6} xs={6}>
+      <div key={album.id} style={{display: 'inline-block', margin: '1rem'}}>
         <Album album={album}/>
-      </Col>
+      </div>
     )
 
-    return <Row className='albumList'>{map}</Row>
+    return <div className="albumList text-center">{map}</div>
   }
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import PlayerDescriptionSong from './descriptions/PlayerDescriptionSong'
+import PlayerDescriptionTrack from './descriptions/PlayerDescriptionTrack'
 import PlayerDescriptionAlbum from './descriptions/PlayerDescriptionAlbum'
 import PlayerDescriptionArtist from './descriptions/PlayerDescriptionArtist'
 
@@ -8,9 +8,10 @@ export default class PlayerDescription extends React.Component {
   render() {
     return (
       <div>
-        <PlayerDescriptionSong song={this.props.song}/>
-        <PlayerDescriptionAlbum album={this.props.album}/>
+        <PlayerDescriptionTrack track={this.props.track}/>
+        <span> - by </span>
         <PlayerDescriptionArtist artist={this.props.artist}/>
+        <PlayerDescriptionAlbum album={this.props.album}/>
       </div>
     )
   }

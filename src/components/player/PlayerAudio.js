@@ -6,7 +6,7 @@ export default class PlayerAudio extends React.Component {
   target
 
   componentWillReceiveProps(props) {
-    if (!props.song) {
+    if (!props.track) {
       this.target = null
     }
 
@@ -19,7 +19,7 @@ export default class PlayerAudio extends React.Component {
   options() {
     return {
       playerVars: {
-        autoplay: this.props.autoplay ? 1 : 0
+        autoplay: this.props.playing ? 1 : 0
       }
     }
   }
@@ -31,10 +31,10 @@ export default class PlayerAudio extends React.Component {
   }
 
   render() {
-    if (this.props.song) {
+    if (this.props.track) {
       return (
         <div className="hidden">
-          <Youtube ref="youtube" videoId={this.props.song.src}
+          <Youtube ref="youtube" videoId={this.props.track.src}
                    onReady={this.onReady.bind(this)}
                    onPlay={this.props.onPlay}
                    onPause={this.props.onPause}

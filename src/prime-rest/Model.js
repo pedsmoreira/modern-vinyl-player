@@ -133,40 +133,94 @@ export default class Model {
   }
 
   /**
-   * Get promise to belongsToOne FK relation
-   * @param {Model|Function} model
+   * Get promise to belongsTo FK relation
+   * @param {Function} model
    * @param {Object} options
    * @return {Promise}
    */
   belongsTo(model, options = {}) {
-    return model.find(this[this.foreignKey(model, options)])
+    return this.constructor.belongsTo(model, this, options)
+  }
+
+  /**
+   * Get promise to belongsTo FK relation
+   * @param {Function} model
+   * @param {Model} instance
+   * @param {Object} options
+   * @return {Promise}
+   */
+  static belongsTo(model, instance, options = {}) {
+    return model.find(instance[instance.foreignKey(model, options)])
+  }
+
+  /**
+   * Get promise to belongsToMany FK relation
+   * @param {Function} model
+   * @param {Object} options
+   * @return {Promise}
+   */
+  belongsToMany(model, options = {}) {
+    return this.constructor.belongsToMany(model, this, options)
   }
 
   /**
    * Get promise to belongsToMany FK relation
    * @param model
+   * @param instance
+   * @param options
    * @return {Promise}
    */
-  belongsToMany(model, value) {
-    return this.hasMany(model)
+  static belongsToMany(model, instance, options = {}) {
+    return this.hasMany(model, instance, options)
   }
 
   /**
    * Get promise to hasOne FK relation
-   * @param model
+   * @param {Function} model
    * @return {Promise}
    */
   hasOne(model) {
-    return this.hasMany(model)
+    return this.constructor.hasOne(model, this.key())
+  }
+
+  /**
+   * Get promise to hasOne FK relation statically
+   * @param {Function} model
+   * @param {*} value
+   * @param {Object} options
+   * @return {Promise}
+   */
+  static hasOne(model, value, options = {}) {
+    return this.resolveStore().by(model, value, options)
   }
 
   /**
    * Get promise to hasMany FK relation
-   * @param model
+   * @param {Function} model
+   * @param {Object} options
    * @return {Promise}
    */
-  hasMany(model) {
-    return model.resolveStore().by(this)
+  hasMany(model, options = {}) {
+    return this.constructor.hasMany(model, this, options)
+  }
+
+  /**
+   * Get promise to hasMany FK relation statically
+   * @param {Function} model
+   * @param {Model} instance
+   * @param {Object} options
+   * @return {Promise}
+   */
+  static hasMany(model, instance, options) {
+    return model.resolveStore().by(instance, null, options)
+  }
+
+  saveToLocalStorage() {
+
+  }
+
+  static fromLocalStorage(id) {
+
   }
 
   /**

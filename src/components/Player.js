@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {observer} from 'mobx-react'
 
-import {Row, Col} from 'react-bootstrap'
+import {Grid} from 'react-bootstrap'
 
 import PlayerDisc from './player/PlayerDisc'
 import PlayerDescription from './player/PlayerDescription'
@@ -14,29 +14,26 @@ import "./Player.scss"
 export default class Player extends React.Component {
   render() {
     return (
-      <Row className="player">
-        <Col xs={5} sm={12}>
+      <div className="player">
+        <Grid style={{position: 'relative'}}>
           <PlayerDisc album={this.props.album} playing={this.props.playing}/>
-        </Col>
 
-        <Col xs={7} sm={12}>
           <PlayerDescription album={this.props.album}
-                             song={this.props.song}
+                             track={this.props.track}
                              artist={this.props.artist}/>
 
           <PlayerControls playing={this.props.playing}
                           onPlay={this.props.onPlay}
-                          onPause={this.props.onPause}
-                          song={this.props.song}/>
+                          onPause={this.props.onPause}/>
 
-          <PlayerAudio song={this.props.song}
+          <PlayerAudio track={this.props.track}
                        autoplay={this.props.autoplay}
                        playing={this.props.playing}
                        onPlay={this.props.onPlay}
                        onPause={this.props.onPause}
                        onEnd={this.props.onEnd}/>
-        </Col>
-      </Row>
+        </Grid>
+      </div>
     )
   }
 }

@@ -1,31 +1,26 @@
-import * as React from 'react'
+import * as React from "react";
 
-import {Link} from 'react-router'
-import {Navbar, Nav, NavItem} from 'react-bootstrap'
-import {LinkContainer} from 'react-router-bootstrap'
+import {Link} from "react-router";
+import {Grid} from "react-bootstrap";
+
+import SearchButton from "./SearchButton";
+
+import logo from "../../images/logo.png";
+
+import "./Header.scss";
 
 export default class Header extends React.Component {
   render() {
     return (
-      <Navbar inverse staticTop>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">Modern Vinyl Player</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            <LinkContainer to="/album">
-              <NavItem>Albums</NavItem>
-            </LinkContainer>
+      <header className="header">
+        <Grid>
+          <Link to="/" className="header_logo">
+            <img src={logo} style={{width: 128}} alt="Logo"/>
+          </Link>
 
-            <LinkContainer to="/artist">
-              <NavItem>Artists</NavItem>
-            </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+          <SearchButton/>
+        </Grid>
+      </header>
     )
   }
 }

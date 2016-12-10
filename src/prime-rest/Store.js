@@ -111,19 +111,12 @@ export default class Store extends Api {
    * @param {{}} values
    * @return {Model}
    */
-  normalizedModelInstance(values) {
+  normalizedModel(values) {
+    if (Array.isArray(values)) return values.map(object => this.normalizedModel(object))
+
     let instance = this.modelInstance(values)
     instance.normalize()
     return instance
-  }
-
-  /**
-   * Get normalized model instance list
-   * @param list
-   * @return {Model[]}
-   */
-  normalizedModelList(list) {
-    return list.map(object => this.normalizedModelInstance(object))
   }
 
   /**
@@ -150,7 +143,7 @@ export default class Store extends Api {
 
       let promise = this.http().get('')
       promise.then(response => {
-        let list = this.normalizedModelList(response.data)
+        let list = this.normalizedModel(response.data)
         this.cache.setList('index', list)
         if (this.setIndex) this.cache.set(list, false)
 
@@ -176,7 +169,7 @@ export default class Store extends Api {
 
       let promise = this.http().get(key.toString())
       promise.then(response => {
-        let instance = this.normalizedModelInstance(response.data)
+        let instance = this.normalizedModel(response.data)
         resolve(this.cache.set(instance, false))
       }, reject)
     }))
@@ -194,7 +187,7 @@ export default class Store extends Api {
 
     return new Promise((resolve, reject) => {
       promise.then((response) => {
-        let instance = this.normalizedModelInstance(response.data)
+        let instance = this.normalizedModel(response.data)
         resolve(this.cache.set(instance))
       }, reject)
     })
@@ -212,7 +205,7 @@ export default class Store extends Api {
 
     return new Promise((resolve, reject) => {
       promise.then((response) => {
-        let instance = this.normalizedModelInstance(response.data)
+        let instance = this.normalizedModel(response.data)
         resolve(this.cache.set(instance))
       }, reject)
     })
@@ -236,12 +229,16 @@ export default class Store extends Api {
 
   /**
    * Make http request to fetch instances by foreign key
+   * Options: (by default all options are false)
+   * - set (store objects in result),
+   * - ignoreCache (ignore cache and fetch again)
+   *
    * @param {Model|Function} model
    * @param {*} value
-   * @param {boolean} ignoreCache
+   * @param {Object} options
    * @return {Promise}
    */
-  by(model, value = null, ignoreCache = false) {
+  by(model, value = null, options = {}) {
     if (typeof model === 'object') {
       value = model.key()
       model = model.constructor
@@ -251,14 +248,20 @@ export default class Store extends Api {
 
     return this.cachePromise(url, new Promise((resolve, reject) => {
       let list = this.cache.getList(url)
-      if (!ignoreCache && list) {
+      if (!options.ignoreCache && list) {
         return resolve(list)
       }
 
       let promise = this.http().get(url)
       promise.then(response => {
-        let list = this.normalizedModelList(response.data)
-        resolve(this.cache.setList(url, list))
+        let list = this.normalizedModel(response.data)
+        this.cache.setList(url, list)
+
+        if (options.set || (!Array.isArray(list) && options.set !== false)) {
+          this.cache.set(list, false)
+        }
+
+        resolve(list)
       }, reject)
     }));
   }

@@ -1,4 +1,22 @@
 .album-view {
+  //position: relative;
+  margin-top: -20px;
+  padding-top: 20px;
+
+  &_cover {
+    background: #333;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    opacity: .25;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
   &_title {
     margin-top: 0;
     font-weight: 300;

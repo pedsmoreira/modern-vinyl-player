@@ -12,7 +12,7 @@ export default class PlayerControls extends React.Component {
         <PlayerControlPlay
           onPlay={this.props.onPlay}
           playing={this.props.playing}
-          song={this.props.song}
+          track={this.props.track}
         />
 
         <PlayerControlPause onPause={this.props.onPause} playing={this.props.playing}/>

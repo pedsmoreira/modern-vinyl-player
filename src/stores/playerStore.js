@@ -8,62 +8,65 @@ export class PlayerStore {
   playlist = []
 
   /**
-   * @type {Song}
+   * @type {Track}
    */
   @observable
-  song
+  track
 
   /**
    * @type {boolean}
    */
   @observable
-  autoplay = true
-
-  @observable
   playing = false
 
-  add(song) {
-    if (this.playlist.indexOf(song) === -1) {
-      this.playlist.push(song)
+  /**
+   * @type {boolean}
+   */
+  @observable
+  loading = false
+
+  add(track) {
+    if (this.playlist.indexOf(track) === -1) {
+      this.playlist.push(track)
     }
   }
 
-  set(song) {
-    if (Array.isArray(song)) {
-      if (song.length) this.song = song[0]
-      return this.playlist = song
+  set(track) {
+    if (Array.isArray(track)) {
+      if (track.length) this.track = track[0]
+      return this.playlist = track
     }
 
-    this.song = song
-    return this.playlist = [song]
+    this.track = track
+    return this.playlist = [track]
   }
 
-  toggle(song) {
-    if (this.song === song) {
-      if(this.playing) this.pause()
+  toggle(track) {
+    if (this.track === track) {
+      if (this.playing) this.pause()
       else this.play()
       return false
     }
 
-    this.set(song)
+    this.set(track)
+    this.play()
+
     return true
   }
 
-  select(song) {
-    this.song = song
+  select(track) {
+    this.track = track
   }
 
   next() {
-    let index = this.playlist.indexOf(this.song)
-    this.song = this.playlist.length < (index + 1) ? this.playlist[index + 1] : null
+    let index = this.playlist.indexOf(this.track)
+    this.track = this.playlist.length < (index + 1) ? this.playlist[index + 1] : null
 
-    if(!this.song) this.playing = false
+    if (!this.track) this.playing = false
   }
 
   play() {
-    if(this.song) {
-      this.playing = true
-    }
+    this.playing = true
   }
 
   pause() {

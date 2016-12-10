@@ -1,0 +1,26 @@
+@import "../constants/colors";
+
+.app-view {
+  background: #333;
+  color: #eee;
+  font-family: 'KenvectorFutureThin', serif;
+  padding-bottom: 5.25rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &_content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a, .btn-link {
+    color: $color-link;
+
+    &:hover, &:active, &:focus {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}

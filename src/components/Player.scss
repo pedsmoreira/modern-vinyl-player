@@ -1,18 +1,17 @@
 .player {
-  background: rgba(0, 0, 0, .5);
-  border: 1px solid rgba(0, 0, 0, .9);
-  margin-bottom: 2rem;
-  padding: 1rem;
+  background: rgba(0, 0, 0, .75);
+  border-top: 1px solid rgba(0, 0, 0, .9);
+  padding: .75rem;
+  position: fixed;
+  height: 5.25rem;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 
-  @media screen and (min-width: 768px) {
-    max-width: 25rem;
-    margin: 0 auto;
-    display: inline-block;
-    border-radius: 1rem;
-  }
-
-  @media screen and (max-width: 767px) {
-    margin-top: -20px;
-    display: block;
+  .player-controls {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }

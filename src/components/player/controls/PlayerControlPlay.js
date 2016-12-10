@@ -7,7 +7,7 @@ export default class PlayerControlPlay extends React.Component {
   render() {
     if (!this.props.playing) {
       return (
-        <Button bsStyle='link' onClick={this.props.onPlay} disabled={!this.props.song}>
+        <Button bsStyle='link' onClick={this.props.onPlay} disabled={!this.props.track}>
           <Icon name="play"/>
         </Button>
       )

@@ -1,0 +1,15 @@
+.albums-view {
+  &_cover {
+    background: url('http://3.bp.blogspot.com/-azDlYQ6E3eg/UiAZN9koBSI/AAAAAAAAJ_s/wUaI7wtcPvg/s1600/Background-Vinyl6.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right center;
+    position: fixed;
+    opacity: .25 !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+}

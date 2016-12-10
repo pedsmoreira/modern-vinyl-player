@@ -1,6 +1,6 @@
 import Model from '../prime-rest/Model'
 
-import Song from './Song'
+import Track from './Track'
 import Artist from './Artist'
 
 export default class Album extends Model {
@@ -14,12 +14,17 @@ export default class Album extends Model {
   /**
    * @type {string}
    */
+  name
+
+  /**
+   * @type {string}
+   */
   cover
 
   /**
    * @type {string}
    */
-  name
+  background
 
   /**
    * @type {number}
@@ -27,11 +32,11 @@ export default class Album extends Model {
   year = new Date().getFullYear()
 
   /**
-   * Get songs promise
+   * Get tracks promise
    * @return {Promise}
    */
-  songs() {
-    return this.hasMany(Song)
+  tracks() {
+    return this.hasMany(Track)
   }
 
   /**
