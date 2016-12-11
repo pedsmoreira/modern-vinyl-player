@@ -58,39 +58,19 @@ export default class Store extends Api {
   }
 
   /**
-   * Cache promise by name, so it doesn't get executed again before the result comes back
-   * @param name
-   * @param promise
-   * @return {Promise}
-   */
-  cachePromise(name, promise) {
-    let cached = this.cache.getPromise(name)
-    if (cached) return cached
-
-    this.cache.setPromise(name, promise)
-
-    let fn = () => {
-      this.cache.destroyPromise(name)
-    }
-    promise.then(fn, fn)
-
-    return promise
-  }
-
-  /**
    * Shortcut for verifying method permission and caching promise
    * @param {string} name
-   * @param {Promise} promise
+   * @param {Function} fn
    * @return {Promise}
    */
-  verifyAndCache(name, promise) {
+  verifyAndCache(name, fn) {
     this.verifyPermission(name.split('/')[0])
-    return this.cachePromise(name, promise)
+    return this.cachePromise(name, fn)
   }
 
   /**
    * Resolve key
-   * @param {*} value
+   * @param {Model|*} value
    * @return {*}
    */
   resolveKey(value) {
@@ -120,22 +100,12 @@ export default class Store extends Api {
   }
 
   /**
-   * Wrap result in promise
-   * @param {*} value
-   */
-  wrapInPromise(value) {
-    return new Promise((resolve) => {
-      resolve(value)
-    })
-  }
-
-  /**
    * Get index
    * @param {boolean} ignoreCache
    * @return {Promise}
    */
   index(ignoreCache = false) {
-    return this.verifyAndCache('index', new Promise((resolve, reject) => {
+    return this.verifyAndCache('index', (resolve, reject) => {
       let list = this.cache.getList('index')
       if (!ignoreCache && list) {
         if (list) return resolve(list)
@@ -149,7 +119,7 @@ export default class Store extends Api {
 
         resolve(list)
       }, reject)
-    }))
+    })
   }
 
   /**
@@ -159,7 +129,7 @@ export default class Store extends Api {
    * @return {Promise}
    */
   get(key, ignoreCache = false) {
-    return this.verifyAndCache(`get/${key}`, new Promise((resolve, reject) => {
+    return this.verifyAndCache(`get/${key}`, (resolve, reject) => {
       key = this.resolveKey(key)
 
       if (!ignoreCache) {
@@ -172,7 +142,7 @@ export default class Store extends Api {
         let instance = this.normalizedModel(response.data)
         resolve(this.cache.set(instance, false))
       }, reject)
-    }))
+    })
   }
 
   /**
@@ -201,9 +171,8 @@ export default class Store extends Api {
   update(data) {
     this.verifyPermission('update')
 
-    let promise = this.http().put(data[this.key], data)
-
     return new Promise((resolve, reject) => {
+      let promise = this.http().put(data[this.key], data)
       promise.then((response) => {
         let instance = this.normalizedModel(response.data)
         resolve(this.cache.set(instance))
@@ -246,7 +215,7 @@ export default class Store extends Api {
 
     let url = `by${model.singularCapitalizedName()}/${value}`
 
-    return this.cachePromise(url, new Promise((resolve, reject) => {
+    return this.cachePromise(url, ((resolve, reject) => {
       let list = this.cache.getList(url)
       if (!options.ignoreCache && list) {
         return resolve(list)

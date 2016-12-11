@@ -1,6 +1,6 @@
 .player {
-  background: rgba(0, 0, 0, .85);
-  border-top: 1px solid rgba(0, 0, 0, .9);
+  background: rgba(0, 0, 0, .95);
+  border-top: 1px solid rgba(0, 0, 0, 1);
   padding: .75rem;
   position: fixed;
   height: 5.25rem;
@@ -9,7 +9,13 @@
   width: 100%;
   z-index: 1;
 
-  .player-controls {
+  .player-description {
+    margin-right: 4rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .player-control {
     position: absolute;
     right: 1rem;
     top: 50%;

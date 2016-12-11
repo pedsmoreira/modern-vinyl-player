@@ -4,6 +4,8 @@ import {Grid} from "react-bootstrap";
 import {Link} from "react-router";
 import {Icon} from "react-fa";
 
+import Background from "../../components/Background"
+
 import "./HomeView.scss";
 
 export default class HomeView extends React.Component {
@@ -11,7 +13,7 @@ export default class HomeView extends React.Component {
     return (
       <div className="home-view animated fadeIn">
         <Grid>
-          <div className="home-view_cover"></div>
+          <Background image="http://hdwallpaperslatest.com/wp-content/uploads/2016/03/People-Hands-Concert-Music-Crowd-HD-Background.jpg"/>
 
           <section className="home-view_title">
             <h1>A music player<br/>for modern browsers</h1>

@@ -4,13 +4,16 @@ import {observable} from "mobx";
 
 import {Grid, Row, Col} from "react-bootstrap";
 
-import playerStore from '../../stores/playerStore'
+import playerStore from "../../stores/playerStore";
 
 import AlbumModel from "../../models/Album";
 import TrackModel from '../../models/Track'
 import ArtistModel from '../../models/Artist'
 
-import Album from "../../components/album/Album";
+import Background from "../../components/Background";
+import AlbumTitle from "../../components/album/AlbumTitle";
+import AlbumCover from "../../components/album/AlbumCover";
+import AlbumDescription from "../../components/album/AlbumDescription";
 import TrackList from "../../components/track/TrackList";
 import ArtistName from "../../components/artist/ArtistName";
 
@@ -33,37 +36,27 @@ export default class AlbumView extends React.Component {
   render() {
     return (
       <div className="album-view animated fadeIn">
-        <div className="album-view_cover"
-             style={!this.album ? {} : {backgroundImage: `url('${this.album.background}')`}}/>
+        <Background image={(this.album || {}).background}/>
 
         <Grid className="animated slideInUp album-view">
           <Row>
             <Col sm={9}>
-              <div style={{background: 'rgba(0, 0, 0, .25', padding: '2rem'}}>
+              <div className="album-view_tracks">
                 <ArtistName artist={this.artist}/>
-                {this.album ?
-                  <header>
-                    <h2 className="album-view_title">
-                      {this.album.name}
-                      <small> ({this.album.year})</small>
-                    </h2>
-                  </header>
-                  : null}
+                <AlbumTitle album={this.album}/>
 
                 <TrackList tracks={this.tracks}
                            track={playerStore.track}
                            playing={playerStore.playing}
-                           toggle={playerStore.toggle.bind(playerStore)}/>
+                           loading={playerStore.loading}
+                           onPlay={playerStore.play.bind(playerStore)}
+                           onPause={playerStore.pause.bind(playerStore)}/>
               </div>
             </Col>
 
-            <Col sm={3} style={{background: 'rgba(0, 0, 0, .25)'}} xsHidden>
-              <br/>
-              <Album album={this.album}/>
-
-              <br/>
-
-              <p>{!this.album ? null : this.album.description}</p>
+            <Col sm={3} xsHidden className="album-view_description">
+              <AlbumCover album={this.album}/>
+              <AlbumDescription album={this.album}/>
             </Col>
           </Row>
         </Grid>

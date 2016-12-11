@@ -1,5 +1,7 @@
 import {observable} from 'mobx'
 
+import Album from "../models/Album";
+
 export class PlayerStore {
   /**
    * @type {Array}
@@ -31,31 +33,39 @@ export class PlayerStore {
     }
   }
 
-  set(track) {
-    if (Array.isArray(track)) {
-      if (track.length) this.track = track[0]
-      return this.playlist = track
+  set(value) {
+    if (value instanceof Album) {
+      return this.setAlbum(value)
     }
 
-    this.track = track
-    return this.playlist = [track]
-  }
-
-  toggle(track) {
-    if (this.track === track) {
-      if (this.playing) this.pause()
-      else this.play()
-      return false
+    if (Array.isArray(value)) {
+      return this.setArray(value)
     }
 
-    this.set(track)
-    this.play()
+    if (this.playlist.indexOf(value) === -1) {
+      this.playlist = [value]
+    }
 
-    return true
+    this.track = value
+    return this.playlist
   }
 
-  select(track) {
-    this.track = track
+  setAlbum(album) {
+    this.loading = true
+    album.tracks().then((tracks) => {
+      this.setArray(tracks)
+      this.loading = false
+    })
+  }
+
+  setArray(tracks) {
+    this.playlist = tracks
+
+    if (tracks.indexOf(this.track) === -1) {
+      this.track = tracks[0]
+    }
+
+    return this.playlist
   }
 
   next() {
@@ -65,11 +75,17 @@ export class PlayerStore {
     if (!this.track) this.playing = false
   }
 
-  play() {
+  play(value = null) {
+    if (value) {
+      this.set(value)
+    }
     this.playing = true
   }
 
-  pause() {
+  pause(value = null) {
+    if (value) {
+      this.set(value)
+    }
     this.playing = false
   }
 }

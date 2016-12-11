@@ -89,6 +89,33 @@ export default class Api {
 
     return base + path
   }
+
+  /**
+   * Cache promise by name, so it doesn't get executed again before the result comes back
+   * @param {string} name
+   * @param {Function} fn
+   * @return {Promise}
+   */
+  cachePromise(name, fn) {
+    if(!this.usePromiseCache) {
+      return new Promise(fn)
+    }
+
+    let cached = this.cache.getPromise(name)
+    if(cached) {
+      return cached;
+    }
+
+    let promise = new Promise(fn)
+    this.cache.setPromise(name, promise)
+
+    let destroyCallback = () => {
+      this.cache.destroyPromise(name)
+    }
+    promise.then(destroyCallback, destroyCallback)
+
+    return promise
+  }
 }
 
 const api = new Api()

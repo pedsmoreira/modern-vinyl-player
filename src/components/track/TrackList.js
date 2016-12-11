@@ -11,9 +11,11 @@ export default class TrackList extends React.Component {
 
     let map = this.props.tracks.map(track => (
       <Track key={track.id}
-            track={track}
-            active={track === this.props.track && this.props.playing}
-            toggle={this.props.toggle}/>
+             track={track}
+             playing={track === this.props.track && this.props.playing}
+             loading={this.props.loading}
+             onPlay={this.props.onPlay}
+             onPause={this.props.onPause}/>
     ))
 
     return <div className="track-list">{map}</div>

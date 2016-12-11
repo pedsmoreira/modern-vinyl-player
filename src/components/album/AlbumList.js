@@ -10,11 +10,10 @@ export default class AlbumList extends React.Component {
     if (!this.props.albums) return <Loader text="Albums"/>
 
     let map = this.props.albums.map(album =>
-      <div key={album.id} style={{display: 'inline-block', margin: '1rem'}}>
-        <Album album={album}/>
-      </div>
+      <Album key={album.id} album={album} onPlay={this.props.onPlay} onPause={this.props.onPause}
+             loading={this.props.loading} playing={this.props.playing && (this.props.track || {}).album_id === album.id}/>
     )
 
-    return <div className="albumList text-center">{map}</div>
+    return <div className="albumList">{map}</div>
   }
 }

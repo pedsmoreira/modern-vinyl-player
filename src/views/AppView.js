@@ -18,17 +18,10 @@ export default class AppView extends React.Component {
   @observable
   album
 
-  /**
-   * @type Artist
-   */
-  @observable
-  artist
-
   componentWillUpdate() {
-    if (playerStore.track && !this.album) {
+    if (playerStore.track) {
       playerStore.track.album().then(album => {
         this.album = album
-        album.artist().then(artist => this.artist = artist)
       })
     }
   }
@@ -43,7 +36,6 @@ export default class AppView extends React.Component {
 
           <Player track={playerStore.track}
                   album={this.album}
-                  artist={this.artist}
                   playing={playerStore.playing}
                   autoplay={playerStore.autoplay}
                   onPlay={playerStore.play.bind(playerStore)}

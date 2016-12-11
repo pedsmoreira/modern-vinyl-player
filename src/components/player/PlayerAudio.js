@@ -24,20 +24,22 @@ export default class PlayerAudio extends React.Component {
     }
   }
 
-  onReady(event) {
+  onStateChange(event) {
     this.target = event.target
     this.target.setVolume(100)
     this.target.setPlaybackQuality('small')
   }
 
   render() {
+    // The player starts with a 1s blank video to fix an issue on Android, which causes the first Youtube iframe
+    // to require the user to click again to play the video
     return (
       <div className="hidden">
         <Youtube videoId={this.props.track ? this.props.track.src : 'GbWFlg_bc9s'}
-                 onReady={this.onReady.bind(this)}
-                 onPlay={this.props.onPlay}
-                 onPause={this.props.onPause}
-                 onEnd={this.props.onEnd}
+                 onStateChange={this.onStateChange.bind(this)}
+                 onPlay={() => this.props.onPlay()}
+                 onPause={() => this.props.onPause()}
+                 onEnd={() => this.props.onEnd()}
                  opts={this.options()}/>
       </div>
     )

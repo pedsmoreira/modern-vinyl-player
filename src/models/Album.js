@@ -32,6 +32,11 @@ export default class Album extends Model {
   year = new Date().getFullYear()
 
   /**
+   * @type {string}
+   */
+  description
+
+  /**
    * Get tracks promise
    * @return {Promise}
    */

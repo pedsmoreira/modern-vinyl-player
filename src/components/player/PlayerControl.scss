@@ -1,0 +1,13 @@
+@import "../../constants/colors";
+
+.player-control {
+  &_play, &_pause {
+    outline: none !important;
+  }
+
+  &_pause {
+    * {
+      color: $color-play;
+    }
+  }
+}

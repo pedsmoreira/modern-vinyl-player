@@ -1,16 +1,19 @@
+@import "../../constants/colors";
+
 .track {
   padding: .75rem 1rem;
   cursor: pointer;
   position: relative;
 
-  &_play-icon, &_pause-icon {
-    margin-right: 1rem;
-    font-size: 75%;
-    vertical-align: middle;
-    color: #999;
+  &--playing {
+    color: $color-play;
+  }
 
-    &:hover {
-      color: orange;
+  .player-control {
+    float: left;
+    margin-right: 1rem;
+    * {
+      padding: 0;
     }
   }
 
