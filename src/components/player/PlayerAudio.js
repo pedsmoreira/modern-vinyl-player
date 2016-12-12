@@ -25,9 +25,12 @@ export default class PlayerAudio extends React.Component {
   }
 
   onStateChange(event) {
-    this.target = event.target
-    this.target.setVolume(100)
-    this.target.setPlaybackQuality('small')
+    console.log(this.event);
+    if(this.target !== event.target) {
+      this.target = event.target
+      this.target.setVolume(100)
+      this.target.setPlaybackQuality('small')
+    }
   }
 
   render() {

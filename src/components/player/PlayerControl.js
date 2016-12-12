@@ -9,11 +9,9 @@ import "./PlayerControl.scss"
 
 export default class PlayerControl extends React.Component {
   render() {
-    if(!this.props.value) return null
-
     let classNames = ['player-control']
-    if(this.props.playing) {
-      classNames.push('player-control--playing')
+    if (this.props.selected) {
+      classNames.push('player-control--selected')
     }
 
     return (
@@ -24,13 +22,13 @@ export default class PlayerControl extends React.Component {
   }
 
   content() {
-    if (this.props.playing) {
+    if (this.props.playing && (this.props.selected || !this.props.value)) {
       if (this.props.loading) {
         return <Loader/>
       }
 
       return (
-        <Button bsStyle="link" className="player-control_pause" onClick={() => this.props.onPause(this.props.value)}>
+        <Button bsStyle="link" className="player-control_pause" onClick={() => this.props.onPause()}>
           <Icon name="pause"/>
         </Button>
       )

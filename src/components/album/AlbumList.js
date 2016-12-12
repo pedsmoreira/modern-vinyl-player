@@ -11,9 +11,9 @@ export default class AlbumList extends React.Component {
 
     let map = this.props.albums.map(album =>
       <Album key={album.id} album={album} onPlay={this.props.onPlay} onPause={this.props.onPause}
-             loading={this.props.loading} playing={this.props.playing && (this.props.track || {}).album_id === album.id}/>
+             loading={this.props.loading} selected={(this.props.track || {}).album_id === album.id} playing={this.props.playing}/>
     )
 
-    return <div className="albumList">{map}</div>
+    return <div className="album-list">{map}</div>
   }
 }

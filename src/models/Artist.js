@@ -10,6 +10,11 @@ export default class Artist extends Model {
   static storeProperties = {setIndex: true}
 
   /**
+   * @type {id}
+   */
+  id
+
+  /**
    * @type {string}
    */
   cover

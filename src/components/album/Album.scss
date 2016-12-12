@@ -86,7 +86,7 @@
     }
 
     &:not(:hover) {
-      .player-control:not(.player-control--playing) {
+      .player-control:not(.player-control--selected) {
         opacity: 0;
       }
     }

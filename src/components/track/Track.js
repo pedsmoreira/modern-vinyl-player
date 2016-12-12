@@ -8,7 +8,7 @@ import "./Track.scss";
 
 export default class Track extends React.Component {
   onClick() {
-    if (this.props.playing) {
+    if (this.props.playing && this.props.selected) {
       this.props.onPause()
     } else {
       this.props.onPlay(this.props.track)
@@ -17,13 +17,13 @@ export default class Track extends React.Component {
 
   render() {
     let classNames = ['track'];
-    if(this.props.playing) {
-      classNames.push('track--playing')
+    if(this.props.selected) {
+      classNames.push('track--selected')
     }
 
     return <div className={classNames.join(' ')} onClick={this.onClick.bind(this)}>
       <PlayerControl onPlay={this.props.onPlay} onPause={this.props.onPause} value={this.props.track}
-                     playing={this.props.playing}/>
+                     selected={this.props.selected} playing={this.props.playing}/>
 
       {this.props.track.number + '. '}
       {this.props.track.name}

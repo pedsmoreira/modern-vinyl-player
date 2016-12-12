@@ -12,6 +12,11 @@ export default class Album extends Model {
   static storeProperties = {setIndex: true}
 
   /**
+   * @type {number}
+   */
+  id
+
+  /**
    * @type {string}
    */
   name
@@ -50,5 +55,14 @@ export default class Album extends Model {
    */
   artist() {
     return this.belongsTo(Artist)
+  }
+
+  /**
+   * Get album list by artist promise
+   * @param value
+   * @return {*|Promise}
+   */
+  static byArtist(value) {
+    return this.resolveStore().by(Artist, value)
   }
 }

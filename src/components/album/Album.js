@@ -18,8 +18,9 @@ export default class Album extends React.Component {
         <AlbumCover album={this.props.album}/>
         <div className="album_name">{this.props.album.name}</div>
       </Link>
+
       <PlayerControl value={this.props.album} onPlay={this.props.onPlay} onPause={this.props.onPause}
-                     playing={this.props.playing} loading={this.props.loading}/>
+                     selected={this.props.selected} playing={this.props.playing} loading={this.props.loading}/>
     </div>
   }
 }

@@ -10,6 +10,11 @@ export default class Track extends Model {
   static storeProperties = {setIndex: true}
 
   /**
+   * @type {number}
+   */
+  id
+
+  /**
    * @type {string}
    */
   src

@@ -21,10 +21,12 @@ export default class Player extends React.Component {
           <PlayerDescription album={this.props.album}
                              track={this.props.track}/>
 
-          <PlayerControl playing={this.props.playing}
-                         value={this.props.track}
-                         onPlay={this.props.onPlay}
-                         onPause={this.props.onPause}/>
+          {!this.props.track ? null :
+            <PlayerControl playing={this.props.playing}
+                           loading={this.props.loading}
+                           onPlay={this.props.onPlay}
+                           onPause={this.props.onPause}/>
+          }
 
           <PlayerAudio track={this.props.track}
                        autoplay={this.props.autoplay}

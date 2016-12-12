@@ -68,6 +68,19 @@ export class PlayerStore {
     return this.playlist
   }
 
+  hasPrevious() {
+    return this.playlist.indexOf(this.track) > 0
+  }
+
+  previous() {
+    let index = this.playlist.indexOf(this.track)
+    this.track = this.playlist[index - 1]
+  }
+
+  hasNext() {
+    return this.playlist.indexOf(this.track) < (this.playlist.length - 1)
+  }
+
   next() {
     let index = this.playlist.indexOf(this.track)
     this.track = this.playlist.length < (index + 1) ? this.playlist[index + 1] : null
@@ -82,10 +95,7 @@ export class PlayerStore {
     this.playing = true
   }
 
-  pause(value = null) {
-    if (value) {
-      this.set(value)
-    }
+  pause() {
     this.playing = false
   }
 }

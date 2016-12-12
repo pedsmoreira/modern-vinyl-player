@@ -6,9 +6,9 @@ import {Grid, Row, Col} from "react-bootstrap";
 
 import playerStore from "../../stores/playerStore";
 
-import AlbumModel from "../../models/Album";
-import TrackModel from '../../models/Track'
-import ArtistModel from '../../models/Artist'
+import Album from "../../models/Album";
+import Track from '../../models/Track'
+import Artist from '../../models/Artist'
 
 import Background from "../../components/Background";
 import AlbumTitle from "../../components/album/AlbumTitle";
@@ -28,9 +28,9 @@ export default class AlbumView extends React.Component {
   componentWillMount() {
     let album = this.props.params.album
 
-    AlbumModel.find(album).then(album => this.album = album)
-    TrackModel.byAlbum(album).then(tracks => this.tracks = tracks)
-    ArtistModel.byAlbum(album).then(artist => this.artist = artist)
+    Album.find(album).then(album => this.album = album)
+    Track.byAlbum(album).then(tracks => this.tracks = tracks)
+    Artist.byAlbum(album).then(artist => this.artist = artist)
   }
 
   render() {
