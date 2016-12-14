@@ -11,7 +11,7 @@ export default class AlbumName extends React.Component {
     if (!this.props.album) return <Loader text="Album"/>
 
     return (
-      <Link to={`/albums/${this.props.album.id}`} className="album-name">
+      <Link to={`/albums/${this.props.album.slug}`} className="album-name">
         {this.props.album.name}
       </Link>
     )

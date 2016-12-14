@@ -10,7 +10,7 @@ export default class ArtistName extends React.Component {
   render() {
     if (this.props.artist) {
       return (
-        <Link className="artist-name" to={`/artists/${this.props.artist.id}`}>
+        <Link className="artist-name" to={`/artists/${this.props.artist.slug}`}>
           {this.props.artist.name}
         </Link>
       )

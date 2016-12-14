@@ -24,6 +24,11 @@ export default class Album extends Model {
   /**
    * @type {string}
    */
+  slug
+
+  /**
+   * @type {string}
+   */
   cover
 
   /**

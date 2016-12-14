@@ -1,2 +1,29 @@
 .artist {
+  /* Mobile */
+  @media screen and (max-width: 997px) {
+    height: 5.5rem;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 2.5rem;
+    vertical-align: top;
+    display: flex;
+    align-items: center;
+
+    .artist-cover {
+      display: inline-block;
+      width: auto;
+      height: 100%;
+      margin-right: 2rem;
+    }
+  }
+
+  /* Desktop */
+  @media screen and (min-width: 998px) {
+    display: inline-block;
+    max-width: 20rem;
+    text-align: center;
+
+    &_name {
+      margin-top: .5rem;
+    }
+  }
 }

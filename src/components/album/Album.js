@@ -14,7 +14,7 @@ export default class Album extends React.Component {
     if (!this.props.album) return <Loader text="Album"/>
 
     return <div className="album animated fadeIn">
-      <Link to={'/albums/' + this.props.album.id} className="album_link">
+      <Link to={'/albums/' + this.props.album.slug} className="album_link">
         <AlbumCover album={this.props.album}/>
         <div className="album_name">{this.props.album.name}</div>
       </Link>

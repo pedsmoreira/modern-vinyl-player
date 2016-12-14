@@ -8,7 +8,7 @@ export default class PlayerDescriptionAlbum extends React.Component {
     if (this.props.album) {
       return (
         <div className="player-description-album">
-          <Link to={'/album/' + this.props.album.id}>
+          <Link to={'/albums/' + this.props.album.slug}>
             {this.props.album.name}
             <small className="player-description-album_year">({this.props.album.year})</small>
           </Link>

@@ -15,6 +15,8 @@ import ArtistName from "../../components/artist/ArtistName";
 import ArtistDescription from "../../components/artist/ArtistDescription";
 import AlbumList from "../../components/album/AlbumList";
 
+import "./ArtistView.scss";
+
 @observer
 export default class ArtistView extends React.Component {
   @observable
@@ -37,12 +39,15 @@ export default class ArtistView extends React.Component {
 
         <Grid>
           <Row>
-            <Col md={3}>
-              <ArtistCover artist={this.artist}/>
-              <ArtistDescription artist={this.artist}/>
+            <Col md={4}>
+              <div className="artist-view_description">
+                <ArtistCover artist={this.artist}/>
+                <ArtistName artist={this.artist}/>
+                <ArtistDescription artist={this.artist}/>
+              </div>
             </Col>
 
-            <Col md={9}>
+            <Col md={8}>
               <AlbumList albums={this.albums}
                          track={playerStore.track}
                          playing={playerStore.playing}

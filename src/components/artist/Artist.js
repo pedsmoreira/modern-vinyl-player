@@ -12,9 +12,9 @@ export default class Artist extends React.Component {
     if (!this.props.artist) return <Loader text="Artist"/>
 
     return (
-      <Link className="artist" to={`/artists/${this.props.artist.id}`}>
+      <Link className="artist" to={`/artists/${this.props.artist.slug}`}>
         <ArtistCover artist={this.props.artist}/>
-        {this.props.artist.name}
+        <div className="artist_name">{this.props.artist.name}</div>
       </Link>
     )
   }

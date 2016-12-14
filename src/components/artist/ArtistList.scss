@@ -1,3 +1,21 @@
 .artist-list {
+  /* Mobile */
+  @media screen and (max-width: 997px) {
+    .artist {
+      &:not(:first-child) {
+        margin-top: .65rem;
+      }
+    }
+  }
 
+  /* Desktop */
+  @media screen and (min-width: 998px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .artist {
+      margin: 1rem;
+    }
+  }
 }

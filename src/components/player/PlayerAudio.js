@@ -18,6 +18,8 @@ export default class PlayerAudio extends React.Component {
 
   options() {
     return {
+      width: '0',
+      height: '0',
       playerVars: {
         autoplay: this.props.playing ? 1 : 0
       }
@@ -37,7 +39,7 @@ export default class PlayerAudio extends React.Component {
     // The player starts with a 1s blank video to fix an issue on Android, which causes the first Youtube iframe
     // to require the user to click again to play the video
     return (
-      <div className="hidden">
+      <div className="player-audio">
         <Youtube videoId={this.props.track ? this.props.track.src : 'GbWFlg_bc9s'}
                  onStateChange={this.onStateChange.bind(this)}
                  onPlay={() => this.props.onPlay()}

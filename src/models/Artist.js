@@ -17,12 +17,17 @@ export default class Artist extends Model {
   /**
    * @type {string}
    */
-  cover
+  name
 
   /**
    * @type {string}
    */
-  name
+  slug
+
+  /**
+   * @type {string}
+   */
+  cover
 
   /**
    * Get albums promise

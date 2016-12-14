@@ -1,3 +1,25 @@
 .artist-view {
+  &_description {
+    margin-bottom: 2rem;
+    background: rgba(0, 0, 0, .25);
+    padding: 1.5rem;
+    border-radius: .1rem;
+  }
 
+  .artist-name {
+    margin-top: 1rem;
+    font-size: 2.5rem;
+    text-align: center;
+    display: block;
+  }
+
+  .artist-cover {
+    margin: 0 auto;
+    widtH: 22rem;
+  }
+
+  .artist-description {
+    margin-top: 1rem;
+    text-align: justify;
+  }
 }
