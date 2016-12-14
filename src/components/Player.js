@@ -15,26 +15,28 @@ export default class Player extends React.Component {
   render() {
     return (
       <div className="player">
-        <Grid className="player_grid">
-          <PlayerDisc album={this.props.album} playing={this.props.playing && !this.props.loading}/>
+        <div className="player_content">
+          <Grid className="player_grid">
+            <PlayerDisc album={this.props.album} playing={this.props.playing && !this.props.loading}/>
 
-          <PlayerDescription album={this.props.album}
-                             track={this.props.track}/>
+            <PlayerDescription album={this.props.album}
+                               track={this.props.track}/>
 
-          {!this.props.track ? null :
-            <PlayerControl playing={this.props.playing}
-                           loading={this.props.loading}
-                           onPlay={this.props.onPlay}
-                           onPause={this.props.onPause}/>
-          }
+            {!this.props.track ? null :
+              <PlayerControl playing={this.props.playing}
+                             loading={this.props.loading}
+                             onPlay={this.props.onPlay}
+                             onPause={this.props.onPause}/>
+            }
+          </Grid>
+        </div>
 
-          <PlayerAudio track={this.props.track}
-                       autoplay={this.props.autoplay}
-                       playing={this.props.playing}
-                       onPlay={this.props.onPlay}
-                       onPause={this.props.onPause}
-                       onEnd={this.props.onEnd}/>
-        </Grid>
+        <PlayerAudio track={this.props.track}
+                     autoplay={this.props.autoplay}
+                     playing={this.props.playing}
+                     onPlay={this.props.onPlay}
+                     onPause={this.props.onPause}
+                     onEnd={this.props.onEnd}/>
       </div>
     )
   }

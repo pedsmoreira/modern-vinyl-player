@@ -15,18 +15,4 @@
     width: 30%;
     height: 30%;
   }
-
-  &-playing {
-    @-webkit-keyframes rotating {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    animation: rotating 8s linear infinite;
-  }
 }

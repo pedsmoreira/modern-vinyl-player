@@ -1,6 +1,7 @@
-import React from 'react'
+import React from "react";
+import Youtube from "react-youtube";
 
-import Youtube from 'react-youtube'
+import "./PlayerAudio.scss";
 
 export default class PlayerAudio extends React.Component {
   target
