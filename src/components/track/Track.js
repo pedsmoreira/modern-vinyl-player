@@ -20,7 +20,6 @@ export default class Track extends React.Component {
       classNames.push('track--selected')
     }
 
-    console.log(this.props.hasAdd);
     return (
       <div className={classNames.join(' ')}>
         <div className="track_content" onClick={this.onClick.bind(this)}>

@@ -24,6 +24,15 @@ export default class PlayerAudio extends React.Component {
     }
   }
 
+  onReady(event) {
+    this.target = event.target
+
+    if (this.target) {
+      let method = `${(this.props.playing || !this.props.track) ? 'play' : 'pause'}Video`
+      this.target[method]()
+    }
+  }
+
   onStateChange(event) {
     if (this.target !== event.target) {
       this.target = event.target
@@ -34,11 +43,6 @@ export default class PlayerAudio extends React.Component {
     if (event.data === Youtube.PlayerState.PLAYING) {
       this.props.onLoad()
     }
-
-    if(this.target) {
-      let method = `${(this.props.playing || !this.props.track) ? 'play' : 'pause'}Video`
-      this.target[method]()
-    }
   }
 
   render() {
@@ -47,7 +51,7 @@ export default class PlayerAudio extends React.Component {
     return (
       <div className="player-audio">
         <Youtube videoId={this.props.track ? this.props.track.src : 'fLexgOxsZu0?t=7'}
-                 onReady={this.onStateChange.bind(this)}
+                 onReady={this.onReady.bind(this)}
                  onStateChange={this.onStateChange.bind(this)}
                  onPlay={() => this.props.onPlay()}
                  onPause={() => this.props.onPause()}

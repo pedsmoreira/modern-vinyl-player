@@ -91,24 +91,27 @@ export class PlayerStore {
 
   next() {
     let index = this.playlist.indexOf(this.track)
-    this.track = this.playlist.length > (index + 1) ? this.playlist[index + 1] : null
 
-    if (!this.track) this.playing = false
+    if (this.playlist.length > (index + 1)) {
+      this.track = this.playlist[index + 1]
+    } else {
+      this.playing = false
+      this.loading = false
+    }
   }
 
   play(value = null, playlist = null) {
+    this.playing = true
+
     if (playlist) {
       this.playlist = playlist
     }
 
-    if (value) {
+    if (value && value != this.lastValue) {
       this.set(value)
-    } else if (this.playing) {
-      return
+      this.loading = true
+      this.lastValue = value
     }
-
-    this.playing = true
-    this.loading = true
   }
 
   pause() {
