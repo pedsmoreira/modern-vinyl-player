@@ -1,5 +1,11 @@
 .player-description {
   &_select {
     margin-top: 1rem;
+    text-align: center;
+    z-index: 1;
+
+    .fa {
+      margin-right: 1rem;
+    }
   }
 }

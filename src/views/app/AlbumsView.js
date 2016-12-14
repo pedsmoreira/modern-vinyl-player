@@ -23,18 +23,20 @@ export default class AlbumsView extends React.Component {
 
   render() {
     return (
-      <div className="albums-view animated fadeIn">
+      <div>
         <Background
           image="http://3.bp.blogspot.com/-azDlYQ6E3eg/UiAZN9koBSI/AAAAAAAAJ_s/wUaI7wtcPvg/s1600/Background-Vinyl6.jpg"/>
 
-        <Grid>
-          <AlbumList albums={this.albums}
-                     track={playerStore.track}
-                     playing={playerStore.playing}
-                     loading={playerStore.loading}
-                     onPlay={playerStore.play.bind(playerStore)}
-                     onPause={playerStore.pause.bind(playerStore)}/>
-        </Grid>
+        <div className="albums-view animated fadeIn">
+          <Grid>
+            <AlbumList albums={this.albums}
+                       track={playerStore.track}
+                       playing={playerStore.playing}
+                       loading={playerStore.loading}
+                       onPlay={playerStore.play.bind(playerStore)}
+                       onPause={playerStore.pause.bind(playerStore)}/>
+          </Grid>
+        </div>
       </div>
     )
   }

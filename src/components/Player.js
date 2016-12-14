@@ -3,7 +3,6 @@ import {observer} from "mobx-react";
 
 import {Grid} from "react-bootstrap";
 
-import PlayerDisc from "./player/PlayerDisc";
 import PlayerDescription from "./player/PlayerDescription";
 import PlayerControl from "./player/PlayerControl";
 import PlayerAudio from "./player/PlayerAudio";
@@ -17,8 +16,6 @@ export default class Player extends React.Component {
       <div className="player">
         <div className="player_content">
           <Grid className="player_grid">
-            <PlayerDisc album={this.props.album} playing={this.props.playing && !this.props.loading}/>
-
             <PlayerDescription album={this.props.album}
                                track={this.props.track}/>
 

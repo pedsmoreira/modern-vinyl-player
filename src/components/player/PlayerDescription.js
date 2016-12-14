@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import {Icon} from "react-fa";
+
 import Loader from "../Loader";
 import PlayerDescriptionTrack from "./descriptions/PlayerDescriptionTrack";
 import PlayerDescriptionAlbum from "./descriptions/PlayerDescriptionAlbum";
@@ -17,13 +19,15 @@ export default class PlayerDescription extends React.Component {
 
   content() {
     if (!this.props.track && !this.props.album) {
-      return <div className="player-description_select">Select a track or album</div>
+      return <div className="player-description_select">
+        <Icon name="music"/> Select a track or album
+      </div>
     } else if (!this.props.track || !this.props.album) {
       return <Loader text="Track"/>
     }
 
     return (
-      <div>
+      <div className="player-description_playing">
         <PlayerDescriptionTrack track={this.props.track}/>
         <PlayerDescriptionAlbum album={this.props.album}/>
       </div>
