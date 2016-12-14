@@ -9,6 +9,10 @@
   width: 100%;
   z-index: 1;
 
+  &_grid {
+    position: relative;
+  }
+
   .player-description {
     margin-right: 4rem;
     overflow: hidden;
@@ -18,6 +22,7 @@
   .player-control {
     position: absolute;
     right: 1rem;
+    margin-top: -1rem;
     top: 50%;
     transform: translateY(-50%);
   }

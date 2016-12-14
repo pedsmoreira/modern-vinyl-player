@@ -15,7 +15,7 @@ export default class Player extends React.Component {
   render() {
     return (
       <div className="player">
-        <Grid style={{position: 'relative'}}>
+        <Grid className="player_grid">
           <PlayerDisc album={this.props.album} playing={this.props.playing && !this.props.loading}/>
 
           <PlayerDescription album={this.props.album}
