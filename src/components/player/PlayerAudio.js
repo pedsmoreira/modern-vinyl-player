@@ -50,7 +50,7 @@ export default class PlayerAudio extends React.Component {
     // to require the user to click again to play the video
     return (
       <div className="player-audio">
-        <Youtube videoId={this.props.track ? this.props.track.src : 'fLexgOxsZu0?t=7'}
+        <Youtube videoId={this.props.track ? this.props.track.src : 'GlCmAC4MHek'}
                  onReady={this.onReady.bind(this)}
                  onStateChange={this.onStateChange.bind(this)}
                  onPlay={() => this.props.onPlay()}
