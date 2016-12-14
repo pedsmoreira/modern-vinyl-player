@@ -38,8 +38,6 @@ export default class Player extends React.Component {
 
         <PlayerAudio track={this.props.track}
                      playing={this.props.playing}
-                     onPlay={this.props.onPlay}
-                     onPause={this.props.onPause}
                      onEnd={this.props.onNext}
                      onLoad={this.props.onLoad}/>
       </div>
