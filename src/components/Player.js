@@ -5,6 +5,8 @@ import {Grid} from "react-bootstrap";
 
 import PlayerDescription from "./player/PlayerDescription";
 import PlayerControl from "./player/PlayerControl";
+import PlayerPrevious from "./player/PlayerPrevious";
+import PlayerNext from "./player/PlayerNext";
 import PlayerAudio from "./player/PlayerAudio";
 
 import "./Player.scss";
@@ -19,21 +21,27 @@ export default class Player extends React.Component {
             <PlayerDescription album={this.props.album}
                                track={this.props.track}/>
 
-            {!this.props.track ? null :
-              <PlayerControl playing={this.props.playing}
-                             loading={this.props.loading}
-                             onPlay={this.props.onPlay}
-                             onPause={this.props.onPause}/>
-            }
+            <div className="player_controls">
+              <PlayerPrevious onPrevious={this.props.onPrevious} hasPrevious={this.props.hasPrevious}/>
+
+              {!this.props.track ? null :
+                <PlayerControl playing={this.props.playing}
+                               loading={this.props.loading}
+                               onPlay={this.props.onPlay}
+                               onPause={this.props.onPause}/>
+              }
+
+              <PlayerNext onNext={this.props.onNext} hasNext={this.props.hasNext}/>
+            </div>
           </Grid>
         </div>
 
         <PlayerAudio track={this.props.track}
-                     autoplay={this.props.autoplay}
                      playing={this.props.playing}
                      onPlay={this.props.onPlay}
                      onPause={this.props.onPause}
-                     onEnd={this.props.onEnd}/>
+                     onEnd={this.props.onNext}
+                     onLoad={this.props.onLoad}/>
       </div>
     )
   }

@@ -1,12 +1,15 @@
 @import "../../constants/colors";
 
 .track {
-  padding: .75rem 1rem;
   cursor: pointer;
   position: relative;
 
   &--selected {
     color: $color-play;
+  }
+
+  &_content {
+    padding: .75rem 1rem;
   }
 
   .player-control {
@@ -15,18 +18,20 @@
     * {
       padding: 0;
     }
+
+    .loader {
+      padding: 0;
+      margin-top: .1rem;
+      margin-right: -.6rem;
+    }
   }
 
-  &_add-icon {
+  .player-add {
     position: absolute;
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
     color: #666;
-
-    &:hover {
-      color: #fff;
-    }
   }
 
   &:hover {

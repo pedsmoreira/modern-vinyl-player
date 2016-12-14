@@ -21,10 +21,14 @@
     white-space: nowrap;
   }
 
-  .player-control {
+  .player_controls {
     position: absolute;
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
+
+    > * {
+      display: inline-block;
+    }
   }
 }

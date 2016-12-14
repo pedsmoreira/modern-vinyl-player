@@ -1,4 +1,4 @@
-@import '~animate.css';
+@import "../../constants/colors";
 
 .album {
   vertical-align: top;
@@ -6,6 +6,12 @@
 
   &_name {
     color: white;
+  }
+
+  &--selected {
+    .album_name {
+      color: $color-play !important;
+    }
   }
 
   a {
@@ -113,6 +119,10 @@
 
       * {
         font-size: 2rem;
+      }
+
+      .loader {
+        margin-top: -.25rem;
       }
     }
   }

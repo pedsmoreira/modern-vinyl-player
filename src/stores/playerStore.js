@@ -28,9 +28,17 @@ export class PlayerStore {
   loading = false
 
   add(track) {
-    if (this.playlist.indexOf(track) === -1) {
+    if (!this.inPlaylist(track)) {
       this.playlist.push(track)
     }
+
+    if (!this.track) {
+      this.track = track
+    }
+  }
+
+  inPlaylist(track) {
+    return !!this.playlist.find((it) => it.id === track.id)
   }
 
   set(value) {
@@ -51,10 +59,10 @@ export class PlayerStore {
   }
 
   setAlbum(album) {
-    this.loading = true
+    this.track = null
+
     album.tracks().then((tracks) => {
       this.setArray(tracks)
-      this.loading = false
     })
   }
 
@@ -83,20 +91,32 @@ export class PlayerStore {
 
   next() {
     let index = this.playlist.indexOf(this.track)
-    this.track = this.playlist.length < (index + 1) ? this.playlist[index + 1] : null
+    this.track = this.playlist.length > (index + 1) ? this.playlist[index + 1] : null
 
     if (!this.track) this.playing = false
   }
 
-  play(value = null) {
+  play(value = null, playlist = null) {
+    if (playlist) {
+      this.playlist = playlist
+    }
+
     if (value) {
       this.set(value)
+    } else if (this.playing) {
+      return
     }
+
     this.playing = true
+    this.loading = true
   }
 
   pause() {
     this.playing = false
+  }
+
+  loaded() {
+    this.loading = false
   }
 }
 

@@ -7,8 +7,10 @@ import "./PlayerNext.scss";
 
 export default class PlayerNext extends React.Component {
   render() {
+    if(!this.props.hasNext) return null
+
     return (
-      <Button className="player-next" onClick={this.props.onNext} {this.props.disabled ? 'disabled' : null}>
+      <Button bsStyle="link" className="player-next" onClick={() => this.props.onNext()}>
         <Icon name="step-forward"/>
       </Button>
     )

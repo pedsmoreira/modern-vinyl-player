@@ -7,10 +7,6 @@ export default class PlayerAudio extends React.Component {
   target
 
   componentWillReceiveProps(props) {
-    if (!props.track) {
-      this.target = null
-    }
-
     if (this.target) {
       let method = `${props.playing ? 'play' : 'pause'}Video`
       this.target[method]()
@@ -22,17 +18,26 @@ export default class PlayerAudio extends React.Component {
       width: '0',
       height: '0',
       playerVars: {
-        autoplay: this.props.playing ? 1 : 0
+        autoplay: (this.props.playing || !this.props.track) ? 1 : 0
       }
+
     }
   }
 
   onStateChange(event) {
-    console.log(this.event);
-    if(this.target !== event.target) {
+    if (this.target !== event.target) {
       this.target = event.target
       this.target.setVolume(100)
       this.target.setPlaybackQuality('small')
+    }
+
+    if (event.data === Youtube.PlayerState.PLAYING) {
+      this.props.onLoad()
+    }
+
+    if(this.target) {
+      let method = `${(this.props.playing || !this.props.track) ? 'play' : 'pause'}Video`
+      this.target[method]()
     }
   }
 
@@ -41,7 +46,8 @@ export default class PlayerAudio extends React.Component {
     // to require the user to click again to play the video
     return (
       <div className="player-audio">
-        <Youtube videoId={this.props.track ? this.props.track.src : 'GbWFlg_bc9s'}
+        <Youtube videoId={this.props.track ? this.props.track.src : 'fLexgOxsZu0?t=7'}
+                 onReady={this.onStateChange.bind(this)}
                  onStateChange={this.onStateChange.bind(this)}
                  onPlay={() => this.props.onPlay()}
                  onPause={() => this.props.onPause()}

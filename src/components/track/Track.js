@@ -1,8 +1,7 @@
 import React from "react";
 
-import {Icon} from "react-fa";
-
 import PlayerControl from "../player/PlayerControl";
+import PlayerAdd from "../player/PlayerAdd";
 
 import "./Track.scss";
 
@@ -17,18 +16,25 @@ export default class Track extends React.Component {
 
   render() {
     let classNames = ['track'];
-    if(this.props.selected) {
+    if (this.props.selected) {
       classNames.push('track--selected')
     }
 
-    return <div className={classNames.join(' ')} onClick={this.onClick.bind(this)}>
-      <PlayerControl onPlay={this.props.onPlay} onPause={this.props.onPause} value={this.props.track}
-                     selected={this.props.selected} playing={this.props.playing}/>
+    console.log(this.props.hasAdd);
+    return (
+      <div className={classNames.join(' ')}>
+        <div className="track_content" onClick={this.onClick.bind(this)}>
+          <PlayerControl onPlay={this.props.onPlay} onPause={this.props.onPause} value={this.props.track}
+                         selected={this.props.selected} playing={this.props.playing} loading={this.props.loading}/>
 
-      {this.props.track.number + '. '}
-      {this.props.track.name}
+          {this.props.track.number + '. '}
+          {this.props.track.name}
+        </div>
 
-      <Icon className="track_add-icon" name="plus"/>
-    </div>
+        {!this.props.hasAdd ? null :
+          <PlayerAdd track={this.props.track} onAdd={this.props.onAdd}/>
+        }
+      </div>
+    )
   }
 }

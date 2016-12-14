@@ -37,10 +37,14 @@ export default class AppView extends React.Component {
           <Player track={playerStore.track}
                   album={this.album}
                   playing={playerStore.playing}
-                  autoplay={playerStore.autoplay}
+                  loading={playerStore.loading}
                   onPlay={playerStore.play.bind(playerStore)}
                   onPause={playerStore.pause.bind(playerStore)}
-                  onEnd={playerStore.next.bind(playerStore)}/>
+                  onNext={playerStore.next.bind(playerStore)}
+                  hasNext={playerStore.hasNext()}
+                  onPrevious={playerStore.previous.bind(playerStore)}
+                  hasPrevious={playerStore.hasPrevious()}
+                  onLoad={playerStore.loaded.bind(playerStore)}/>
         </div>
 
         <Footer/>
