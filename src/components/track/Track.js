@@ -1,7 +1,6 @@
 import React from "react";
 
 import PlayerControl from "../player/PlayerControl";
-import PlayerAdd from "../player/PlayerAdd";
 
 import "./Track.scss";
 
@@ -29,10 +28,6 @@ export default class Track extends React.Component {
           {this.props.track.number + '. '}
           {this.props.track.name}
         </div>
-
-        {!this.props.hasAdd ? null :
-          <PlayerAdd track={this.props.track} onAdd={this.props.onAdd}/>
-        }
       </div>
     )
   }

@@ -1,0 +1,77 @@
+@import "../../constants/colors";
+
+.player-view {
+  &_player, &_artist, &_album {
+    background: rgba(0, 0, 0, .25);
+    padding: 1.5rem;
+    border-radius: .1rem;
+  }
+
+  &_player {
+    text-align: center;
+
+    .album-name, .artist-name {
+      display: block;
+      margin-top: .5rem;
+      font-size: 1.75rem;
+    }
+  }
+
+  &_artist {
+    .artist-cover {
+      float: left;
+      width: 12rem;
+      margin-right: 2rem;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+    }
+
+    .artist-name {
+      font-size: 3rem;
+    }
+
+    .artist-description {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  &_track {
+    font-size: 2.5rem;
+  }
+
+  &_album {
+    margin-top: 1rem;
+
+    .album-name {
+      font-size: 3rem;
+    }
+
+    .album-description {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  &_controls {
+    margin-top: 1rem;
+
+    > * {
+      display: inline-block;
+    }
+
+    .fa {
+      font-size: 2rem;
+    }
+  }
+
+  .album-cover {
+    margin: 0 auto;
+    width: 16em;
+    padding-bottom: 1rem;
+  }
+
+  &_track {
+    color: $color-play;
+  }
+}

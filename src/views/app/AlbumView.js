@@ -49,10 +49,8 @@ export default class AlbumView extends React.Component {
                            track={playerStore.track}
                            playing={playerStore.playing}
                            loading={playerStore.loading}
-                           inPlaylist={playerStore.inPlaylist.bind(playerStore)}
                            onPlay={playerStore.play.bind(playerStore)}
-                           onPause={playerStore.pause.bind(playerStore)}
-                           onAdd={playerStore.add.bind(playerStore)}/>
+                           onPause={playerStore.pause.bind(playerStore)}/>
               </div>
             </Col>
 

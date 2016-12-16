@@ -27,20 +27,6 @@ export class PlayerStore {
   @observable
   loading = false
 
-  add(track) {
-    if (!this.inPlaylist(track)) {
-      this.playlist.push(track)
-    }
-
-    if (!this.track) {
-      this.track = track
-    }
-  }
-
-  inPlaylist(track) {
-    return !!this.playlist.find((it) => it.id === track.id)
-  }
-
   set(value) {
     if (value instanceof Album) {
       return this.setAlbum(value)
@@ -107,7 +93,7 @@ export class PlayerStore {
       this.playlist = playlist
     }
 
-    if (value && value != this.lastValue) {
+    if (value && value !== this.lastValue) {
       this.set(value)
       this.loading = true
       this.lastValue = value

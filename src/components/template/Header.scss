@@ -13,10 +13,15 @@
     display: inline-block;
   }
 
-  .search-button {
+  &_github {
+    font-size: 1.75rem;
     position: absolute;
     top: 50%;
     right: 1rem;
     transform: translateY(-50%);
+
+    * {
+      margin-right: .5rem;
+    }
   }
 }

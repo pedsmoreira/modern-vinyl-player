@@ -2,8 +2,7 @@ import * as React from "react";
 
 import {Link} from "react-router";
 import {Grid} from "react-bootstrap";
-
-import SearchButton from "./SearchButton";
+import {Icon} from "react-fa";
 
 import logo from "../../images/logo.png";
 
@@ -18,7 +17,10 @@ export default class Header extends React.Component {
             <img src={logo} style={{width: 128}} alt="Logo"/>
           </Link>
 
-          <SearchButton/>
+          <Link className="header_github" to="https://github.com/pedsmoreira/modern-vinyl-player/"
+                target="_blank">
+            <Icon name="github"/> Github
+          </Link>
         </Grid>
       </header>
     )

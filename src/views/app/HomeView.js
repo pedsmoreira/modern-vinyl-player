@@ -17,10 +17,6 @@ export default class HomeView extends React.Component {
 
           <section className="home-view_title">
             <h1>A music player<br/>for modern browsers</h1>
-            <Link className="home-view_github" to="https://github.com/pedsmoreira/modern-vinyl-player/"
-                  target="_blank">
-              <Icon name="github"/> Github
-            </Link>
           </section>
 
           <div className="text-center">

@@ -20,9 +20,7 @@ export default class AppView extends React.Component {
 
   componentWillUpdate() {
     if (playerStore.track) {
-      playerStore.track.album().then(album => {
-        this.album = album
-      })
+      playerStore.track.album().then(album => this.album = album)
     }
   }
 

@@ -14,6 +14,7 @@ import AlbumsView from "./views/app/AlbumsView";
 import AlbumView from "./views/app/AlbumView";
 import ArtistsView from "./views/app/ArtistsView";
 import ArtistView from "./views/app/ArtistView";
+import PlayerView from "./views/app/PlayerView";
 
 /*
  * Set api path
@@ -28,6 +29,7 @@ render(
       <Route path="albums/:album" component={AlbumView}/>
       <Route path="artists" component={ArtistsView}/>
       <Route path="artists/:artist" component={ArtistView}/>
+      <Route path="player" component={PlayerView}/>
     </Route>
   </Router>,
   document.getElementById('root')
