@@ -19,10 +19,6 @@ export default class Footer extends React.Component {
             <Link to="/artists">
               <Icon name="microphone"/> Artists
             </Link>
-
-            <Link to="/contact">
-              <Icon name="at"/> Contact
-            </Link>
           </div>
         </Grid>
       </footer>
