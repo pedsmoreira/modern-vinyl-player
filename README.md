@@ -18,7 +18,7 @@ This project can be added to the home screen of your mobile phone.
 - Run development server `npm start` or `yarn start`
 
 ### Build
-- `npm build` or `yarn build`
+- `npm run build` or `yarn run build`
 
 ### Test
 - `npm test` or `yarn test`
