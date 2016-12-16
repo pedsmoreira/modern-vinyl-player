@@ -69,6 +69,7 @@ export class PlayerStore {
   previous() {
     let index = this.playlist.indexOf(this.track)
     this.track = this.playlist[index - 1]
+    this.playing = true
   }
 
   hasNext() {
@@ -80,6 +81,7 @@ export class PlayerStore {
 
     if (this.playlist.length > (index + 1)) {
       this.track = this.playlist[index + 1]
+      this.playing = true
     } else {
       this.playing = false
       this.loading = false

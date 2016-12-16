@@ -52,6 +52,8 @@ export default class PlayerAudio extends React.Component {
       <div className="player-audio">
         <Youtube videoId={this.props.track ? this.props.track.src : 'GlCmAC4MHek'}
                  onReady={this.onReady.bind(this)}
+                 onPlay={() => this.props.onPlay()}
+                 onPause={() => this.props.onPause()}
                  onStateChange={this.onStateChange.bind(this)}
                  onEnd={() => this.props.onEnd()}
                  opts={this.options()}/>
