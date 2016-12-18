@@ -90,21 +90,6 @@ export default class Model {
   }
 
   /**
-   * Persist model
-   */
-  save() {
-    let method = this[this.keyColumn] ? 'update' : 'create'
-    this.store()[method](Object.assign(this.persistentMap()))
-  }
-
-  /**
-   * Destroy model
-   */
-  destroy() {
-    this.store().destroy(this.key())
-  }
-
-  /**
    * Duplicate model
    * @return {Model}
    */
@@ -113,6 +98,16 @@ export default class Model {
     delete map[this.constructor.keyColumn]
 
     return this.constructor.make(map)
+  }
+
+  /**
+   * Create one or an array of model instances
+   * @param {Object} values
+   * @return {Model|Model[]}
+   */
+  static make(values) {
+    if (Array.isArray(values)) return values.map(it => this.make(it))
+    return new this().set(values)
   }
 
   /**
@@ -130,6 +125,66 @@ export default class Model {
    */
   denormalized() {
     return {}
+  }
+
+  /**
+   * Reload model instance
+   * @return {Promise}
+   */
+  reload() {
+    return this.constructor.find(this.key())
+  }
+
+  /**
+   * Find model object by id
+   * @param {*} key
+   * @param {Object} options
+   * @return {Promise}
+   */
+  static find(key, options = undefined) {
+    return this.resolveStore().get(key, options)
+  }
+
+  /**
+   * Persist model
+   * @param options
+   * @return {Promise}
+   */
+  save(options = undefined) {
+    return this.constructor.save(this.persistentMap(), options)
+  }
+
+  /**
+   * Create and persist one or more instances
+   * @param {Object|Object[]} values
+   * @param {Object} options
+   * @return {Promise|Promise[]}
+   */
+  static save(values, options = undefined) {
+    if (Array.isArray(values)) return values.map(it => this.save(it))
+
+    let method = values[this.keyColumn] ? 'update' : 'create'
+    return this.resolveStore()[method](values, options)
+  }
+
+  /**
+   * Destroy model
+   * @param {Object} options
+   * @return {Promise}
+   */
+  destroy(options = undefined) {
+    return this.constructor.destroy(this.key(), options)
+  }
+
+  /**
+   * Destroy
+   * @param {*|Array} key
+   * @param {Object} options
+   * @return {Promise|Promise[]}
+   */
+  static destroy(key, options = undefined) {
+    if (Array.isArray(key)) return key.map(it => this.destroy(it))
+    return this.resolveStore().destroy(key, options)
   }
 
   /**
@@ -215,22 +270,25 @@ export default class Model {
     return model.resolveStore().by(instance, null, options)
   }
 
-  saveToLocalStorage() {
-
-  }
-
-  static fromLocalStorage(id) {
-
-  }
-
   /**
-   * Find model object by id
-   * @param {*} key
+   * Call action for model
+   * @param {string} action
    * @param {Object} options
    * @return {Promise}
    */
-  static find(key, options = undefined) {
-    return this.resolveStore().get(key, options)
+  act(action, options = undefined) {
+    return this.constructor.act(this.key(), action, options)
+  }
+
+  /**
+   * Call action
+   * @param {*} key
+   * @param {string} action
+   * @param {Object} options
+   * @return {*}
+   */
+  static act(key, action, options = undefined) {
+    return this.resolveStore().act(key, action, options)
   }
 
   /**
@@ -253,23 +311,14 @@ export default class Model {
   }
 
   /**
-   * Create one or an array of model instances
-   * @param {Object} values
-   * @return {Model|Model[]}
+   * Make http request to fetch instances by foreign key
+   * @param model
+   * @param value
+   * @param options
+   * @return {Promise}
    */
-  static make(values) {
-    if (Array.isArray(values)) return values.map(it => this.make(it))
-    return new this().set(values)
-  }
-
-  /**
-   * Create and persist one or an array of model instances
-   * @param {Object} values
-   * @return {Promise|Promise[]}
-   */
-  static create(values) {
-    if (Array.isArray(values)) return values.map(it => this.create(it))
-    return new this().set(values).instance.save()
+  static by(model, value = undefined, options = undefined) {
+    return this.resolveStore().by(model, value, options)
   }
 
   /**
@@ -307,5 +356,42 @@ export default class Model {
     return this.singularName().replace(/\.?([A-Z])/g, function (x, y) {
       return "_" + y.toLowerCase()
     }).replace(/^_/, "");
+  }
+
+  /**
+   * Save instance to local storage
+   */
+  saveToLocalStorage() {
+    this.constructor.saveToLocalStorage(this.persistentMap())
+  }
+
+  /**
+   * Get key to local storage object
+   * @param {*} value
+   * @return {string}
+   */
+  static keyToLocalStorage(value) {
+    return `model/${this.table}/${value}`
+  }
+
+  /**
+   * Save values to local storage
+   * @param {Object|Object[]} object
+   */
+  static saveToLocalStorage(object) {
+    if (Array.isArray(object)) object.forEach((it) => this.saveToLocalStorage(it))
+
+    let key = this.keyToLocalStorage(object[this.keyColumn])
+    localStorage.setItem(key, JSON.stringify(object))
+  }
+
+  /**
+   * Fetch instance from local storage
+   * @param {*} value
+   * @return {Model}
+   */
+  static fromLocalStorage(value) {
+    let key = this.keyToLocalStorage(value)
+    return this.make(localStorage.getItem(key))
   }
 }

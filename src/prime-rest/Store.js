@@ -153,7 +153,7 @@ export default class Store extends Api {
    * @return {Promise}
    */
   where(property, value, options = {}) {
-    return this.verifyAndCache(`get/${property}/${value}`, (resolve, reject) => {
+    return this.verifyAndCache(`where/${property}/${value}`, (resolve, reject) => {
       if (!options.ignoreCache) {
         let object = this.cache.where(property, value)
         if (object) return resolve(object)
@@ -231,7 +231,7 @@ export default class Store extends Api {
    * Make http request to fetch instances by foreign key
    * @param {Model|Function} model
    * @param {*} value
-   * @param {{set,ignoreCache}} options
+   * @param {{url,set,ignoreCache}} options
    * @return {Promise}
    */
   by(model, value = null, options = {}) {
@@ -242,7 +242,7 @@ export default class Store extends Api {
 
     let url = options.url || `${value}/${this.model.table}`
 
-    return this.cachePromise(url, ((resolve, reject) => {
+    return this.cachePromise(`by/${url}`, ((resolve, reject) => {
       let list = this.cache.getList(url)
       if (!options.ignoreCache && list) {
         return resolve(list)
@@ -260,5 +260,16 @@ export default class Store extends Api {
         resolve(list)
       }, reject)
     }));
+  }
+
+  /**
+   * Make http to act
+   * @param {*} key
+   * @param {string} action
+   * @param {{url,data,method}} options
+   */
+  act(key, action, options = {}) {
+    let url = options.url || `${key}/${action}`
+    return this.http()[options.method || 'put'](url, options.data || {})
   }
 }

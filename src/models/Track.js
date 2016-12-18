@@ -43,6 +43,6 @@ export default class Track extends Model {
    * @return {Promise}
    */
   static byAlbum(value) {
-    return this.resolveStore().by(Album, value)
+    return this.by(Album, value)
   }
 }

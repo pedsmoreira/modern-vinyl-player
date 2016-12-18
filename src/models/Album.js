@@ -77,6 +77,6 @@ export default class Album extends Model {
    * @return {*|Promise}
    */
   static byArtist(value) {
-    return this.resolveStore().by(Artist, value)
+    return this.by(Artist, value)
   }
 }
