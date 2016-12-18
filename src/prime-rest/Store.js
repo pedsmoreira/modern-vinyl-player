@@ -129,9 +129,9 @@ export default class Store extends Api {
    * @return {Promise}
    */
   get(key, options = {}) {
-    return this.verifyAndCache(`get/${key}`, (resolve, reject) => {
-      key = this.resolveKey(key)
+    key = this.resolveKey(key)
 
+    return this.verifyAndCache(`get/${key}`, (resolve, reject) => {
       if (!options.ignoreCache) {
         let object = this.cache.get(key)
         if (object) return resolve(object)

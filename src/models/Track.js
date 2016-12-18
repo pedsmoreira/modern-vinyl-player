@@ -34,7 +34,7 @@ export default class Track extends Model {
    * @return {Promise}
    */
   album() {
-    return this.belongsTo(Album, this.album_id)
+    return this.belongsTo(Album)
   }
 
   /**
