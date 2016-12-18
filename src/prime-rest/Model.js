@@ -1,7 +1,6 @@
 import Store from './Store'
 
 export default class Model {
-  static name
   static table
 
   /**
@@ -336,7 +335,7 @@ export default class Model {
    * @return {string}
    */
   static singularName() {
-    return this.name || this.table.substring(0, this.table.length - 1)
+    return this.table.substring(0, this.table.length - 1)
   }
 
   /**
