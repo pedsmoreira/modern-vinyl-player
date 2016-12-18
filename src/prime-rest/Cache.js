@@ -44,6 +44,20 @@ export default class Cache {
   }
 
   /**
+   * Get object by property value
+   * @param property
+   * @param value
+   * @return {*|{ID, TAG, NAME, CLASS}|Promise|T}
+   */
+  where(property, value) {
+    if (this.api.useCache) {
+      return Object.values(this.objects).find((object) => {
+        return object[property] === value
+      })
+    }
+  }
+
+  /**
    * Set object
    * @param {Model|Model[]} object
    * @param {boolean} clearLists
@@ -54,7 +68,7 @@ export default class Cache {
 
     if (this.api.useCache) {
       this.objects[object.key()] = object
-      if(clearLists) this.lists = {}
+      if (clearLists) this.lists = {}
     }
     return object
   }

@@ -26,11 +26,11 @@ export default class AlbumView extends React.Component {
   @observable tracks
 
   componentWillMount() {
-    let album = this.props.params.album
+    let albumSlug = this.props.params.album
 
-    Album.find(album).then(album => this.album = album)
-    Track.byAlbum(album).then(tracks => this.tracks = tracks)
-    Artist.byAlbum(album).then(artist => this.artist = artist)
+    Album.bySlug(albumSlug).then(album => this.album = album)
+    Track.byAlbum(albumSlug).then(tracks => this.tracks = tracks)
+    Artist.byAlbum(albumSlug).then(artist => this.artist = artist)
   }
 
   render() {

@@ -101,17 +101,17 @@ export default class Store extends Api {
 
   /**
    * Get index
-   * @param {boolean} ignoreCache
+   * @param {{url, ignoreCache}} options
    * @return {Promise}
    */
-  index(ignoreCache = false) {
+  index(options = {}) {
     return this.verifyAndCache('index', (resolve, reject) => {
       let list = this.cache.getList('index')
-      if (!ignoreCache && list) {
+      if (!options.ignoreCache && list) {
         if (list) return resolve(list)
       }
 
-      let promise = this.http().get('')
+      let promise = this.http().get(options.url || '')
       promise.then(response => {
         let list = this.normalizedModel(response.data)
         this.cache.setList('index', list)
@@ -125,19 +125,47 @@ export default class Store extends Api {
   /**
    * Make http get request
    * @param {string|number} key
-   * @param {boolean} ignoreCache
+   * @param {{url,ignoreCache}} options
    * @return {Promise}
    */
-  get(key, ignoreCache = false) {
+  get(key, options = {}) {
     return this.verifyAndCache(`get/${key}`, (resolve, reject) => {
       key = this.resolveKey(key)
 
-      if (!ignoreCache) {
+      if (!options.ignoreCache) {
         let object = this.cache.get(key)
         if (object) return resolve(object)
       }
 
-      let promise = this.http().get(key.toString())
+      let promise = this.http().get(options.url || key.toString())
+      promise.then(response => {
+        let instance = this.normalizedModel(response.data)
+        resolve(this.cache.set(instance, false))
+      }, reject)
+    })
+  }
+
+  /**
+   * Make http get request to fetch by property
+   * @param {string} property
+   * @param {*} value
+   * @param {{url,ignoreCache}} options
+   * @return {Promise}
+   */
+  where(property, value, options = {}) {
+    return this.verifyAndCache(`get/${property}/${value}`, (resolve, reject) => {
+      if (!options.ignoreCache) {
+        let object = this.cache.where(property, value)
+        if (object) return resolve(object)
+      }
+
+      let url = options.url
+      if (!url) {
+        let name = property.split('_').map((str) => str.substring(0, 1).toUpperCase() + str.substring(1))
+        url = `by${name}`
+      }
+      let promise = this.http().get(url)
+
       promise.then(response => {
         let instance = this.normalizedModel(response.data)
         resolve(this.cache.set(instance, false))
@@ -148,12 +176,13 @@ export default class Store extends Api {
   /**
    * Make http post request
    * @param {Object} data
+   * @param {{url}} options
    * @return {Promise}
    */
-  create(data) {
+  create(data, options = {}) {
     this.verifyPermission('create')
 
-    let promise = this.http().post('', data)
+    let promise = this.http().post(options.url || '', data)
 
     return new Promise((resolve, reject) => {
       promise.then((response) => {
@@ -166,13 +195,14 @@ export default class Store extends Api {
   /**
    * Make http put request
    * @param {Object} data
+   * @param {{url}} options
    * @return {Promise}
    */
-  update(data) {
+  update(data, options = {}) {
     this.verifyPermission('update')
 
     return new Promise((resolve, reject) => {
-      let promise = this.http().put(data[this.key], data)
+      let promise = this.http().put(options.url || data[this.key], data)
       promise.then((response) => {
         let instance = this.normalizedModel(response.data)
         resolve(this.cache.set(instance))
@@ -183,13 +213,14 @@ export default class Store extends Api {
   /**
    * Make http request to destroy model
    * @param {*} value
+   * @param {{url}} options
    * @return {Promise}
    */
-  destroy(value) {
+  destroy(value, options = {}) {
     this.verifyPermission('delete')
 
     let id = this.resolveKey(value)
-    let promise = this.http().delete(id)
+    let promise = this.http().delete(options.url || id)
 
     promise.then(() => this.cache.destroyObject(id))
 
@@ -198,13 +229,9 @@ export default class Store extends Api {
 
   /**
    * Make http request to fetch instances by foreign key
-   * Options: (by default all options are false)
-   * - set (store objects in result),
-   * - ignoreCache (ignore cache and fetch again)
-   *
    * @param {Model|Function} model
    * @param {*} value
-   * @param {Object} options
+   * @param {{set,ignoreCache}} options
    * @return {Promise}
    */
   by(model, value = null, options = {}) {
@@ -213,7 +240,7 @@ export default class Store extends Api {
       model = model.constructor
     }
 
-    let url = `by${model.singularCapitalizedName()}/${value}`
+    let url = options.url || `${value}/${this.model.table}`
 
     return this.cachePromise(url, ((resolve, reject) => {
       let list = this.cache.getList(url)
@@ -221,7 +248,7 @@ export default class Store extends Api {
         return resolve(list)
       }
 
-      let promise = this.http().get(url)
+      let promise = model.resolveStore().http().get(url)
       promise.then(response => {
         let list = this.normalizedModel(response.data)
         this.cache.setList(url, list)

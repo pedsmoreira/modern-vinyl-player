@@ -38,6 +38,15 @@ export default class Artist extends Model {
   }
 
   /**
+   * Get artist promise by slug
+   * @param value
+   * @return {Promise}
+   */
+  static bySlug(value) {
+    return this.where('slug', value, {url: value})
+  }
+
+  /**
    * Artist promise for a given album
    * @return {Promise}
    */

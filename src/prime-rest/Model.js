@@ -225,11 +225,23 @@ export default class Model {
 
   /**
    * Find model object by id
-   * @param key
+   * @param {*} key
+   * @param {Object} options
    * @return {Promise}
    */
-  static find(key) {
-    return this.resolveStore().get(key)
+  static find(key, options = undefined) {
+    return this.resolveStore().get(key, options)
+  }
+
+  /**
+   * Find model object by property value
+   * @param {string} property
+   * @param {*} value
+   * @param {Object} options
+   * @return {Promise}
+   */
+  static where(property, value, options = undefined) {
+    return this.resolveStore().where(property, value, options)
   }
 
   /**
@@ -242,7 +254,7 @@ export default class Model {
 
   /**
    * Create one or an array of model instances
-   * @param values
+   * @param {Object} values
    * @return {Model|Model[]}
    */
   static make(values) {
@@ -252,7 +264,7 @@ export default class Model {
 
   /**
    * Create and persist one or an array of model instances
-   * @param values
+   * @param {Object} values
    * @return {Promise|Promise[]}
    */
   static create(values) {
@@ -262,7 +274,7 @@ export default class Model {
 
   /**
    * Get an instance of store
-   * @param {{}} properties
+   * @param {Object} properties
    * @param {Function} modelClass
    * @return {Store}
    */
@@ -275,7 +287,7 @@ export default class Model {
    * @return {string}
    */
   static singularName() {
-    return this.table.substring(0, this.table.length - 1)
+    return this.name || this.table.substring(0, this.table.length - 1)
   }
 
   /**

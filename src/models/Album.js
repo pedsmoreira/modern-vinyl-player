@@ -63,6 +63,15 @@ export default class Album extends Model {
   }
 
   /**
+   * Get album promise by slug
+   * @param value
+   * @return {*}
+   */
+  static bySlug(value) {
+    return this.where('slug', value, {url: value});
+  }
+
+  /**
    * Get album list by artist promise
    * @param value
    * @return {*|Promise}

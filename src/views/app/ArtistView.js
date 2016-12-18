@@ -26,10 +26,10 @@ export default class ArtistView extends React.Component {
   albums
 
   componentWillMount() {
-    let artist = this.props.params.artist
+    let artistSlug = this.props.params.artist
 
-    Artist.find(artist).then(artist => this.artist = artist)
-    Album.byArtist(artist).then(albums => this.albums = albums)
+    Artist.bySlug(artistSlug).then(artist => this.artist = artist)
+    Album.byArtist(artistSlug).then(albums => this.albums = albums)
   }
 
   render() {
