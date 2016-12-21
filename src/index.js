@@ -2,8 +2,13 @@ import React from "react";
 import {render} from "react-dom";
 import {Router, Route, IndexRoute, browserHistory} from "react-router";
 
-import Api from "./prime-rest/Api";
+import {Api} from "premiere";
 import * as paths from "./paths";
+
+/*
+ * Set api path
+ */
+Api.base = paths.API
 
 import "bootstrap/dist/css/bootstrap.css";
 import "animate.css/animate.css";
@@ -15,11 +20,6 @@ import AlbumView from "./views/app/AlbumView";
 import ArtistsView from "./views/app/ArtistsView";
 import ArtistView from "./views/app/ArtistView";
 import PlayerView from "./views/app/PlayerView";
-
-/*
- * Set api path
- */
-Api.base = paths.API
 
 render(
   <Router history={browserHistory}>

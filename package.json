@@ -1,5 +1,5 @@
 {
-  "name": "modern-vinyl-player",
+  "name": "prime-player",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -54,10 +54,10 @@
   },
   "dependencies": {
     "animate.css": "^3.5.2",
-    "axios": "^0.15.3",
     "bootstrap": "^3.3.7",
     "mobx": "^2.6.4",
     "mobx-react": "^4.0.3",
+    "premiere": "^0.0.1",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",

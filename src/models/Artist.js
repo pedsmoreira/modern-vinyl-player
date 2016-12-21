@@ -1,8 +1,9 @@
-import Model from "../prime-rest/Model";
+import {Model} from "premiere";
+
 import Album from "./Album";
 
 export default class Artist extends Model {
-  static table = 'artists'
+  static path = 'artists'
 
   /**
    * @inheritDoc

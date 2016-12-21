@@ -1,1 +1,1 @@
-export const API = 'https://modern-vinyl-player-api.herokuapp.com'
+export const API = 'https://premiere-player-api.herokuapp.com'

@@ -1,12 +1,12 @@
-![Modern Vinyl Player. A music player for modern browsers](public/preview/large.png)
+![Prime Player. A music player for modern browsers](public/preview/large.png)
 
-Modern Vinyl Player is a music player built with [ReactJS](https://facebook.github.io/react/) and [MobX](https://mobxjs.github.io/mobx/).
+Prime Player is a music player built with [PrimeRest](https://github.com/pedsmoreira/prime-rest), [ReactJS](https://facebook.github.io/react/) and [MobX](https://mobxjs.github.io/mobx/).
 
 The tracks in ths project are played with Youtube iframes.
 
 ## Web App
 This project can be added to the home screen of your mobile phone.
-- Android: Open chrome, go to the [Modern Vinyl website](https://modern-vinyl-player.herokuapp.com/), click on `options` (icon on top right corner) and `Add to Home Screen` 
+- Android: Open chrome, go to the [Prime Player website](https://prime-player.herokuapp.com/), click on `options` (icon on top right corner) and `Add to Home Screen` 
 
 ### Setup
 - [Install NPM](https://www.npmjs.com/get-npm)

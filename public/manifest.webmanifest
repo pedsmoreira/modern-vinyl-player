@@ -1,10 +1,10 @@
 {
-  "name": "Modern Vinyl Player",
-  "short_name": "Modern Vinyl",
+  "name": "Premiere Player",
+  "short_name": "Premiere",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#111",
-  "description": "A vinyl player for modern browsers",
+  "description": "A music player for modern browsers",
   "icons": [
     {
       "src": "/icons/favicon-16x16.png",

@@ -46,6 +46,8 @@ export default class PlayerAudio extends React.Component {
   }
 
   render() {
+    return null
+
     // The player starts with a 1s blank video to fix an issue on Android, which causes the first Youtube iframe
     // to require the user to click again to play the video
     return (

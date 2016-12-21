@@ -17,7 +17,7 @@ export default class Header extends React.Component {
             <img src={logo} style={{width: 128}} alt="Logo"/>
           </Link>
 
-          <Link className="header_github" to="https://github.com/pedsmoreira/modern-vinyl-player/"
+          <Link className="header_github" to="https://github.com/pedsmoreira/premiere-player/"
                 target="_blank">
             <Icon name="github"/> Github
           </Link>
