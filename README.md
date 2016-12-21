@@ -1,12 +1,12 @@
-![Prime Player. A music player for modern browsers](public/preview/large.png)
+![Premiere Player. A music player for modern browsers](public/preview/large.png)
 
-Prime Player is a music player built with [PrimeRest](https://github.com/pedsmoreira/prime-rest), [ReactJS](https://facebook.github.io/react/) and [MobX](https://mobxjs.github.io/mobx/).
+Premiere Player is a music player built with [Premiere](https://github.com/pedsmoreira/premiere), [ReactJS](https://facebook.github.io/react/) and [MobX](https://mobxjs.github.io/mobx/).
 
 The tracks in ths project are played with Youtube iframes.
 
 ## Web App
 This project can be added to the home screen of your mobile phone.
-- Android: Open chrome, go to the [Prime Player website](https://prime-player.herokuapp.com/), click on `options` (icon on top right corner) and `Add to Home Screen` 
+- Android: Open chrome, go to the [Premiere Player website](https://premiere-player.herokuapp.com/), click on `options` (icon on top right corner) and `Add to Home Screen` 
 
 ### Setup
 - [Install NPM](https://www.npmjs.com/get-npm)
