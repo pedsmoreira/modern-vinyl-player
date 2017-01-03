@@ -22,15 +22,15 @@ import ArtistView from "./views/app/ArtistView";
 import PlayerView from "./views/app/PlayerView";
 
 render(
-  <Router history={browserHistory}>
-    <Route path="/" component={AppView}>
-      <IndexRoute component={HomeView}/>
-      <Route path="albums" component={AlbumsView}/>
-      <Route path="albums/:album" component={AlbumView}/>
-      <Route path="artists" component={ArtistsView}/>
-      <Route path="artists/:artist" component={ArtistView}/>
-      <Route path="player" component={PlayerView}/>
-    </Route>
-  </Router>,
-  document.getElementById('root')
+    <Router history={browserHistory}>
+        <Route path="/" component={AppView}>
+            <IndexRoute component={HomeView}/>
+            <Route path="albums" component={AlbumsView}/>
+            <Route path="albums/:album" component={AlbumView}/>
+            <Route path="artists" component={ArtistsView}/>
+            <Route path="artists/:artist" component={ArtistView}/>
+            <Route path="player" component={PlayerView}/>
+        </Route>
+    </Router>,
+    document.getElementById('root')
 );

@@ -13,36 +13,36 @@ import "./Player.scss";
 
 @observer
 export default class Player extends React.Component {
-  render() {
-    return (
-      <div className="player">
-        <div className="player_content">
-          <Grid className="player_grid">
-            <PlayerDescription album={this.props.album}
-                               track={this.props.track}/>
+    render() {
+        return (
+            <div className="player">
+                <div className="player_content">
+                    <Grid className="player_grid">
+                        <PlayerDescription album={this.props.album}
+                                           track={this.props.track}/>
 
-            <div className="player_controls">
-              <PlayerPrevious onPrevious={this.props.onPrevious} hasPrevious={this.props.hasPrevious}/>
+                        <div className="player_controls">
+                            <PlayerPrevious onPrevious={this.props.onPrevious} hasPrevious={this.props.hasPrevious}/>
 
-              {!this.props.track ? null :
-                <PlayerControl playing={this.props.playing}
-                               loading={this.props.loading}
-                               onPlay={this.props.onPlay}
-                               onPause={this.props.onPause}/>
-              }
+                            {!this.props.track ? null :
+                                <PlayerControl playing={this.props.playing}
+                                               loading={this.props.loading}
+                                               onPlay={this.props.onPlay}
+                                               onPause={this.props.onPause}/>
+                            }
 
-              <PlayerNext onNext={this.props.onNext} hasNext={this.props.hasNext}/>
+                            <PlayerNext onNext={this.props.onNext} hasNext={this.props.hasNext}/>
+                        </div>
+                    </Grid>
+                </div>
+
+                <PlayerAudio track={this.props.track}
+                             playing={this.props.playing}
+                             onPlay={this.props.onPlay}
+                             onPause={this.props.onPause}
+                             onEnd={this.props.onNext}
+                             onLoad={this.props.onLoad}/>
             </div>
-          </Grid>
-        </div>
-
-        <PlayerAudio track={this.props.track}
-                     playing={this.props.playing}
-                     onPlay={this.props.onPlay}
-                     onPause={this.props.onPause}
-                     onEnd={this.props.onNext}
-                     onLoad={this.props.onLoad}/>
-      </div>
-    )
-  }
+        )
+    }
 }

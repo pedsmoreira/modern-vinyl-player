@@ -3,55 +3,56 @@ import {Model} from "premiere";
 import Album from "./Album";
 
 export default class Artist extends Model {
-  static path = 'artists'
+    static path = 'artists'
 
-  /**
-   * @inheritDoc
-   */
-  static storeProperties = {setIndex: true}
+    /**
+     * @inheritDoc
+     */
+    static storeProperties = {setIndex: true}
 
-  /**
-   * @type {id}
-   */
-  id
+    /**
+     * @type {id}
+     */
+    id
 
-  /**
-   * @type {string}
-   */
-  name
+    /**
+     * @type {string}
+     */
+    name
 
-  /**
-   * @type {string}
-   */
-  slug
+    /**
+     * @type {string}
+     */
+    slug
 
-  /**
-   * @type {string}
-   */
-  cover
+    /**
+     * @type {string}
+     */
+    cover
 
-  /**
-   * Get albums promise
-   * @return {Promise}
-   */
-  albums() {
-    return this.hasMany(Album)
-  }
+    /**
+     * Get albums promise
+     * @return {Promise}
+     */
+    albums() {
+        return this.hasMany(Album)
+    }
 
-  /**
-   * Get artist promise by slug
-   * @param value
-   * @return {Promise}
-   */
-  static bySlug(value) {
-    return this.where('slug', value, {url: value})
-  }
+    /**
+     * Get albums list by artist promise
+     * @param value
+     * @return {*|Promise}
+     */
+    static albums(value) {
+        return Artist.hasMany(Album, value)
+    }
 
-  /**
-   * Artist promise for a given album
-   * @return {Promise}
-   */
-  static byAlbum(albumId) {
-    return this.hasOne(Album, albumId)
-  }
+    /**
+     * Get artist promise by slug
+     * @param value
+     * @return {Promise}
+     */
+    static bySlug(value) {
+        return this.where('slug', value, {url: value})
+    }
 }

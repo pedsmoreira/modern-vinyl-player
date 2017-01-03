@@ -7,11 +7,12 @@ import Loader from "../Loader"
 import "./ArtistCover.scss";
 
 export default class ArtistCover extends React.Component {
-  render() {
-    if (!this.props.artist) return <Loader text="Artist Cover"/>
+    render() {
+        if (!this.props.artist) return <Loader text="Artist Cover"/>
 
-    return (
-      <Image className="artist-cover" src={this.props.artist.cover} alt={this.props.artist.name + ' Cover'} responsive circle/>
-    )
-  }
+        return (
+            <Image className="artist-cover" src={this.props.artist.cover} alt={this.props.artist.name + ' Cover'}
+                   responsive circle/>
+        )
+    }
 }

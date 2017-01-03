@@ -11,23 +11,23 @@ import ArtistList from "../../components/artist/ArtistList";
 
 @observer
 export default class ArtistsView extends React.Component {
-  @observable
-  artists
+    @observable
+    artists
 
-  componentWillMount() {
-    Artist.all().then(artists => this.artists = artists)
-  }
+    componentWillMount() {
+        Artist.all().then(artists => this.artists = artists)
+    }
 
-  render() {
-    return (
-      <div className="artists-view animated fadeIn">
-        <Background
-          image="http://bighdwalls.com/wp-content/uploads/the-musician-hd-wallpaper.jpg"/>
+    render() {
+        return (
+            <div className="artists-view animated fadeIn">
+                <Background
+                    image="http://bighdwalls.com/wp-content/uploads/the-musician-hd-wallpaper.jpg"/>
 
-        <Grid>
-          <ArtistList artists={this.artists}/>
-        </Grid>
-      </div>
-    )
-  }
+                <Grid>
+                    <ArtistList artists={this.artists}/>
+                </Grid>
+            </div>
+        )
+    }
 }

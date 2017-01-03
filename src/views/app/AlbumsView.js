@@ -15,29 +15,29 @@ import "./AlbumsView.scss";
 
 @observer
 export default class AlbumsView extends React.Component {
-  @observable albums
+    @observable albums
 
-  componentWillMount() {
-    Album.all().then(albums => this.albums = albums)
-  }
+    componentWillMount() {
+        Album.all().then(albums => this.albums = albums)
+    }
 
-  render() {
-    return (
-      <div>
-        <Background
-          image="http://3.bp.blogspot.com/-azDlYQ6E3eg/UiAZN9koBSI/AAAAAAAAJ_s/wUaI7wtcPvg/s1600/Background-Vinyl6.jpg"/>
+    render() {
+        return (
+            <div>
+                <Background
+                    image="http://3.bp.blogspot.com/-azDlYQ6E3eg/UiAZN9koBSI/AAAAAAAAJ_s/wUaI7wtcPvg/s1600/Background-Vinyl6.jpg"/>
 
-        <div className="albums-view animated fadeIn">
-          <Grid>
-            <AlbumList albums={this.albums}
-                       track={playerStore.track}
-                       playing={playerStore.playing}
-                       loading={playerStore.loading}
-                       onPlay={playerStore.play.bind(playerStore)}
-                       onPause={playerStore.pause.bind(playerStore)}/>
-          </Grid>
-        </div>
-      </div>
-    )
-  }
+                <div className="albums-view animated fadeIn">
+                    <Grid>
+                        <AlbumList albums={this.albums}
+                                   track={playerStore.track}
+                                   playing={playerStore.playing}
+                                   loading={playerStore.loading}
+                                   onPlay={playerStore.play.bind(playerStore)}
+                                   onPause={playerStore.pause.bind(playerStore)}/>
+                    </Grid>
+                </div>
+            </div>
+        )
+    }
 }

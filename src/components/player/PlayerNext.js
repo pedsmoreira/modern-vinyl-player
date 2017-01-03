@@ -6,13 +6,13 @@ import {Button} from "react-bootstrap";
 import "./PlayerNext.scss";
 
 export default class PlayerNext extends React.Component {
-  render() {
-    if(!this.props.hasNext) return null
+    render() {
+        if (!this.props.hasNext) return null
 
-    return (
-      <Button bsStyle="link" className="player-next" onClick={() => this.props.onNext()}>
-        <Icon name="step-forward"/>
-      </Button>
-    )
-  }
+        return (
+            <Button bsStyle="link" className="player-next" onClick={() => this.props.onNext()}>
+                <Icon name="step-forward"/>
+            </Button>
+        )
+    }
 }

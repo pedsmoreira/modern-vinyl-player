@@ -12,7 +12,7 @@ const argv = process.argv.slice(2);
 
 // Watch unless on CI
 if (!process.env.CI) {
-  argv.push('--watch');
+    argv.push('--watch');
 }
 
 

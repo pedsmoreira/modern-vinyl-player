@@ -4,79 +4,86 @@ import Track from "./Track";
 import Artist from "./Artist";
 
 export default class Album extends Model {
-  static path = 'albums'
+    static path = 'albums'
 
-  /**
-   * @inheritDoc
-   */
-  static storeProperties = {setIndex: true}
+    /**
+     * @inheritDoc
+     */
+    static storeProperties = {setIndex: true}
 
-  /**
-   * @type {number}
-   */
-  id
+    /**
+     * @type {number}
+     */
+    id
 
-  /**
-   * @type {string}
-   */
-  name
+    /**
+     * @type {string}
+     */
+    name
 
-  /**
-   * @type {string}
-   */
-  slug
+    /**
+     * @type {string}
+     */
+    slug
 
-  /**
-   * @type {string}
-   */
-  cover
+    /**
+     * @type {string}
+     */
+    cover
 
-  /**
-   * @type {string}
-   */
-  background
+    /**
+     * @type {string}
+     */
+    background
 
-  /**
-   * @type {number}
-   */
-  year = new Date().getFullYear()
+    /**
+     * @type {number}
+     */
+    year = new Date().getFullYear()
 
-  /**
-   * @type {string}
-   */
-  description
+    /**
+     * @type {string}
+     */
+    description
 
-  /**
-   * Get tracks promise
-   * @return {Promise}
-   */
-  tracks() {
-    return this.hasMany(Track)
-  }
+    /**
+     * Get tracks promise
+     * @return {Promise}
+     */
+    tracks() {
+        return this.hasMany(Track)
+    }
 
-  /**
-   * Get artist promise
-   * @return {Promise}
-   */
-  artist() {
-    return this.belongsTo(Artist)
-  }
+    /**
+     * Get tracks promise
+     * @return {Promise}
+     */
+    static tracks(albumId) {
+        return this.hasMany(Track, albumId)
+    }
 
-  /**
-   * Get album promise by slug
-   * @param value
-   * @return {*}
-   */
-  static bySlug(value) {
-    return this.where('slug', value, {url: value})
-  }
+    /**
+     * Get artist promise
+     * @return {Promise}
+     */
+    artist() {
+        return this.belongsTo(Artist)
+    }
 
-  /**
-   * Get album list by artist promise
-   * @param value
-   * @return {*|Promise}
-   */
-  static byArtist(value) {
-    return Artist.hasMany(Album, value)
-  }
+    /**
+     * Artist promise for a given album
+     * @return {Promise}
+     */
+    static artist(albumId) {
+        return this.hasOne(Artist, albumId);
+    }
+
+    /**
+     * Get album promise by slug
+     * @param value
+     * @return {*}
+     */
+    static bySlug(value) {
+        return this.where('slug', value, {url: value})
+    }
 }

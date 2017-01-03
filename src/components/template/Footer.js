@@ -7,21 +7,21 @@ import {Icon} from "react-fa";
 import "./Footer.scss";
 
 export default class Footer extends React.Component {
-  render() {
-    return (
-      <footer className="footer">
-        <Grid>
-          <div className="footer_content">
-            <Link to="/albums">
-              <Icon name="rocket"/> Albums
-            </Link>
+    render() {
+        return (
+            <footer className="footer">
+                <Grid>
+                    <div className="footer_content">
+                        <Link to="/albums">
+                            <Icon name="rocket"/> Albums
+                        </Link>
 
-            <Link to="/artists">
-              <Icon name="microphone"/> Artists
-            </Link>
-          </div>
-        </Grid>
-      </footer>
-    )
-  }
+                        <Link to="/artists">
+                            <Icon name="microphone"/> Artists
+                        </Link>
+                    </div>
+                </Grid>
+            </footer>
+        )
+    }
 }
