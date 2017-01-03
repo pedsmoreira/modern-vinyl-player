@@ -44,6 +44,6 @@ export default class Track extends Model {
    * @return {Promise}
    */
   static byAlbum(value) {
-    return this.by(Album, value)
+    return Album.hasMany(Track, value)
   }
 }

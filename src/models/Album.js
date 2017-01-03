@@ -68,7 +68,7 @@ export default class Album extends Model {
    * @return {*}
    */
   static bySlug(value) {
-    return this.where('slug', value, {url: value});
+    return this.where('slug', value, {url: value})
   }
 
   /**
@@ -77,6 +77,6 @@ export default class Album extends Model {
    * @return {*|Promise}
    */
   static byArtist(value) {
-    return this.by(Artist, value)
+    return Artist.hasMany(Album, value)
   }
 }
