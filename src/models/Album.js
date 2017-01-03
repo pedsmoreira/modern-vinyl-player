@@ -59,7 +59,7 @@ export default class Album extends Model {
      * @return {Promise}
      */
     static tracks(albumId) {
-        return this.hasMany(Track, albumId)
+        return this.hasMany(Track, albumId, {set: true})
     }
 
     /**
@@ -75,7 +75,7 @@ export default class Album extends Model {
      * @return {Promise}
      */
     static artist(albumId) {
-        return this.hasOne(Artist, albumId);
+        return this.hasOne(Artist, albumId, {set: true})
     }
 
     /**

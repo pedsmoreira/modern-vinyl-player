@@ -44,7 +44,7 @@ export default class Artist extends Model {
      * @return {*|Promise}
      */
     static albums(value) {
-        return Artist.hasMany(Album, value)
+        return Artist.hasMany(Album, value, {set: true})
     }
 
     /**
