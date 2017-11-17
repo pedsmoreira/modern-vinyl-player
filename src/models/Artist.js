@@ -6,7 +6,7 @@ import Album from "models/Album";
 
 export default class Artist extends Model {
   path = "artists";
-  key = "slug";
+  keyColumn = "slug";
 
   name: string;
   slug: string;
@@ -22,6 +22,6 @@ export default class Artist extends Model {
   }
 
   albums(): Promise<Album[]> {
-    return this.hasMany(Album);
+    return this.hasMany(Album, { completeItems: true });
   }
 }

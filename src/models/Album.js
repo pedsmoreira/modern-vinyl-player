@@ -7,7 +7,7 @@ import Artist from "models/Artist";
 
 export default class Album extends Model {
   path = "albums";
-  key = "slug";
+  keyColumn = "slug";
 
   name: string;
   slug: string;
