@@ -7,13 +7,22 @@
   text-align: left;
   transition: .1s all ease;
 
-  &:hover {
-    background: rgba(black, .05);
+  &:not(&--invalid) {
     cursor: pointer;
+
+    &:hover {
+      background: rgba(black, .05);
+    }
   }
 
-  &__icon {
+  &--active {
+    font-weight: bold;
+  }
+
+  .PlayIcon {
     font-size: .75rem;
     margin-right: 1rem;
+    width: 1rem;
+    text-align: center;
   }
 }

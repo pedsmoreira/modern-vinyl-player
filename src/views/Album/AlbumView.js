@@ -68,7 +68,14 @@ export default class AlbumView extends React.Component<Props> {
           <div className="card-body">
             <div className="header-card clearfix">
               <img src={album.cover} alt={`${album.name} cover`} className="header-card-image" />
-              <h1 className="header-card-name">{album.name}</h1>
+
+              <h1 className="header-card-name">
+                {album.name}
+                <small>
+                  <i> ({album.year})</i>
+                </small>
+              </h1>
+
               <p className="header-card-description">{album.description}</p>
             </div>
 

@@ -1,81 +1,122 @@
 // @flow
 
 import { action, computed, observable } from "mobx";
+import YouTube from "react-youtube";
 
 import Track from "models/Track";
 import Dispatcher from "utils/Dispatcher";
 
-export type State = "playing" | "loading" | "paused";
-
 class PlayerStore {
   @observable track: ?Track;
   @observable playlist: Track[] = [];
-  @observable loading: boolean;
+  @observable state: number;
 
   playDispatcher: Dispatcher = new Dispatcher();
   pauseDispatcher: Dispatcher = new Dispatcher();
   seekDispatcher: Dispatcher = new Dispatcher();
   volumeDispatcher: Dispatcher = new Dispatcher();
 
-  @action
-  setTrack(track: Track, playlist: Track[]) {
-    if (playlist.indexOf(track) === -1) throw new Error("Selected track is not on playlist");
+  @action.bound
+  toggle(): void {
+    if (this.track) {
+      this.toggleTrack(this.track);
+    }
+  }
 
+  @action.bound
+  toggleTrack(track: Track): void {
+    if (track !== this.track) {
+      this.setTrack(track);
+      return;
+    }
+
+    this.isPaused ? this.play() : this.pause();
+  }
+
+  @action.bound
+  async setTrack(track: Track): Promise<void> {
     this.track = track;
+
+    const album = await track.album();
+    const tracks = await album.tracks();
+    this.setPlaylist(tracks);
+  }
+
+  @action.bound
+  setPlaylist(playlist: Track[]) {
     this.playlist = playlist;
   }
 
-  @action
-  play() {
+  @action.bound
+  play(): void {
     this.playDispatcher.dispatch();
   }
 
-  @action
-  pause() {
+  @action.bound
+  pause(): void {
     this.pauseDispatcher.dispatch();
   }
 
-  @action
-  seekTo(time: number) {
+  @action.bound
+  seekTo(time: number): void {
     this.seekDispatcher.dispatch(time);
   }
 
-  @action
-  setVolume(volume: number) {
+  @action.bound
+  setVolume(volume: number): void {
     this.volumeDispatcher.dispatch(volume);
   }
 
-  @action
-  setLoading(loading: boolean) {
-    this.loading = loading;
-  }
-
-  @action
-  previous() {
-    if (this.hasPrevious) {
+  @action.bound
+  previous(): void {
+    if (this.track && this.hasPrevious) {
       this.track = this.playlist[this.playlist.indexOf(this.track) - 1];
     } else {
       this.track = null;
     }
   }
 
-  @action
-  next() {
-    if (this.hasNext) {
+  @action.bound
+  next(): void {
+    if (this.track && this.hasNext) {
       this.track = this.playlist[this.playlist.indexOf(this.track) + 1];
     } else {
       this.track = null;
     }
   }
 
-  @computed
-  get hasPrevious() {
-    return this.track && this.playlist.indexOf(this.track) > 0;
+  @action.bound
+  onEmbedStateChange({ data }: { data: number }): void {
+    this.state = data;
+  }
+
+  @action.bound
+  onEmbedError({ data }: { data: number }): void {
+    if (this.track) {
+      this.track.invalid = true;
+    }
+
+    this.next();
   }
 
   @computed
-  get hasNext() {
-    return this.track && this.playlist.indexOf(this.track) < this.playlist.length - 1;
+  get isPlaying(): boolean {
+    return this.state === YouTube.PlayerState.PLAYING;
+  }
+
+  @computed
+  get isPaused(): boolean {
+    return this.state === YouTube.PlayerState.PAUSED;
+  }
+
+  @computed
+  get hasPrevious(): boolean {
+    return !!(this.track && this.playlist.indexOf(this.track) > 0);
+  }
+
+  @computed
+  get hasNext(): boolean {
+    return !!(this.track && this.playlist.indexOf(this.track) < this.playlist.length - 1);
   }
 }
 
