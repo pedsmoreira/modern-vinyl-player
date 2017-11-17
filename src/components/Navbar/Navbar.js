@@ -1,7 +1,8 @@
 // @flow
 
-import React from "react";
 import { observer } from "mobx-react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import "./Navbar.scss";
 
@@ -12,7 +13,22 @@ export default class Navbar extends React.Component<*> {
 
     return (
       <div className="Navbar">
-        <div className="container">Navbar</div>
+        <nav>
+          <div className="container">
+            <Link className="Navbar__home" to="/">
+              <i className="fa fa-headphones" /> Premiere Player
+            </Link>
+
+            <div className="float-right">
+              <Link to="/" className="Navbar__link">
+                Albums
+              </Link>
+              <Link to="/artists" className="Navbar__link">
+                Artists
+              </Link>
+            </div>
+          </div>
+        </nav>
       </div>
     );
   }

@@ -50,13 +50,31 @@ class PlayerStore {
     this.loading = loading;
   }
 
+  @action
+  previous() {
+    if (this.hasPrevious) {
+      this.track = this.playlist[this.playlist.indexOf(this.track) - 1];
+    } else {
+      this.track = null;
+    }
+  }
+
+  @action
+  next() {
+    if (this.hasNext) {
+      this.track = this.playlist[this.playlist.indexOf(this.track) + 1];
+    } else {
+      this.track = null;
+    }
+  }
+
   @computed
-  hasPrevious() {
+  get hasPrevious() {
     return this.track && this.playlist.indexOf(this.track) > 0;
   }
 
   @computed
-  hasNext() {
+  get hasNext() {
     return this.track && this.playlist.indexOf(this.track) < this.playlist.length - 1;
   }
 }

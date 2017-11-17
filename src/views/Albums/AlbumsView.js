@@ -1,12 +1,12 @@
 // @flow
 
-import * as React from "react";
-import { observer } from "mobx-react";
 import { action, observable } from "mobx";
+import { observer } from "mobx-react";
+import * as React from "react";
 
 import Album from "models/Album";
-import AlbumCard from "components/AlbumCard";
 import Loader from "components/Loader/Loader";
+import AlbumCardGrid from "components/AlbumCardGrid/AlbumCardGrid";
 
 import "./AlbumsView.scss";
 
@@ -27,19 +27,13 @@ export default class AlbumsView extends React.Component<Props> {
 
   render() {
     return (
-      <div className="AlbumsView">
-        <Loader for={this.albums} render={this.renderAlbums} />
+      <div className="AlbumsView animated fadeIn">
+        <Loader for={this.albums} render={this.renderContent} />
       </div>
     );
   }
 
-  renderAlbums = () => {
-    const albums = this.albums.map(album => (
-      <div key={album.key} className="col-md-4">
-        <AlbumCard album={album} />
-      </div>
-    ));
-
-    return <div className="row">{albums}</div>;
+  renderContent = () => {
+    return <AlbumCardGrid albums={this.albums} />;
   };
 }

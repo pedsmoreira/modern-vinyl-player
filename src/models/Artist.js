@@ -17,8 +17,8 @@ export default class Artist extends Model {
     return Album.hasOne(Artist, slug, { completeItems: true });
   }
 
-  all(options: any = {}): Promise<Artist[]> {
-    return this.super({ ...options, completeItems: true });
+  static all(options: any = {}): Promise<Artist[]> {
+    return super.all({ ...options, completeItems: true });
   }
 
   albums(): Promise<Album[]> {

@@ -13,14 +13,13 @@ export default class Album extends Model {
   slug: string;
   cover: string;
   year: number;
-  categories: string[] = [];
   description: string;
 
   static byArtist(slug: string): Promise<Album[]> {
     return Artist.hasMany(Album, slug, { completeItems: true });
   }
 
-  all(options: any = {}): Promise<Album[]> {
+  static all(options: any = {}): Promise<Album[]> {
     return super.all({ ...options, completeItems: true });
   }
 

@@ -17,8 +17,7 @@ export default class Loader extends React.Component<Props> {
 
     return (
       <div className="Loader">
-        {/*<i className="fa fa-spinner fa-pulse"/> */}
-        Loading
+        <i className="fa fa-spinner fa-pulse" /> Loading
       </div>
     );
   }

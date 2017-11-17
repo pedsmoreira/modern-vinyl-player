@@ -8,6 +8,6 @@ import "./Menu.scss";
 @observer
 export default class Menu extends React.Component<*> {
   render() {
-    return <div className="Menu">Menu</div>;
+    return <div className="Menu">Select an album to play</div>;
   }
 }
