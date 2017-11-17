@@ -1,36 +1,19 @@
+import { useStrict } from "mobx";
 import React from "react";
-import {render} from "react-dom";
-import {Router, Route, IndexRoute, browserHistory} from "react-router";
+import ReactDOM from "react-dom";
 
-import {Api} from "premiere";
-import * as paths from "./paths";
+import { api } from "premiere";
 
-/*
- * Set api path
- */
-Api.base = paths.API
+import App from "./App";
+// import registerServiceWorker from "./registerServiceWorker";
 
-import "bootstrap/dist/css/bootstrap.css";
-import "animate.css/animate.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "font-awesome/css/font-awesome.min.css";
 
-import AppView from "./views/AppView";
-import HomeView from "./views/app/HomeView";
-import AlbumsView from "./views/app/AlbumsView";
-import AlbumView from "./views/app/AlbumView";
-import ArtistsView from "./views/app/ArtistsView";
-import ArtistView from "./views/app/ArtistView";
-import PlayerView from "./views/app/PlayerView";
+useStrict();
+// api.base = 'https://premiere-player-api.herokuapp.com';
+api.base = "http://localhost:8000";
 
-render(
-    <Router history={browserHistory}>
-        <Route path="/" component={AppView}>
-            <IndexRoute component={HomeView}/>
-            <Route path="albums" component={AlbumsView}/>
-            <Route path="albums/:album" component={AlbumView}/>
-            <Route path="artists" component={ArtistsView}/>
-            <Route path="artists/:artist" component={ArtistView}/>
-            <Route path="player" component={PlayerView}/>
-        </Route>
-    </Router>,
-    document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById("root"));
+
+// registerServiceWorker();

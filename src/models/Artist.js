@@ -1,58 +1,27 @@
-import {Model} from "premiere";
+// @flow
 
-import Album from "./Album";
+import { Model } from "premiere";
+
+import Album from "models/Album";
 
 export default class Artist extends Model {
-    static path = 'artists'
+  path = "artists";
+  key = "slug";
 
-    /**
-     * @inheritDoc
-     */
-    static storeProperties = {setIndex: true}
+  name: string;
+  slug: string;
+  cover: string;
+  description: string;
 
-    /**
-     * @type {id}
-     */
-    id
+  static byAlbum(slug: string): Promise<Album[]> {
+    return Album.hasOne(Artist, slug, { completeItems: true });
+  }
 
-    /**
-     * @type {string}
-     */
-    name
+  all(options: any = {}): Promise<Artist[]> {
+    return this.super({ ...options, completeItems: true });
+  }
 
-    /**
-     * @type {string}
-     */
-    slug
-
-    /**
-     * @type {string}
-     */
-    cover
-
-    /**
-     * Get albums promise
-     * @return {Promise}
-     */
-    albums() {
-        return this.hasMany(Album)
-    }
-
-    /**
-     * Get albums list by artist promise
-     * @param value
-     * @return {*|Promise}
-     */
-    static albums(value) {
-        return Artist.hasMany(Album, value, {set: true})
-    }
-
-    /**
-     * Get artist promise by slug
-     * @param value
-     * @return {Promise}
-     */
-    static bySlug(value) {
-        return this.where('slug', value, {url: value})
-    }
+  albums(): Promise<Album[]> {
+    return this.hasMany(Album);
+  }
 }

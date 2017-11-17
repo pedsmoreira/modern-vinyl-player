@@ -1,40 +1,22 @@
-import {Model} from "premiere";
+// @flow
+
+import { Model } from "premiere";
 
 import Album from "./Album";
 
 export default class Track extends Model {
-    static path = 'tracks'
+  path = "tracks";
 
-    /**
-     * @inheritDoc
-     */
-    static storeProperties = {setIndex: true}
+  id: number;
+  src: string;
+  name: string;
+  number: string;
 
-    /**
-     * @type {number}
-     */
-    id
+  static byAlbum(slug: string): Promise<Track[]> {
+    return Album.hasMany(Track, slug, { completeItems: true });
+  }
 
-    /**
-     * @type {string}
-     */
-    src
-
-    /**
-     * @type {string}
-     */
-    name
-
-    /**
-     * @type {number}
-     */
-    number
-
-    /**
-     * Get album promise
-     * @return {Promise}
-     */
-    album() {
-        return this.belongsTo(Album)
-    }
+  album(): Promise<Album> {
+    return this.belongsTo(Album);
+  }
 }

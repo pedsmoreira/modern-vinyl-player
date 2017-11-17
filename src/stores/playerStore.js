@@ -1,115 +1,64 @@
-import {observable} from 'mobx'
+// @flow
 
-import Album from "../models/Album";
+import { action, computed, observable } from "mobx";
 
-export class PlayerStore {
-    /**
-     * @type {Array}
-     */
-    @observable
-    playlist = []
+import Track from "models/Track";
+import Dispatcher from "utils/Dispatcher";
 
-    /**
-     * @type {Track}
-     */
-    @observable
-    track
+export type State = "playing" | "loading" | "paused";
 
-    /**
-     * @type {boolean}
-     */
-    @observable
-    playing = false
+class PlayerStore {
+  @observable track: ?Track;
+  @observable playlist: Track[] = [];
+  @observable loading: boolean;
 
-    /**
-     * @type {boolean}
-     */
-    @observable
-    loading = false
+  playDispatcher: Dispatcher = new Dispatcher();
+  pauseDispatcher: Dispatcher = new Dispatcher();
+  seekDispatcher: Dispatcher = new Dispatcher();
+  volumeDispatcher: Dispatcher = new Dispatcher();
 
-    set(value) {
-        if (value instanceof Album) {
-            return this.setAlbum(value)
-        }
+  @action
+  setTrack(track: Track, playlist: Track[]) {
+    if (playlist.indexOf(track) === -1) throw new Error("Selected track is not on playlist");
 
-        if (Array.isArray(value)) {
-            return this.setArray(value)
-        }
+    this.track = track;
+    this.playlist = playlist;
+  }
 
-        if (this.playlist.indexOf(value) === -1) {
-            this.playlist = [value]
-        }
+  @action
+  play() {
+    this.playDispatcher.dispatch();
+  }
 
-        this.track = value
-        return this.playlist
-    }
+  @action
+  pause() {
+    this.pauseDispatcher.dispatch();
+  }
 
-    setAlbum(album) {
-        this.track = null
+  @action
+  seekTo(time: number) {
+    this.seekDispatcher.dispatch(time);
+  }
 
-        album.tracks().then((tracks) => {
-            this.setArray(tracks)
-        })
-    }
+  @action
+  setVolume(volume: number) {
+    this.volumeDispatcher.dispatch(volume);
+  }
 
-    setArray(tracks) {
-        this.playlist = tracks
+  @action
+  setLoading(loading: boolean) {
+    this.loading = loading;
+  }
 
-        if (tracks.indexOf(this.track) === -1) {
-            this.track = tracks[0]
-        }
+  @computed
+  hasPrevious() {
+    return this.track && this.playlist.indexOf(this.track) > 0;
+  }
 
-        return this.playlist
-    }
-
-    hasPrevious() {
-        return this.playlist.indexOf(this.track) > 0
-    }
-
-    previous() {
-        let index = this.playlist.indexOf(this.track)
-        this.track = this.playlist[index - 1]
-        this.playing = true
-    }
-
-    hasNext() {
-        return this.playlist.indexOf(this.track) < (this.playlist.length - 1)
-    }
-
-    next() {
-        let index = this.playlist.indexOf(this.track)
-
-        if (this.playlist.length > (index + 1)) {
-            this.track = this.playlist[index + 1]
-            this.playing = true
-        } else {
-            this.playing = false
-            this.loading = false
-        }
-    }
-
-    play(value = null, playlist = null) {
-        this.playing = true
-
-        if (playlist) {
-            this.playlist = playlist
-        }
-
-        if (value && value !== this.lastValue) {
-            this.set(value)
-            this.loading = true
-            this.lastValue = value
-        }
-    }
-
-    pause() {
-        this.playing = false
-    }
-
-    loaded() {
-        this.loading = false
-    }
+  @computed
+  hasNext() {
+    return this.track && this.playlist.indexOf(this.track) < this.playlist.length - 1;
+  }
 }
 
-const playerStore = new PlayerStore()
-export default playerStore
+export default new PlayerStore();

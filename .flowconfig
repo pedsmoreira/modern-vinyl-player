@@ -1,0 +1,22 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/fbjs/.*
+
+[libs]
+<PROJECT_ROOT>/node_modules/fbjs/flow/lib
+
+[include]
+
+[options]
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+esproposal.decorators=ignore
+unsafe.enable_getters_and_setters=true
+
+module.name_mapper='.*\(.scss\)' -> 'empty/object'
+module.name_mapper='^\(.*\)\.\(jpg\|png\|gif\|eot\|svg\|ttf\|woff\|woff2\|mp4\|webm\)$' -> 'empty/object'
+
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=src
+
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
