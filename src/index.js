@@ -13,8 +13,7 @@ import "animate.css/animate.min.css";
 
 useStrict();
 
-// api.base = 'https://premiere-player-api.herokuapp.com';
-api.base = "http://localhost:8000";
+api.base = "https://premiere-player-api.herokuapp.com";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
