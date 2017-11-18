@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import React from "react";
 
 import Album from "models/Album";
-import AlbumCard from "components/AlbumCard/AlbumCard";
+import AlbumCard from "components/AlbumCard";
 
 import "./AlbumCardGrid.scss";
 

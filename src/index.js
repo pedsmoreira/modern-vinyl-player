@@ -12,6 +12,7 @@ import "font-awesome/css/font-awesome.min.css";
 import "animate.css/animate.min.css";
 
 useStrict();
+
 // api.base = 'https://premiere-player-api.herokuapp.com';
 api.base = "http://localhost:8000";
 

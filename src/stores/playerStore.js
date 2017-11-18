@@ -3,13 +3,19 @@
 import { action, computed, observable } from "mobx";
 import YouTube from "react-youtube";
 
+import Album from "models/Album";
 import Track from "models/Track";
 import Dispatcher from "utils/Dispatcher";
 
 class PlayerStore {
   @observable track: ?Track;
+  @observable album: ?Album;
   @observable playlist: Track[] = [];
   @observable state: number;
+
+  @observable progress: number = 0;
+  @observable duration: number = 0;
+  @observable volume: number = 100;
 
   playDispatcher: Dispatcher = new Dispatcher();
   pauseDispatcher: Dispatcher = new Dispatcher();
@@ -30,59 +36,76 @@ class PlayerStore {
       return;
     }
 
-    this.isPaused ? this.play() : this.pause();
+    if (this.isPaused) {
+      this.play();
+    } else {
+      this.pause();
+    }
   }
 
   @action.bound
-  async setTrack(track: Track): Promise<void> {
+  setTrack(track: ?Track): void {
     this.track = track;
 
-    const album = await track.album();
-    const tracks = await album.tracks();
-    this.setPlaylist(tracks);
+    if (track) {
+      this.fetchAndSetAlbum();
+    }
   }
 
-  @action.bound
-  setPlaylist(playlist: Track[]) {
-    this.playlist = playlist;
+  async fetchAndSetAlbum(): Promise<void> {
+    if (!this.track) throw new Error("fetchAndSetAlbum called without track");
+
+    const album = await this.track.album();
+    const tracks = await album.tracks();
+
+    action(() => {
+      this.album = album;
+      this.playlist = tracks;
+    })();
   }
 
   @action.bound
   play(): void {
+    this.state = YouTube.PlayerState.PLAYING;
     this.playDispatcher.dispatch();
   }
 
   @action.bound
   pause(): void {
+    this.state = YouTube.PlayerState.PAUSED;
     this.pauseDispatcher.dispatch();
   }
 
   @action.bound
   seekTo(time: number): void {
+    this.progress = time;
     this.seekDispatcher.dispatch(time);
   }
 
   @action.bound
   setVolume(volume: number): void {
+    this.volume = volume;
     this.volumeDispatcher.dispatch(volume);
   }
 
   @action.bound
-  previous(): void {
+  playPrevious(): void {
+    let track;
     if (this.track && this.hasPrevious) {
-      this.track = this.playlist[this.playlist.indexOf(this.track) - 1];
-    } else {
-      this.track = null;
+      track = this.playlist[this.playlist.indexOf(this.track) - 1];
     }
+
+    this.setTrack(track);
   }
 
   @action.bound
-  next(): void {
+  playNext(): void {
+    let track;
     if (this.track && this.hasNext) {
-      this.track = this.playlist[this.playlist.indexOf(this.track) + 1];
-    } else {
-      this.track = null;
+      track = this.playlist[this.playlist.indexOf(this.track) + 1];
     }
+
+    this.setTrack(track);
   }
 
   @action.bound
@@ -96,7 +119,17 @@ class PlayerStore {
       this.track.invalid = true;
     }
 
-    this.next();
+    this.playNext();
+  }
+
+  @action.bound
+  onEmbedDuration(duration: number): void {
+    this.duration = duration;
+  }
+
+  @action.bound
+  onEmbedProgress(time: number): void {
+    this.progress = time;
   }
 
   @computed

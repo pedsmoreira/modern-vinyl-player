@@ -6,7 +6,7 @@ import React from "react";
 import Track from "models/Track";
 import playerStore from "stores/playerStore";
 
-import PlayIcon from "components/PlayIcon/PlayIcon";
+import PlayIcon from "components/PlayIcon";
 
 import "./TrackItem.scss";
 

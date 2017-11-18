@@ -8,6 +8,7 @@ import Track from "models/Track";
 import Album from "models/Album";
 import Artist from "models/Artist";
 
+import AlbumCover from "components/AlbumCover/AlbumCover";
 import ArtistMiniCard from "components/ArtistMiniCard/ArtistMiniCard";
 import Loader from "components/Loader/Loader";
 import TrackItem from "components/TrackItem/TrackItem";
@@ -67,7 +68,7 @@ export default class AlbumView extends React.Component<Props> {
         <div className="card animated fadeIn">
           <div className="card-body">
             <div className="header-card clearfix">
-              <img src={album.cover} alt={`${album.name} cover`} className="header-card-image" />
+              <AlbumCover album={album} className="header-card-image" />
 
               <h1 className="header-card-name">
                 {album.name}

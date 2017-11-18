@@ -6,8 +6,9 @@ import * as React from "react";
 
 import Album from "models/Album";
 import Artist from "models/Artist";
-import Loader from "components/Loader/Loader";
-import AlbumCardGrid from "components/AlbumCardGrid/AlbumCardGrid";
+import Loader from "components/Loader";
+import AlbumCardGrid from "components/AlbumCardGrid";
+import ArtistCover from "components/ArtistCover";
 
 import "./ArtistView.scss";
 
@@ -54,7 +55,7 @@ export default class ArtistView extends React.Component<Props> {
       <div className="ArtistView animated fadeIn">
         <div className="header-card card">
           <div className="card-body">
-            <img src={this.artist.cover} alt={`${this.artist.name} cover`} className="header-card-image" />
+            <ArtistCover artist={this.artist} className="header-card-image" />
             <h1 className="header-card-name">{this.artist.name}</h1>
             <p className="header-card-description">{this.artist.description}</p>
           </div>

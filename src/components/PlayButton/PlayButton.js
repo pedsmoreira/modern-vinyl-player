@@ -4,7 +4,7 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import playerStore from "stores/playerStore";
-import PlayIcon from "components/PlayIcon/PlayIcon";
+import PlayIcon from "components/PlayIcon";
 
 import "./PlayButton.scss";
 

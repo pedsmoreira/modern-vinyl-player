@@ -16,7 +16,7 @@ export default class Navbar extends React.Component<*> {
         <nav>
           <div className="container">
             <Link className="Navbar__home" to="/">
-              <i className="fa fa-headphones" /> Premiere Player
+              <i className="fa fa-headphones" /> Premiere
             </Link>
 
             <div className="float-right">

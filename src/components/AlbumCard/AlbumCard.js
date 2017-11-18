@@ -5,6 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Album from "models/Album";
+import AlbumCover from "components/AlbumCover";
 
 import "./AlbumCard.scss";
 
@@ -22,7 +23,7 @@ export default class AlbumCard extends React.Component<Props> {
       <div className="AlbumCard card card-hover">
         <div className="AlbumCard__image">
           <Link to={url}>
-            <img src={album.cover} alt={`${album.name} cover`} className="card-img-top" />
+            <AlbumCover album={album} className="card-img-top" />
           </Link>
 
           <button type="button" className="AlbumCard__play">
@@ -31,7 +32,7 @@ export default class AlbumCard extends React.Component<Props> {
         </div>
 
         <Link to={url}>
-          <h4 className="AlbumCard__name">{album.name}</h4>
+          <h1 className="AlbumCard__name">{album.name}</h1>
         </Link>
       </div>
     );

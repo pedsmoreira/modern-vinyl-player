@@ -1,0 +1,20 @@
+@import "~scss/mixins";
+
+.PlayerProgress {
+  height: 10px;
+  background: #aaa;
+  position: relative;
+  cursor: pointer;
+
+  @include breakpoint-desktop {
+    height: 6px;
+  }
+
+  &__fill {
+    background: black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+  }
+}

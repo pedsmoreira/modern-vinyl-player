@@ -6,6 +6,7 @@
   width: 100%;
   text-align: left;
   transition: .1s all ease;
+  background: none;
 
   &:not(&--invalid) {
     cursor: pointer;

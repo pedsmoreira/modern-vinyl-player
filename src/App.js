@@ -9,8 +9,10 @@ import ArtistView from "views/Artist";
 import ArtistsView from "views/Artists";
 import NowPlayingView from "views/NowPlaying";
 
+import Player from "components/Player/Player";
 import Navbar from "components/Navbar";
-import Menu from "components/Menu";
+import NowPlayingSidebar from "components/NowPlayingSidebar";
+import NowPlayingFooter from "components/NowPlayingFooter";
 
 import "./App.scss";
 
@@ -21,13 +23,15 @@ export default class App extends React.Component<Props> {
     return (
       <Router>
         <div className="App">
+          <Player />
           <Navbar />
 
           <div className="App__content">
             <div className="container">
               <div className="row">
                 <div className="col-md-3">
-                  <Menu />
+                  <NowPlayingSidebar />
+                  <NowPlayingFooter />
                 </div>
 
                 <div className="col-md-9">
