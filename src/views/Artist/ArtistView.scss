@@ -1,0 +1,11 @@
+.ArtistView {
+  .header-card {
+    &-image {
+      border-radius: 100%;
+    }
+  }
+
+  &__albums {
+    margin-top: 1.5rem;
+  }
+}

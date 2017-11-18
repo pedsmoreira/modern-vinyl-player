@@ -1,0 +1,50 @@
+@import "~scss/mixins";
+
+$height: 3rem;
+
+.Navbar {
+  height: $height;
+  margin-bottom: 2rem;
+
+  nav {
+    z-index: 10;
+    height: $height;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: .5rem 0;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+
+  &__home {
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: #666 !important;
+    text-decoration: none !important;
+    display: inline-block;
+
+    @include breakpoint-mobile {
+      padding: .25rem 0;
+    }
+
+    @include breakpoint-desktop {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    padding: .35rem .5rem;
+    font-weight: 300;
+    color: #666 !important;
+    text-decoration: none !important;
+    font-size: .9rem;
+
+    @include breakpoint-desktop {
+      font-size: 1rem;
+      padding: .35rem 1rem;
+    }
+  }
+}

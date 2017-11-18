@@ -1,0 +1,55 @@
+@import "~scss/mixins";
+
+.NowPlayingFooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  background: white;
+  border-top: 1px solid rgba(black, .05);
+
+  @include breakpoint-desktop {
+    display: none;
+  }
+
+  &__player {
+    height: 4rem;
+    margin-bottom: 10px;
+    position: relative;
+
+    &-title {
+      padding-top: .5rem;
+      font-size: 1rem;
+      text-align: left;
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: .25rem;
+    }
+
+    &-song {
+      font-size: 1rem;
+      margin-bottom: 0;
+      margin-top: .5rem;
+    }
+
+    .AlbumCover {
+      height: 100%;
+      float: left;
+      margin-right: 1rem;
+    }
+
+    .PlayerProgress {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+    }
+
+    .PlayerControls {
+      position: absolute;
+      right: .5rem;
+      top: .35rem;
+    }
+  }
+}

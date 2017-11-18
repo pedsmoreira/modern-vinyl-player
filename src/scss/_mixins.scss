@@ -1,0 +1,19 @@
+@import "breakpoints";
+
+@mixin breakpoint-mobile() {
+  @media screen and (max-width: $breakpoint-mobile - 1) {
+    @content
+  }
+}
+
+@mixin breakpoint-desktop() {
+  @media screen and (min-width: $breakpoint-mobile) {
+    @content
+  }
+}
+
+@mixin breakpoint-large-desktop() {
+  @media screen and (min-width: $breakpoint-large-desktop) {
+    @content
+  }
+}

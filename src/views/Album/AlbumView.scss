@@ -1,0 +1,13 @@
+.AlbumView {
+  .ArtistMiniCard {
+    margin-bottom: 1rem;
+  }
+
+  &__tracks {
+    margin-top: 1.5rem;
+
+    .TrackItem {
+      margin-top: .25rem;
+    }
+  }
+}

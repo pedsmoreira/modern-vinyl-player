@@ -1,0 +1,55 @@
+.card.card-hover {
+  transition: .3s box-shadow ease;
+
+  &:hover {
+    box-shadow: 0 3px 10px rgba(black, .15);
+  }
+}
+
+.mini-card {
+  display: inline-block !important;
+  width: 15rem;
+  text-decoration: none !important;
+  transition: .3s box-shadow ease;
+
+  &:hover {
+    box-shadow: 0 2px 5px rgba(black, .15);
+  }
+
+  &-image {
+    width: 3rem;
+    height: 3rem;
+    float: left;
+    margin-right: 1rem;
+    border-bottom-left-radius: calc(.25rem - 1px);
+    border-top-left-radius: calc(.25rem - 1px);
+  }
+
+  &-name {
+    color: #666;
+    padding: .5rem;
+    font-weight: 300;
+  }
+}
+
+.header-card {
+  &-image {
+    width: 8rem;
+    float: left;
+    margin-right: 1rem;
+  }
+
+  &-name {
+    font-weight: 400;
+    margin-bottom: .5rem;
+    color: #333;
+    letter-spacing: 1.5px;
+    font-size: 1.25rem;
+  }
+
+  &-description {
+    font-weight: 300;
+    font-size: .9rem;
+    color: #666;
+  }
+}

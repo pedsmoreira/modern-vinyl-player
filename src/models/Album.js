@@ -1,89 +1,33 @@
-import {Model} from "premiere";
+// @flow
 
-import Track from "./Track";
-import Artist from "./Artist";
+import { Model } from "premiere";
+
+import Track from "models/Track";
+import Artist from "models/Artist";
 
 export default class Album extends Model {
-    static path = 'albums'
+  path = "albums";
+  keyColumn = "slug";
 
-    /**
-     * @inheritDoc
-     */
-    static storeProperties = {setIndex: true}
+  name: string;
+  slug: string;
+  cover: string;
+  year: number;
+  description: string;
 
-    /**
-     * @type {number}
-     */
-    id
+  static byArtist(slug: string): Promise<Album[]> {
+    return Artist.hasMany(Album, slug, { completeItems: true });
+  }
 
-    /**
-     * @type {string}
-     */
-    name
+  static all(options: any = {}): Promise<Album[]> {
+    return super.all({ ...options, completeItems: true });
+  }
 
-    /**
-     * @type {string}
-     */
-    slug
+  tracks(): Promise<Track[]> {
+    return this.hasMany(Track, { completeItems: true });
+  }
 
-    /**
-     * @type {string}
-     */
-    cover
-
-    /**
-     * @type {string}
-     */
-    background
-
-    /**
-     * @type {number}
-     */
-    year = new Date().getFullYear()
-
-    /**
-     * @type {string}
-     */
-    description
-
-    /**
-     * Get tracks promise
-     * @return {Promise}
-     */
-    tracks() {
-        return this.hasMany(Track)
-    }
-
-    /**
-     * Get tracks promise
-     * @return {Promise}
-     */
-    static tracks(albumId) {
-        return this.hasMany(Track, albumId, {set: true})
-    }
-
-    /**
-     * Get artist promise
-     * @return {Promise}
-     */
-    artist() {
-        return this.belongsTo(Artist)
-    }
-
-    /**
-     * Artist promise for a given album
-     * @return {Promise}
-     */
-    static artist(albumId) {
-        return this.hasOne(Artist, albumId, {set: true})
-    }
-
-    /**
-     * Get album promise by slug
-     * @param value
-     * @return {*}
-     */
-    static bySlug(value) {
-        return this.where('slug', value, {url: value})
-    }
+  artist(): Promise<Artist> {
+    return this.belongsTo(Artist, { completeItems: true });
+  }
 }

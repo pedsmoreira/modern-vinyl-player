@@ -1,0 +1,14 @@
+.PlayerControls {
+  text-align: center;
+
+  .PlayButton, &__button {
+    border: none;
+    background: none;
+    outline: none !important;
+    width: 2rem;
+
+    &:not([disabled]) {
+      cursor: pointer;
+    }
+  }
+}

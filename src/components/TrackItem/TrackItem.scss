@@ -1,0 +1,29 @@
+.TrackItem {
+  font-weight: 300;
+  border: none;
+  outline: none !important;
+  display: block;
+  width: 100%;
+  text-align: left;
+  transition: .1s all ease;
+  background: none;
+
+  &:not(&--invalid) {
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(black, .05);
+    }
+  }
+
+  &--active {
+    font-weight: bold;
+  }
+
+  .PlayIcon {
+    font-size: .75rem;
+    margin-right: 1rem;
+    width: 1rem;
+    text-align: center;
+  }
+}

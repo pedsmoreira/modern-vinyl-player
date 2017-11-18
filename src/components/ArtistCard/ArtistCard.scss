@@ -1,0 +1,37 @@
+@import "~scss/mixins";
+
+$class: '.ArtistCard';
+
+#{$class} {
+  text-decoration: none !important;
+  display: block;
+
+  .card-img-top {
+    border-top-right-radius: 0;
+    border-bottom-left-radius: calc(.25rem - 1px);
+  }
+
+  .card-body {
+    @include breakpoint-desktop {
+      padding-left: 0;
+      margin-left: -1rem;
+    }
+  }
+
+  &__name {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__description {
+    color: #666;
+    font-size: .9rem;
+    margin: 0;
+    font-weight: 300;
+  }
+}
