@@ -48,7 +48,12 @@ export default class App extends React.Component<Props> {
           <div className="App__footer text-center">
             <div className="container">
               <p>
-                Premiere Player was created by <a href="http://www.pedrosm.com">Pedro Moreira</a> and is{" "}
+                Premiere Player is an experimental project and uses <a href="https://www.youtube.com">YouTube</a> videos
+                to play music as a proof of concept.
+              </p>
+
+              <p>
+                This project was created by <a href="http://www.pedrosm.com">Pedro Moreira</a> and is{" "}
                 <a href="https://github.com/pedsmoreira/premiere-player">available on GitHub</a>.
               </p>
             </div>
