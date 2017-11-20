@@ -1,18 +1,10 @@
 @import "~scss/mixins";
 
-$height: 3rem;
-
 .Navbar {
-  height: $height;
   margin-bottom: 2rem;
 
   nav {
     z-index: 10;
-    height: $height;
-    position: fixed;
-    width: 100%;
-    left: 0;
-    top: 0;
     padding: .5rem 0;
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
