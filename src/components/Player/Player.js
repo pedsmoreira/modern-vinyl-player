@@ -2,7 +2,7 @@
 
 import { observer } from "mobx-react";
 import React from "react";
-import Youtube from "react-youtube";
+import YouTube from "react-youtube";
 
 import playerStore from "stores/playerStore";
 
@@ -10,10 +10,7 @@ import "./Player.scss";
 
 const YOUTUBE_OPTIONS = {
   width: 0,
-  height: 0,
-  playerVars: {
-    autoplay: 1
-  }
+  height: 0
 };
 
 const UPDATE_PROGRESS_MILLISECONDS_INTERVAL = 500;
@@ -65,6 +62,14 @@ export default class Player extends React.Component<*> {
     }
   };
 
+  handleStateChange = ({ data }: { data: number }) => {
+    if (data === YouTube.PlayerState.CUED) {
+      this.playVideo();
+    } else {
+      playerStore.onEmbedStateChange(data);
+    }
+  };
+
   bindTarget = ({ target }: any) => {
     this.video = target;
     this.video.setVolume(playerStore.volume);
@@ -79,10 +84,10 @@ export default class Player extends React.Component<*> {
 
     return (
       <div className="Player">
-        <Youtube
+        <YouTube
           videoId={videoId}
           opts={YOUTUBE_OPTIONS}
-          onStateChange={playerStore.onEmbedStateChange}
+          onStateChange={this.handleStateChange}
           onEnd={playerStore.playNext}
           onError={playerStore.onEmbedError}
           onReady={this.bindTarget}

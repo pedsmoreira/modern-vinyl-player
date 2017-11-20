@@ -109,12 +109,12 @@ class PlayerStore {
   }
 
   @action.bound
-  onEmbedStateChange({ data }: { data: number }): void {
-    this.state = data;
+  onEmbedStateChange(state: number): void {
+    this.state = state;
   }
 
   @action.bound
-  onEmbedError({ data }: { data: number }): void {
+  onEmbedError(): void {
     if (this.track) {
       this.track.invalid = true;
     }
