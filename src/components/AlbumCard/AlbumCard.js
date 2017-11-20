@@ -5,6 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Album from "models/Album";
+import playerStore from "stores/playerStore";
 import AlbumCover from "components/AlbumCover";
 
 import "./AlbumCard.scss";
@@ -15,6 +16,11 @@ type Props = {
 
 @observer
 export default class AlbumCard extends React.Component<Props> {
+  handlePlay = async () => {
+    const tracks = await this.props.album.tracks();
+    playerStore.setTrack(tracks[0]);
+  };
+
   render() {
     const album = this.props.album;
     const url = `/albums/${album.slug}`;
@@ -26,7 +32,7 @@ export default class AlbumCard extends React.Component<Props> {
             <AlbumCover album={album} className="card-img-top" />
           </Link>
 
-          <button type="button" className="AlbumCard__play">
+          <button type="button" className="AlbumCard__play" onClick={this.handlePlay}>
             <i className="fa fa-play AlbumCard__play-icon" />
           </button>
         </div>
