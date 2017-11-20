@@ -3,7 +3,7 @@
 .NowPlayingSidebar {
   width: 100%;
   position: sticky;
-  top: 16px;
+  top: 1.5rem;
 
   @include breakpoint-mobile {
     display: none;
