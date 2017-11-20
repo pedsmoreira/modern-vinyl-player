@@ -1,3 +1,5 @@
+@import "mixins";
+
 .card.card-hover {
   transition: .3s box-shadow ease;
 
@@ -35,8 +37,17 @@
 .header-card {
   &-image {
     width: 8rem;
-    float: left;
-    margin-right: 1rem;
+    margin: 0 auto;
+    display: block;
+
+    @include breakpoint-mobile {
+      margin-bottom: 1rem;
+    }
+
+    @include breakpoint-desktop {
+      float: left;
+      margin-right: 1rem;
+    }
   }
 
   &-name {
