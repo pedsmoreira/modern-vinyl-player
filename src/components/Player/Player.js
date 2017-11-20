@@ -10,7 +10,10 @@ import "./Player.scss";
 
 const YOUTUBE_OPTIONS = {
   width: 0,
-  height: 0
+  height: 0,
+  playerVars: {
+    autoplay: 1
+  }
 };
 
 const UPDATE_PROGRESS_MILLISECONDS_INTERVAL = 500;
@@ -63,11 +66,7 @@ export default class Player extends React.Component<*> {
   };
 
   handleStateChange = ({ data }: { data: number }) => {
-    if (data === YouTube.PlayerState.CUED) {
-      this.playVideo();
-    } else {
-      playerStore.onEmbedStateChange(data);
-    }
+    playerStore.onEmbedStateChange(data);
   };
 
   bindTarget = ({ target }: any) => {
