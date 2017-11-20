@@ -1,8 +1,8 @@
-![Premiere Player. A music player for modern browsers](public/preview/large.png)
+![Premiere Player. A music player for modern browsers](public/preview.jpg)
 
 Premiere Player is a music player built with [Premiere](https://github.com/pedsmoreira/premiere), [ReactJS](https://facebook.github.io/react/) and [MobX](https://mobxjs.github.io/mobx/).
 
-The tracks in ths project are played with Youtube iframes.
+This is an experimental project. The music comes from Youtube iframes.
 
 ## Web App
 This project can be added to the home screen of your mobile phone.
