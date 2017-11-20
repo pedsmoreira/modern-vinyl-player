@@ -1,4 +1,4 @@
-@import "~scss/mixins";
+@import "~scss/breakpoints";
 
 $class: '.ArtistCard';
 
@@ -12,7 +12,7 @@ $class: '.ArtistCard';
   }
 
   .card-body {
-    @include breakpoint-desktop {
+    @media screen and (min-width: $breakpoint-small-mobile) {
       padding-left: 0;
       margin-left: -1rem;
     }

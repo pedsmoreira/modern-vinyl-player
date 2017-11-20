@@ -19,7 +19,7 @@ export default class ArtistCard extends React.Component<Props> {
     const artist = this.props.artist;
     const url = `/artists/${artist.slug}`;
 
-    const maxCharacters = 60;
+    const maxCharacters = 70;
     const description =
       artist.description.length > maxCharacters
         ? artist.description.substring(0, maxCharacters - 3) + "..."
