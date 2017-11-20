@@ -9,8 +9,13 @@
     display: none;
   }
 
-  @include breakpoint-large-desktop {
-    padding: 0 2rem;
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  &__select {
+    color: #666;
   }
 
   &__player {

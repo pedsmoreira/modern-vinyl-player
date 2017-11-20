@@ -29,12 +29,12 @@ export default class App extends React.Component<Props> {
           <div className="App__content">
             <div className="container">
               <div className="row">
-                <div className="col-md-3">
+                <div className="col-lg-3">
                   <NowPlayingSidebar />
                   <NowPlayingFooter />
                 </div>
 
-                <div className="col-md-9">
+                <div className="col-lg-9">
                   <Route exact path="/" component={AlbumsView} />
                   <Route path="/albums/:slug" component={AlbumView} />
                   <Route exact path="/artists" component={ArtistsView} />

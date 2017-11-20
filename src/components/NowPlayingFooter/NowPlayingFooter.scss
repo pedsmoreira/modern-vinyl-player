@@ -13,6 +13,16 @@
     display: none;
   }
 
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  &__select {
+    padding: 1rem 1.25rem;
+    color: #666;
+  }
+
   &__player {
     height: 4rem;
     margin-bottom: 10px;

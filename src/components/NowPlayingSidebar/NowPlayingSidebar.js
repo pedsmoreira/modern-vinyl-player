@@ -22,25 +22,30 @@ export default class NowPlayingSidebar extends React.Component<*> {
 
   renderPlaceholder() {
     return (
-      <div>
-        Select a <i className="fa fa-music" /> song to play
+      <div className="NowPlayingSidebar__select card">
+        <div className="card-body">
+          Select a <i className="fa fa-music" /> song
+        </div>
       </div>
     );
   }
 
   renderPlayer() {
     const albumKey = (playerStore.album || {}).key;
+    const albumUrl = `/albums/${albumKey}`;
 
     return (
       <div className="NowPlayingSidebar__player">
         <h2 className="NowPlayingSidebar__player-title animated fadeInDown">Now Playing</h2>
 
-        <h3 className="NowPlayingSidebar__player-song animated fadeInDown" key={playerStore.track.key}>
-          {playerStore.track.name}
-        </h3>
+        <Link to={albumUrl}>
+          <h3 className="NowPlayingSidebar__player-song animated fadeInDown" key={playerStore.track.key}>
+            {playerStore.track.name}
+          </h3>
+        </Link>
 
         <div className="animated fadeIn" key={albumKey}>
-          <Link to={`albums/${albumKey}`}>
+          <Link to={albumUrl}>
             <AlbumCover album={playerStore.album} />
           </Link>
 

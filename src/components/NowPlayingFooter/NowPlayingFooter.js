@@ -2,6 +2,7 @@
 
 import React from "react";
 import { observer } from "mobx-react";
+import { Link } from "react-router-dom";
 
 import playerStore from "stores/playerStore";
 
@@ -19,20 +20,27 @@ export default class NowPlayingFooter extends React.Component<*> {
 
   renderPlaceholder() {
     return (
-      <div>
-        Select a <i className="fa fa-music" /> song to play
+      <div className="NowPlayingFooter__select">
+        Select a <i className="fa fa-music" /> song
       </div>
     );
   }
 
   renderPlayer() {
+    const albumKey = (playerStore.album || {}).key;
+    const albumUrl = `/albums/${albumKey}`;
+
     return (
       <div className="NowPlayingFooter__player">
-        <AlbumCover album={playerStore.album} />
+        <Link to={albumUrl}>
+          <AlbumCover album={playerStore.album} />
+        </Link>
 
         <h2 className="NowPlayingFooter__player-title">Now Playing</h2>
 
-        <h3 className="NowPlayingFooter__player-song">{playerStore.track.name}</h3>
+        <Link to={albumUrl}>
+          <h3 className="NowPlayingFooter__player-song">{playerStore.track.name}</h3>
+        </Link>
 
         <PlayerProgress />
         <PlayerControls />
