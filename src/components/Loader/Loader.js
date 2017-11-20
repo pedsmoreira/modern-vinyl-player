@@ -16,8 +16,10 @@ export default class Loader extends React.Component<Props> {
     if (this.props.for) return this.props.render();
 
     return (
-      <div className="Loader">
-        <i className="fa fa-spinner fa-pulse" /> Loading
+      <div className="Loader card">
+        <div className="card-body">
+          <i className="fa fa-spinner fa-pulse" /> Loading
+        </div>
       </div>
     );
   }
