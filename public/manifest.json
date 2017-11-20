@@ -1,15 +1,18 @@
 {
-  "short_name": "Premiere Player",
   "name": "Premiere Player",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-256x256.png",
+      "sizes": "256x256",
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#f5f5f5",
+  "background_color": "#f5f5f5",
+  "display": "standalone"
 }
