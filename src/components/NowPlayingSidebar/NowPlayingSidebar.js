@@ -16,11 +16,16 @@ import "./NowPlayingSidebar.scss";
 export default class NowPlayingSidebar extends React.Component<*> {
   render() {
     return (
-      <div className="NowPlayingSidebar">{playerStore.track ? this.renderPlayer() : this.renderPlaceholder()}</div>
+      <div className="NowPlayingSidebar">
+        {this.renderPlayer()}
+        {this.renderPlaceholder()}
+      </div>
     );
   }
 
   renderPlaceholder() {
+    if (playerStore.track) return null;
+
     return (
       <div className="NowPlayingSidebar__select card">
         <div className="card-body">
@@ -31,6 +36,8 @@ export default class NowPlayingSidebar extends React.Component<*> {
   }
 
   renderPlayer() {
+    if (!playerStore.track) return null;
+
     const albumKey = (playerStore.album || {}).key;
     const albumUrl = `/albums/${albumKey}`;
 

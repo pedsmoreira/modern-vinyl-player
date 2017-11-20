@@ -3,19 +3,19 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+import Track from "models/Track";
 import playerStore from "stores/playerStore";
 import PlayIcon from "components/PlayIcon";
 
 import "./PlayButton.scss";
 
 @observer
-export default class PlayButton extends React.Component<Props> {
+export default class PlayButton extends React.Component<*> {
   handleClick = () => {
     playerStore.toggle();
   };
 
   render() {
-    // $FlowFixMe
     const track: Track = playerStore.track;
 
     return (

@@ -18,8 +18,4 @@ export default class Track extends Model {
   static byAlbum(slug: string): Promise<Track[]> {
     return Album.hasMany(Track, slug, { completeItems: true });
   }
-
-  album(): Promise<Album> {
-    return this.belongsTo(Album, { url: `${this.album_id}` });
-  }
 }

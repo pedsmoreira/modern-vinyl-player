@@ -81,7 +81,7 @@ export default class AlbumView extends React.Component<Props> {
             </div>
 
             <div className="AlbumView__tracks">
-              {this.tracks.map(track => <TrackItem key={track.key} track={track} />)}
+              {this.tracks.map(track => <TrackItem key={track.key} track={track} album={this.album} />)}
             </div>
           </div>
         </div>

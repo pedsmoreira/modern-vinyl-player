@@ -24,15 +24,15 @@ class PlayerStore {
 
   @action.bound
   toggle(): void {
-    if (this.track) {
-      this.toggleTrack(this.track);
+    if (this.track && this.album) {
+      this.toggleTrack(this.track, this.album);
     }
   }
 
   @action.bound
-  toggleTrack(track: Track): void {
+  toggleTrack(track: Track, album: Album): void {
     if (track !== this.track) {
-      this.setTrack(track);
+      this.setTrack(track, album);
       return;
     }
 
@@ -44,24 +44,18 @@ class PlayerStore {
   }
 
   @action.bound
-  setTrack(track: ?Track): void {
+  setTrack(track: ?Track, album: ?Album): void {
     this.track = track;
+    this.album = album;
 
-    if (track) {
-      this.fetchAndSetAlbum();
-    }
+    if (track && album) this.fetchAndSetPlaylist();
   }
 
-  async fetchAndSetAlbum(): Promise<void> {
-    if (!this.track) throw new Error("fetchAndSetAlbum called without track");
+  async fetchAndSetPlaylist(): Promise<void> {
+    if (!this.track || !this.album) throw new Error("fetchAndSetPlaylist called without track or album");
 
-    const album = await this.track.album();
-    const tracks = await album.tracks();
-
-    action(() => {
-      this.album = album;
-      this.playlist = tracks;
-    })();
+    const tracks = await this.album.tracks();
+    action(() => (this.playlist = tracks))();
   }
 
   @action.bound
@@ -95,7 +89,7 @@ class PlayerStore {
       track = this.playlist[this.playlist.indexOf(this.track) - 1];
     }
 
-    this.setTrack(track);
+    this.setTrack(track, this.album);
   }
 
   @action.bound
@@ -105,7 +99,7 @@ class PlayerStore {
       track = this.playlist[this.playlist.indexOf(this.track) + 1];
     }
 
-    this.setTrack(track);
+    this.setTrack(track, this.album);
   }
 
   @action.bound

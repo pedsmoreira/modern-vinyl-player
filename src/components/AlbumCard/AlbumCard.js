@@ -18,7 +18,7 @@ type Props = {
 export default class AlbumCard extends React.Component<Props> {
   handlePlay = async () => {
     const tracks = await this.props.album.tracks();
-    playerStore.setTrack(tracks[0]);
+    playerStore.setTrack(tracks[0], this.props.album);
   };
 
   render() {

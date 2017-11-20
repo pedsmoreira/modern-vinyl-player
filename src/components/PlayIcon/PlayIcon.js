@@ -7,7 +7,7 @@ import Track from "models/Track";
 import playerStore from "stores/playerStore";
 
 type Props = {
-  track: Track
+  track: ?Track
 };
 
 @observer

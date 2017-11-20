@@ -15,10 +15,17 @@ import "./NowPlayingFooter.scss";
 @observer
 export default class NowPlayingFooter extends React.Component<*> {
   render() {
-    return <div className="NowPlayingFooter">{playerStore.track ? this.renderPlayer() : this.renderPlaceholder()}</div>;
+    return (
+      <div className="NowPlayingFooter">
+        {this.renderPlayer()}
+        {this.renderPlaceholder()}
+      </div>
+    );
   }
 
   renderPlaceholder() {
+    if (playerStore.track) return null;
+
     return (
       <div className="NowPlayingFooter__select">
         Select a <i className="fa fa-music" /> song
@@ -27,6 +34,8 @@ export default class NowPlayingFooter extends React.Component<*> {
   }
 
   renderPlayer() {
+    if (!playerStore.track) return null;
+
     const albumKey = (playerStore.album || {}).key;
     const albumUrl = `/albums/${albumKey}`;
 

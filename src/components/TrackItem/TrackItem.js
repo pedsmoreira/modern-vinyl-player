@@ -3,6 +3,7 @@
 import { observer } from "mobx-react";
 import React from "react";
 
+import Album from "models/Album";
 import Track from "models/Track";
 import playerStore from "stores/playerStore";
 
@@ -11,14 +12,15 @@ import PlayIcon from "components/PlayIcon";
 import "./TrackItem.scss";
 
 type Props = {
-  track: Track
+  track: Track,
+  album: Album
 };
 
 @observer
 export default class TrackItem extends React.Component<Props> {
   handleClick = () => {
     if (!this.props.track.invalid) {
-      playerStore.toggleTrack(this.props.track);
+      playerStore.toggleTrack(this.props.track, this.props.album);
     }
   };
 
